@@ -1,4 +1,4 @@
-# Trabalho de Shell 
+# Trabalho de Shell de Programaç
 Escreva um script em bash que execute o procedimento descrito no arquivo "tshell.pdf".
 
 ## Autor
