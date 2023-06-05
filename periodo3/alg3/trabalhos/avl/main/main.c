@@ -47,4 +47,5 @@ int main()
 		// limpa o buffer do teclado.
 		while (getchar() != '\n');
 	}
+	return 0;
 }
