@@ -6,4 +6,4 @@ Esse período foi cursado entre outubro de 2022 e fevereiro de 2023.
 - Programação 1
 - Projetos Digitais e Microprocessadores
 - Cálculo 2
-- Geometria Analítica e Álgebra Linear
+- Introdução a Geometria Analítica e Álgebra Linear
