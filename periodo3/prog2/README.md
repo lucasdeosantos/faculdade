@@ -2,7 +2,7 @@
 Capacitar o estudante a desenvolver programas de média e alta complexidade usando técnicas de algoritmos e estruturas de dados já vistas em disciplinas anteriore, sempre considerando a noção de eficiência dos códigos desenvolvidos.
 
 ## Tópicos Abordados
-- Conceitos avançados da lingaugem Capacitar
+- Conceitos avançados da linguagem
 - Manipulação de arquivos
 - Aplicação avançada de ponteiros
 - Modularição de programas e makefile
