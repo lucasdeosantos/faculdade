@@ -1,7 +1,7 @@
 # os diretórios presentes nesse arquivo são os trabalhos que estão sendo desenvolvidos atualmente.
 
-/periodo3/arquitetura/trabalhos/vetorial
 /periodo3/prog2/trabalhos/vinapp
+/periodo3/alg3/trabalhos/hash
 
 # ignora qualquer arquivo temporário gerado.
 **/*.o
