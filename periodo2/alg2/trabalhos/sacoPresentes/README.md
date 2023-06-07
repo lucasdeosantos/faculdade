@@ -5,7 +5,5 @@ Usando a técnica de backtracking, implemente um programa usando a linguagem de 
 
 Para mais detalhes do projeto acesse o arquivo "sacoPresentes.pdf".
 
-O script testaPrograma.sh foi desenvolvido pelo meu querido amigo Caio Henrique Ramos Rufino <caiohrr@gmail.com>.
-
 ## Autor
 Lucas Emanuel de Oliveira Santos
