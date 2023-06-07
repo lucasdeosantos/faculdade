@@ -3,7 +3,7 @@ Todo ano, Papai Noel recebe doações de presentes para que ele possa distribuir
 
 Usando a técnica de backtracking, implemente um programa usando a linguagem de programação C, que percorra cada um dos subconjuntos do conjunto dos n presentes, verificando para cada subconjunto se (1) o peso dos presentes do subconjunto não excede o peso máximo do saco do Papai Noel e (2) se a soma do valor sentimental dos presentes no subconjunto é o maior até então.
 
-Para mais detalhes do projeto acesse o arquivo "saco_presentes.pdf".
+Para mais detalhes do projeto acesse o arquivo "sacoPresentes.pdf".
 
 O script testaPrograma.sh foi desenvolvido pelo meu querido amigo Caio Henrique Ramos Rufino <caiohrr@gmail.com>.
 
