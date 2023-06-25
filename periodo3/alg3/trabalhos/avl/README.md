@@ -5,4 +5,5 @@ Para mais detalhes sobre a especifiação do projeto acesse o arquivo "avl.pdf".
 
 ## Autores
 Lucas Emanuel de Oliveira Santos
+
 Frank Wolff Hannemann <frankwh2002@outlook.com>
