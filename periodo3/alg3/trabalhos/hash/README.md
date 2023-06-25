@@ -3,5 +3,5 @@ Implemente uma Tabela Hash com hash estático em C. A Tabela Hash deve ter chave
 
 Para mais detalhes sobre a especifiação do projeto acesse o arquivo "hash.pdf".
 
-## Autores
+## Autor
 Lucas Emanuel de Oliveira Santos
