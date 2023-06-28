@@ -1,0 +1,8 @@
+# ignora o diretorio com os testes.
+/main/testes
+
+# ignora binario.
+/main/vina++
+
+# ignora qualquer arquivo temporário gerado.
+**/*.o

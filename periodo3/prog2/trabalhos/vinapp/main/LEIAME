@@ -1,0 +1,53 @@
+Lucas Emanuel de Oliveira Santos 20224379
+
+O código fonte do vina++ é composto de cinco arquivos: diretorio.h, diretorio.c, main.c, vinapp.h e vinapp.c. 
+Os arquivos diretorio.h e diretorio.c contém a estrutura diretorio e as funções necessárias para manipular a mesma.
+Os arquivos vinapp.h e vinapp.c contém as funções principais para manipulação do archive.
+O arquivo main é o programa principal.
+
+Para a estrutura diretório foi usada uma lista duplamente encadeada, o motivo da escolha foi pela facilidade de remover e mover um elemento, a alocacao única da estrutura e uma implementação simples.
+
+Foram consideradas para a implementação da estrutura diretório: lista duplamente encadeada, lista encadeada simples e um vetor de estruturas arquivo.
+Problemas lista encadeada simples: dificuldade de ajustar os ponteiros após remover e movimentar arquivos.
+Problemas vetor: alocação e desalocação constante da memória, movimentar e remover arquivos.
+
+A lista duplamente encadeada é formada por três estruturas: diretorio, nodoArquivo e arquivo.
+
+- A estrutura diretorio contém um ponteiro para o primeiro nodo da lista e a quantidade de elementos da mesma.
+- A estrutura nodoArquivo contém um ponteiro para o nodo anterior e o próximo nodo da lista, além de um ponteiro para o arquivo daquele nodo.
+- A estrutura arquivo possui todas as informações necessárias para a manipulação do arquivo como: nome, posição e utiliza a estrutura stat para obter os metadados do arquivo.
+
+As funções necessárias para manipular a estrutura de dados diretório são:
+
+- iniciarArquivo(): cria e inicializa uma estrutura arquivo com os parametros fornecidos. 
+- iniciarNodoArquivo(): cria e inicializa um nodo de arquivo com a estrutura arquivo fornecida.
+- iniciarDiretorio(): cria e inicializa uma estrutura diretorio vazia.
+- inserirArquivoDiretorio: insere um arquivo na lista encadeada de arquivos dentro do diretório.
+- buscarNodoArquivo(): procura e retorna o nodo de arquivo correspondente ao nome do arquivo fornecido.
+- removerArquivoDiretorio(): remove um arquivo do diretório e libera a memória associada.
+- moverArquivosDiretorio(): move um arquivo de uma posição para outra dentro do diretório.
+- lerArquivo(): lê um arquivo a partir de um ponteiro de arquivo. Aloca memória para uma estrutura arquivo, lê os dados do arquivo e retorna a estrutura preenchida.
+- lerDiretorio(): lê um diretório a partir de um ponteiro de arquivo. Aloca memória para uma estrutura diretorio, lê o número de arquivos no diretório e, em seguida, lê cada arquivo do diretório usando a função lerArquivo(). Os arquivos são armazenados em uma lista encadeada e a estrutura do diretório é retornada.
+- escreverArquivo(): escreve os dados de um arquivo em um ponteiro de arquivo. Grava o tamanho do nome do arquivo, o nome, a ordem, a posição e a estrutura stat do arquivo.
+- escreverDiretorio(): escreve os dados de um diretório em um ponteiro de arquivo. Grava o número de arquivos no diretório e, em seguida, grava cada arquivo usando a função escreverArquivo().
+- imprimirDiretorio(): imprime as informações de todos os arquivos presentes no diretório.
+- liberarArquivo(): libera a memória associada a uma estrutura arquivo.
+- liberarDiretorio(): libera a memória associada a uma estrutura diretorio, incluindo todos os arquivos contidos nela.
+
+As funções necessárias para manipular um arquive são: 
+
+- copiarArquivo(): copia o conteúdo de um arquivo de origem para um arquivo de destino, dividindo a cópia em blocos. Usa um buffer para copiar os dados e é usada em conjunto com as funções de mover para realizar operações de recorte ou inserção em um arquivo. Supõe que os ponteiros de leitura e escrita estão no lugar adequado antes da chamada da função.
+- moverEsquerda(): move o conteúdo do arquivo, deslocando-o para a esquerda. Usa um buffer para copiar os dados entre as posições e atualiza o tamanho do arquivo no final.
+- moverDireita(): move o conteúdo do arquivo, deslocadando-o para a direita. Redimensiona o arquivo para acomodar o deslocamento e copia os dados usando um buffer.
+- corrigirPosicao(): atualiza as posições dos arquivos em um diretório. Se o diretório não estiver vazio, percorre os arquivos e atualiza suas posições de acordo com seus tamanhos e posições anteriores.
+- corrigirCaminho(): corrige o caminho de um arquivo caso ele não comece no diretório corrente. Se o caminho começar com '/', insere um '.' no início do caminho.
+- acrescentar(): acrescenta o conteúdo de um arquivo ao archive. A função lê a posição do diretório, redimensiona o arquivo para essa posição, cria uma nova estrutura de arquivo e copia o conteúdo do arquivo fornecido para o archive. Em seguida, corrige o caminho do arquivo e o insere no diretório.
+- substituir(): substitui um arquivo existente no archive. A função redimensiona o archive, copia o conteúdo do novo arquivo para o disco e ajusta a posição dos dados, se necessário. Em seguida, atualiza a estrutura do arquivo no diretório.
+- inserirSempre(): insere um arquivo no archive, independentemente de ele já existir ou não. Se o arquivo já existir, a função o substitui pelo novo arquivo. Caso contrário, adiciona o novo arquivo ao archive.
+- inserirMaisRecente(): insere um arquivo no archive apenas se o novo arquivo for mais recente do que o arquivo existente com o mesmo nome. A função verifica se o arquivo já existe e compara as datas de modificação entre o arquivo existente e o novo arquivo. Se o novo arquivo for mais recente, substitui o arquivo existente pelo novo.
+- inserir(): é usada para chamar outras funções de inserção, como inserirSempre ou inserirMaisRecente.
+- remover(): remove um arquivo do archive. A função busca o nodo correspondente ao arquivo no diretório, redimensiona o archive e movimenta os dados para preencher o espaço vazio deixado pela remoção do arquivo. Em seguida, remove o arquivo do diretório, corrige as posições e escreve as alterações no archive.
+- mover(): move um arquivo para uma posição imediatamente após o arquivo target. A função busca os nodos correspondentes aos arquivos no diretório, redimensiona o archive e movimenta os dados para abrir espaço para o arquivo que será movido. Em seguida, move o arquivo para a posição desejada, ajusta as posições dos dados e atualiza o diretório e o archive.
+- criarCaminho(): cria os diretórios necessários para um determinado arquivo. Percorre o caminho do diretório pai, criando os diretórios conforme necessário. Essa função é usada pela função extrair() para criar o caminho de destino ao extrair um arquivo do archive.
+- extrair(): extrai um arquivo do archive e o salva em seu caminho original. Busca o nodo correspondente ao arquivo no diretório, cria o caminho de destino usando a função criarCaminho() e copia o conteúdo do archive para o arquivo de destino.
+- imprimirMensagemAjuda(): Esta função imprime uma mensagem de ajuda com informações sobre as opções disponíveis no programa.
