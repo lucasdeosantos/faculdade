@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "pilha.h"
 
 void imprimeTabuleiro(int v[], int n){
@@ -17,7 +16,7 @@ void imprimeTabuleiro(int v[], int n){
 	return;
 }
 
-void rainhas(int v[], int n, int r){
+void rainhasRecursivo(int v[], int n, int r){
 
 	if(r == n){
 		imprimeTabuleiro(v, n);
@@ -31,13 +30,13 @@ void rainhas(int v[], int n, int r){
 		}
 		if(bool){
 			v[r] = i;
-			rainhas(v, n, r+1);
+			rainhasRecursivo(v, n, r+1);
 		}
 	}
 	return;
 }
 
-void rainhasSemrecurao(int v[], int n, int r){
+void rainhas(int v[], int n, int r){
 	t_pilha *p;
 	
 	p = cria_pilha(n + 1);
@@ -72,8 +71,8 @@ int main(){
 	scanf("%d", &n);
 
 	int v[n];
-	/* rainhas(v, n, 0); */
-	rainhasSemrecurao(v, n, 0);
+    // rainhas(v, n, 0);
+	rainhasRecursivo(v, n, 0);
 
 	return 0;
 }
