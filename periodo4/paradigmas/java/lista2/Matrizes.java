@@ -21,12 +21,10 @@ public class Matrizes {
         float[][] matriz = new float[linhas][colunas];
 
         System.out.println("Digite os elementos da matriz:");
-        for (int i = 0; i < linhas; i++) {
-            for (int j = 0; j < colunas; j++) {
-                System.out.printf("[%d][%d] = ", i + 1, j + 1);
+        for (int i = 0; i < linhas; i++)
+            for (int j = 0; j < colunas; j++)
                 matriz[i][j] = input.nextFloat();
-            }
-        }
+            
         return matriz;
     }
 
