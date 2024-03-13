@@ -1,0 +1,47 @@
+Lucas Emanuel de Oliveira Santos 
+GRR20224379
+
+	Para o desenvolvimento do projeto Cifras de Beale foram criadas 2 bibliotecas, sendo elas: 
+lista.h e beale.h. A biblioteca lista.h contém as duas estruturas de dados desenvolvidas para 
+o projeto e as funções de manipulação das mesmas. As estruturas de dados são: lista_t, nodo_t. 
+O nodo_t armazena a chave da cifra, além de conter um ponteiro para o proximo nodo_t da lista_t. 
+A lista_t possui um ponteiro apontando para o inicio da lista e uma variavel com o tamanho da 
+mesma. Para armazenar os caracteres foi usado um vetor de lista_t com 256 elementos, onde cada 
+indice indica o seu respectivo caracter na tabela ASCII.
+	A escolha de um vetor para armazenar as listas se deu pela diminuição nas operações necessarias 
+para realizar a busca pelo caracter na hora da decodificação e codificação, já que utilizando o 
+caracter como indice sempre é feita uma unica operação. Além disso, como sabemos que serão sempre 
+no maximo 256 caracteres, não é necessario realizar novos alocamentos na memoria(para o vetor de 
+caracteres).
+	A biblioteca beale.h contem as funções necessarias para codificar e decodificar um arquivo, 
+assim como funções para manipular o vetor de cifras. A função geraCifras() recebe um livro cifra 
+como parametro e passa por todas as palavras do arquivo, o primeiro caracter de cada palavra é 
+usado como indice para o vetor, então, usa a função insereVetorCifras(), que testa se uma lista 
+já foi iniciada para aquele caracter, se a resposta for sim, adiciona a chave na lista do mesmo, 
+senão, inicia a lista do caracter e adiciona a chave na lista. Já a função geraCifrasArquivo(), 
+recebe um arquivo de chaves como parametro e, assim como na função geraCifras(), passa por todas 
+as palavras do arquivo, se o segundo caracter da palavra for ":", então a primeira letra da 
+palavra é um indice do vetor, senão, é um numero e portanto, usa insereVetorCifras() para adicionar 
+a chave no vetor, utilizando o último indice encontrado pela função.
+	A função geraArquivoChaves(), assim como as funções geraArquivoCodificado() e geraArquivoDecodificado() 
+abrem um arquivo na propria função com um nome enviado como parametro. Então, escrevem no arquivo 
+e o fecham no término da execução da função.
+	Para a abertura e fechamento de arquivos foram criadas duas funções, abreArquivo() e fechaArquivo(), 
+essas funções não são realmente recessárias e foram criadas com o único intuito de economizar linhas de 
+código.
+	A codificação é feita lendo todos os caracteres de um arquivo, se o caracter for um espaço, 
+escreve -1 no arquivo de saida, se for uma quebra de linha, escreve -2, se o vetor de cifras não 
+tiver iniciado uma lista para aquele caracter ou ele não for um caracter ASCII, escreve -3, enfim, 
+se existir uma lista para aquele caracter, escolhe uma chave aleatória utilizando a função rand(). 
+Vale destacar que no inicio do main() existe a função srand(time(NULL)) para gerar codificações 
+diferentes a cada execução do programa.
+	A decodificação é feita utilizando a função caracterChave(), essa função devolve o caracter daquela 
+chave(se existir), espaço ou quebra de linha nos seu respectivos casos, ou uma hashtag('#'), caso não 
+exista nenhuma chave para aquele caracter. A busca é feita passando por todas as listas do vetor, se a 
+lista for NULL, vai para a proxima lista, caso contrario, passa pelos nodos daquela lista enquando a 
+chave do nodo atual é menor que a chave buscada, se encontrar a chave, retorna o respectivo caracter, 
+se não, continua buscando no vetor.
+	O main() le os argumentos e as opções utilizadas na execução do programa, se o numero de argumentos 
+recebido não fizer sentido ou uma opção inexistente for utilizada, termina o programa e escreve uma 
+mensagem na saida padrão de erro, do contrario, trata as opções enviadas e libera a memoria ao termino 
+da execução.
