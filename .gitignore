@@ -1,4 +1,0 @@
-# ignora todos os arquivos objeto
-**/*.o
-# ignora todos os arquivos executaveis
-**/*.elf
