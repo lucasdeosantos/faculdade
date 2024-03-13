@@ -28,7 +28,7 @@ public class Matrizes {
         return matriz;
     }
 
-    public static void imprimirMatriz(final float[][] matriz, int linhas, int colunas) {
+    public static void imprimirMatriz(float[][] matriz, int linhas, int colunas) {
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
                 System.out.printf("[%.2f]", matriz[i][j]);
@@ -37,7 +37,7 @@ public class Matrizes {
         }
     }
 
-    public static float[][] somaMatrizes(final float[][] matrizA, final float[][] matrizB, int linhas, int colunas) {
+    public static float[][] somaMatrizes(float[][] matrizA, float[][] matrizB, int linhas, int colunas) {
         float[][] soma = new float[linhas][colunas];
 
         for (int i = 0; i < linhas; i++)
