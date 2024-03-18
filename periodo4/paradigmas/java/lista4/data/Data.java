@@ -3,6 +3,8 @@ public class Data {
     private int mes;
     private int ano;
 
+    public Data () {}
+
     public Data(int dia, int mes, int ano) {
         this.setDia(dia);
         this.setMes(mes);
