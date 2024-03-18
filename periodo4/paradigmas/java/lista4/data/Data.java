@@ -3,6 +3,12 @@ public class Data {
     private int mes;
     private int ano;
 
+    public Data(int dia, int mes, int ano) {
+        this.setDia(dia);
+        this.setMes(mes);
+        this.setAno(ano);
+    }
+
     public int getDia() {
         return this.dia;
     }
@@ -66,12 +72,6 @@ public class Data {
         else { 
             throw new IllegalArgumentException("um ano deve estar no intervalo [1, infinito].");
         }
-    }
-
-    public void setData(int dia, int mes, int ano) {
-        setDia(dia);
-        setMes(mes);
-        setAno(ano);
     }
 
     private static boolean bisexto(int ano) {
