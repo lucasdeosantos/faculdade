@@ -76,14 +76,6 @@ public class Data {
         }
     }
 
-    public void setData(Data data) {
-        if (data != NULL) {
-            this.dia = data.dia;
-            this.mes = data.mes;
-            this.ano = data.ano;
-        }
-    }
-
     private static boolean bisexto(int ano) {
         return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
     }
