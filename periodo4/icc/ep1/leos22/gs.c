@@ -1,6 +1,6 @@
 #include "gs.h"
 
-void gaussSeidel(double **A, double *b, double *x, unsigned int n, double tol) {
+void gaussSeidel(double **A, double *b, double *x, int n, double tol) {
     double erro = 1.0 + tol;
     int j, s;
 
@@ -17,7 +17,7 @@ void gaussSeidel(double **A, double *b, double *x, unsigned int n, double tol) {
     }
 }
 
-void gaussSeidelTridiagonais(double *d, double *a, double *c, double *b, double *x, unsigned int n, double tol) {
+void gaussSeidelTridiagonal(double *d, double *a, double *c, double *b, double *x, int n, double tol) {
     double erro = 1.0 * tol;
 
     while (erro < tol) {

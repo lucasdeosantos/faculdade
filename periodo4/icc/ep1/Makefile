@@ -3,7 +3,7 @@
 
 # Compilador
     CC     = gcc
-    CFLAGS = 
+    CFLAGS = -O0
     LFLAGS = -lm
 
 # Lista de arquivos para distribuição
