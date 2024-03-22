@@ -3,7 +3,6 @@
 #include "gs.h"
 #include "sl.h"
 #include "utils.h"
-#include <likwid.h>
 
 int main () {
     unsigned int n;

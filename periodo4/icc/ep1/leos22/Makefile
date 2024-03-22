@@ -5,7 +5,7 @@ PROG = perfSL
 CC = gcc
 
 # Flags de compilação
-CFLAGS = -Wall -Wextra -Werror -g -O0 -DLIKWID_PERFMON -I${LIKWID_INCLUDE} -c
+CFLAGS = -Wall -Wextra -Werror -g -O0
 
 # Arquivos fonte
 SRCS = gs.c eg.c sl.c utils.c main.c
