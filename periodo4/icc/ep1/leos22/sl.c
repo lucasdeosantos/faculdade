@@ -27,15 +27,15 @@ void desalocarMatriz(double **m, int n) {
     free(m);
 }
 
-void copiarMatriz(double **org, double **dst, int n) {
+void copiarMatriz(double **src, double **dest, int n) {
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < n; ++j)
-            dst[i][j] = org[i][j];
+            dest[i][j] = src[i][j];
 }
 
 void diagonalMatriz(double **m, double *d, int linha, int coluna, int n) {
-    for (int i = linha, j = coluna; i < n; ++i, ++j)
-        d[i] = m[i][j];
+    for (int i = 0; i < n && linha + i < n && coluna + i < n; ++i)
+        d[i] = m[linha + i][coluna + i];
 }
 
 void imprimirMatriz(double **m, int n) {
@@ -60,9 +60,14 @@ void desalocarVetor(double *v) {
     free(v);
 }
 
-void copiarVetor(double *org, double *dst, int n) {
+void inicializarVetor(double *v, int n) {
     for (int i = 0; i < n; ++i)
-        dst[i] = org[i];
+        v[i] = 0.0;
+}
+
+void copiarVetor(double *src, double *dest, int n) {
+    for (int i = 0; i < n; ++i)
+        dest[i] = src[i];
 }
 
 void imprimirVetor(double *v, int n) {
@@ -91,7 +96,7 @@ void imprimirSL(double **A, double *b, int n) {
 
 void residuoSL(double **A, double *b, double *x, double *r, int n) {
     for (int i = 0; i < n; ++i) {
-        r[i] = 0;
+        r[i] = 0.0;
         for (int j = 0; j < n; ++j) {
             r[i] += A[i][j] * x[j];
         }
