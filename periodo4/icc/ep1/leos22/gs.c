@@ -1,14 +1,11 @@
 #include <math.h>
 #include "gs.h"
-#include "sl.h"
 
 int gaussSeidel(double **A, double *b, double *x, int n, double tol) {
-    double erro;
+    double erro = 1.0 + tol;
     int it = 0;
 
-    inicializarVetor(x, n);
-
-    while (it < MAXIT) {
+    while (erro > tol && it < MAXIT) {
         double erroMax = 0.0;
         for (int i = 0; i < n; ++i) {
             double s = 0.0;
@@ -25,22 +22,16 @@ int gaussSeidel(double **A, double *b, double *x, int n, double tol) {
             x[i] = xi;
         }
         erro = erroMax;
-
-        if (erro < tol)
-            break;
-
         it++;
     }
     return it;
 }
 
 int gaussSeidelTridiagonal(double *d, double *a, double *c, double *b, double *x, int n, double tol) {
-    double erro;
+    double erro = 1.0 + tol;
     int it = 0;
 
-    inicializarVetor(x, n);
-
-    while (it < MAXIT) {
+    while (erro > tol && it < MAXIT) {
         double erroMax = 0.0;
         x[0] = (b[0] - c[0] * x[1]) / d[0];
 
@@ -57,10 +48,6 @@ int gaussSeidelTridiagonal(double *d, double *a, double *c, double *b, double *x
         x[n-1] = (b[n-1] - a[n-2] * x[n-2]) / d[n-1];
 
         erro = erroMax;
-
-        if (erro < tol)
-            break;
-
         it++;
     }
     return it;

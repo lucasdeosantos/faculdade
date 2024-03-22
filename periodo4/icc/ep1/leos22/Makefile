@@ -5,10 +5,10 @@ PROG = perfSL
 CC = gcc
 
 # Flags de compilação
-CFLAGS = -Wall -Wextra -Werror -g -O0
+CFLAGS = -Wall -Wextra -Werror -g -O0 -DLIKWID_PERFMON -I${LIKWID_INCLUDE} -c
 
 # Arquivos fonte
-SRCS = gs.c eg.c sl.c main.c
+SRCS = gs.c eg.c sl.c utils.c main.c
 
 # Arquivos objeto
 OBJS = $(SRCS:.c=.o)

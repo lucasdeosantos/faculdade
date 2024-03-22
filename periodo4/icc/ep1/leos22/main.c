@@ -2,6 +2,8 @@
 #include "eg.h"
 #include "gs.h"
 #include "sl.h"
+#include "utils.h"
+#include <likwid.h>
 
 int main () {
     unsigned int n;
@@ -14,30 +16,38 @@ int main () {
     double *x = alocarVetor(n);
     double *r = alocarVetor(n);
     double tol = 1e-9;
+    double tempo;
     int it;
     
     lerSL(A, b, n);
 
     copiarMatriz(A, copyA, n);
     copiarVetor(b, copyB, n);
-
+    
+    tempo = timestamp();
     eliminacaoGauss(copyA, copyB, n);
     retrosSusbs(copyA, copyB, x, n);
+    tempo = timestamp() - tempo;
     residuoSL(copyA, copyB, x, r, n);
     printf("EG clássico:\n");
-    // imprimir tempo em ms
+    printf("%.8lf ms\n", tempo);
     imprimirVetor(x, n);
     imprimirVetor(r, n);
+    printf("\n");
     
     copiarMatriz(A, copyA, n);
     copiarVetor(b, copyB, n);
+    inicializarVetor(x, n);
 
+    tempo = timestamp();
     it = gaussSeidel(copyA, copyB, x, n, tol);
+    tempo = timestamp() - tempo;
     residuoSL(copyA, copyB, x, r, n);
     printf("GS clássico [ %d iterações ]:\n", it);
-    // imprimir tempo em ms
+    printf("%.8lf ms\n", tempo);
     imprimirVetor(x, n);
     imprimirVetor(r, n);
+    printf("\n");
 
     double *d = alocarVetor(n);
     double *a = alocarVetor(n-1);
@@ -49,20 +59,26 @@ int main () {
     copiarMatriz(A, copyA, n);
     copiarVetor(b, copyB, n);
 
+    tempo = timestamp();
     eliminacaoGaussTridiagonal(d, a, c, b, x, n);
+    tempo = timestamp() - tempo;
     residuoSL(copyA, copyB, x, r, n);
     printf("EG 3-diagonal:\n");
-    // imprimir tempo em ms
+    printf("%.8lf ms\n", tempo);
     imprimirVetor(x, n);
     imprimirVetor(r, n);
+    printf("\n");
        
     copiarMatriz(A, copyA, n);
     copiarVetor(b, copyB, n);
+    inicializarVetor(x, n);
 
+    tempo = timestamp();
     it = gaussSeidelTridiagonal(d, a, c, b, x, n, tol);
+    tempo = timestamp() - tempo;
     residuoSL(copyA, copyB, x, r, n);
     printf("GS 3-diagonal [ %d iterações ]:\n", it);
-    // imprimir tempo em ms
+    printf("%.8lf ms\n", tempo);
     imprimirVetor(x, n);
     imprimirVetor(r, n);
     
