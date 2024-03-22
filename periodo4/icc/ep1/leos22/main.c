@@ -11,9 +11,6 @@ int main () {
     double **copyA = alocarMatriz(n);
     double *b = alocarVetor(n);
     double *copyB = alocarVetor(n);
-    double *d = alocarVetor(n);
-    double *a = alocarVetor(n-1);
-    double *c = alocarVetor(n-1);
     double *x = alocarVetor(n);
     double *r = alocarVetor(n);
     double tol = 1e-9;
@@ -27,8 +24,8 @@ int main () {
     eliminacaoGauss(copyA, copyB, n);
     retrosSusbs(copyA, copyB, x, n);
     residuoSL(copyA, copyB, x, r, n);
-    // imprimir tempo em ms
     printf("EG clássico:\n");
+    // imprimir tempo em ms
     imprimirVetor(x, n);
     imprimirVetor(r, n);
     
@@ -37,11 +34,14 @@ int main () {
 
     it = gaussSeidel(copyA, copyB, x, n, tol);
     residuoSL(copyA, copyB, x, r, n);
-    // imprimir tempo em ms
     printf("GS clássico [ %d iterações ]:\n", it);
+    // imprimir tempo em ms
     imprimirVetor(x, n);
     imprimirVetor(r, n);
-    
+
+    double *d = alocarVetor(n);
+    double *a = alocarVetor(n-1);
+    double *c = alocarVetor(n-1);
     diagonalMatriz(A, d, 0, 0, n);
     diagonalMatriz(A, a, 1, 0, n);
     diagonalMatriz(A, c, 0, 1, n);
@@ -51,8 +51,8 @@ int main () {
 
     eliminacaoGaussTridiagonal(d, a, c, b, x, n);
     residuoSL(copyA, copyB, x, r, n);
-    // imprimir tempo em ms
     printf("EG 3-diagonal:\n");
+    // imprimir tempo em ms
     imprimirVetor(x, n);
     imprimirVetor(r, n);
        
@@ -61,8 +61,8 @@ int main () {
 
     it = gaussSeidelTridiagonal(d, a, c, b, x, n, tol);
     residuoSL(copyA, copyB, x, r, n);
-    // imprimir tempo em ms
     printf("GS 3-diagonal [ %d iterações ]:\n", it);
+    // imprimir tempo em ms
     imprimirVetor(x, n);
     imprimirVetor(r, n);
     
