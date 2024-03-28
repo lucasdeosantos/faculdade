@@ -3,10 +3,10 @@
 
 #include "ls.h"
 
-void retrosSusbs(LS_t *ls, real_t *x);
+void retrosSusbs(LS_t *ls);
 
 void gaussElimination(LS_t *ls);
 
-void gaussTridiagonalElimination(LS_t *ls, double *x);
+void gaussTridiagonalElimination(LS_t *ls);
 
 #endif // GE_H

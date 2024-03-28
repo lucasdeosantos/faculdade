@@ -5,8 +5,8 @@
 
 #define MAXIT 50
 
-int gaussSeidel(LS_t *ls, double *x, double tol);
+int gaussSeidel(LS_t *ls, double tol);
 
-int gaussSeidelTridiagonal(LS_t *ls, double *x, double tol);
+int gaussSeidelTridiagonal(LS_t *ls, double tol);
 
 #endif // GS_H

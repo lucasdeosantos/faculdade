@@ -1,71 +1,86 @@
-#include "eg.h"
-#include "sl.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "ge.h"
+#include "ls.h"
 
-int encontraMax(double **A, int i, int n) {
-    double maior = A[i][i];
+int findMax(LS_t *ls, int i) {
+    double max = ls->A[i][i];
     int index = i;
 
-    for (int j = i + 1; j < n; ++j)
-        if (A[i][j] > maior) {
-            maior = A[i][j];
+    for (int j = i + 1; j < ls->n; ++j)
+        if (ls->A[j][i] > max) {
+            max = ls->A[j][i];
             index = j;
         }
 
     return index; 
 }
 
-void trocaLinha(double **A, double *b, unsigned int i, int iPivo, int n) {
-    double *temp = alocarVetor(n);
+void changeLine(LS_t *ls, unsigned int i, int iPivo) {
+    double *temp = (real_t*) malloc(ls->n * sizeof(real_t));
     
-    copiarVetor(A[i], temp, n);
+    memcpy(temp, ls->A[i], ls->n * sizeof(real_t));
 
-    for (int j = 0; j < n; ++j) {
-        A[i][j] = A[iPivo][j];
-        A[iPivo][j] = temp[j];
+    for (int j = 0; j < ls->n; ++j) {
+        ls->A[i][j] = ls->A[iPivo][j];
+        ls->A[iPivo][j] = temp[j];
     }
 
-    double aux = b[i];
-    b[i] = b[iPivo];
-    b[iPivo] = aux;
+    double aux = ls->b[i];
+    ls->b[i] = ls->b[iPivo];
+    ls->b[iPivo] = aux;
 
-    desalocarVetor(temp);
+    free(temp);
 }
 
-void retrosSusbs(double **A, double *b, double *x, int n) {
-    for (int i = n-1; i >= 0; --i) {
-        x[i] = b[i];
-        for (int j = i+1; j < n; ++j)
-            x[i] -= A[i][j] * x[j];
+void retrosSusbs(LS_t *ls) {
+    for (int i = ls->n - 1; i >= 0; --i) {
+        ls->x[i] = ls->b[i];
+        for (int j = i + 1; j < ls->n; ++j)
+            ls->x[i] -= ls->A[i][j] * ls->x[j];
 
-        x[i] /= A[i][i];
+        ls->x[i] /= ls->A[i][i];
     }
 }
 
-void eliminacaoGauss(double **A, double *b, int n) {
-    for (int i = 0; i < n; ++i) {
-        int iPivo = encontraMax(A, i, n);
+void gaussElimination(LS_t *ls) {
+    for (int i = 0; i < ls->n; ++i) {
+        int iPivo = findMax(ls, i);
         if (i != iPivo)
-           trocaLinha(A, b, i, iPivo, n);
+           changeLine(ls, i, iPivo);
 
-        for (int k = i+1; k < n; ++k) {
-            double m = A[k][i] / A[i][i];
-            A[k][i] = 0.0;
-            for (int j = i+1; j < n; ++j)
-                A[k][j] -= A[i][j] * m;
-            b[k] -= b[i] * m;
+        for (int k = i + 1; k < ls->n; ++k) {
+            double m = ls->A[k][i] / ls->A[i][i];
+            ls->A[k][i] = 0.0;
+            for (int j = i + 1; j < ls->n; ++j)
+                ls->A[k][j] -= ls->A[i][j] * m;
+            ls->b[k] -= ls->b[i] * m;
         }
     }
 }
 
-void eliminacaoGaussTridiagonal(double *d, double *a, double *c, double *b, double *x, int n) {
-    for (int i = 0; i < n-1; ++i) {
+void gaussTridiagonalElimination(LS_t *ls) {
+    real_t *d =(real_t*) malloc(ls->n * sizeof(real_t));
+    real_t *a =(real_t*) malloc(ls->n * sizeof(real_t));
+    real_t *c =(real_t*) malloc(ls->n * sizeof(real_t));
+
+    diagonalLS(ls, d, 0, 0);
+    diagonalLS(ls, a, 1, 0);
+    diagonalLS(ls, c, 0, 1);
+
+    for (int i = 0; i < ls->n - 1; ++i) {
         double m = a[i] / d[i];
         a[i] = 0.0;
-        d[i+1] -= c[i] * m;
-        b[i+1] -= b[i] * m;
+        d[i + 1] -= c[i] * m;
+        ls->b[i + 1] -= ls->b[i] * m;
     }
     
-    x[n-1] = b[n-1] / d[n-1];
-    for (int i = n-2; i >= 0; --i)
-        x[i] = (b[i] - c[i] * x[i+1]) / d[i];
+    ls->x[ls->n - 1] = ls->b[ls->n - 1] / d[ls->n - 1];
+    for (int i = ls->n - 2; i >= 0; --i)
+        ls->x[i] = (ls->b[i] - c[i] * ls->x[i + 1]) / d[i];
+
+    free(d);
+    free(a);
+    free(c);
 }

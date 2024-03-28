@@ -8,7 +8,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g -O0
 
 # Arquivos fonte
-SRCS = gs.c eg.c sl.c utils.c main.c
+SRCS = gs.c ge.c ls.c utils.c main.c
 
 # Arquivos objeto
 OBJS = $(SRCS:.c=.o)
