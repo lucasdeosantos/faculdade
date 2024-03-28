@@ -8,13 +8,13 @@
 int main () {
     LIKWID_MARKER_INIT;
 
-    unsigned int n;
+    int n;
     scanf("%d", &n);
 
     LS_t *ls = allocLS(n);
     LS_t *copy = allocLS(n);
-    double tol = 1e-9;
-    double time;
+    real_t tol = 1e-9;
+    rtime_t time;
     int it;
     
     readLS(ls);
