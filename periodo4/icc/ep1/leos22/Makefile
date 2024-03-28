@@ -1,23 +1,19 @@
-# Nome do programa executável
 PROG = perfSL
 
-# Compilador
 CC = gcc
 
-# Flags de compilação
-CFLAGS = -Wall -Wextra -Werror -g -O0
+LIKWID_HOME = /home/soft/likwid
+CFLAGS = -Wall -Wextra -Werror -g -O0 -I$(LIKWID_HOME)/include -DLIKIWD_PERFMON
+LFLAGS = -L$(LIKWID_HOME)/lib -llikwid
 
-# Arquivos fonte
 SRCS = gs.c ge.c ls.c utils.c main.c
 
-# Arquivos objeto
 OBJS = $(SRCS:.c=.o)
 
-# Regras
 all: $(PROG)
 
 $(PROG): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

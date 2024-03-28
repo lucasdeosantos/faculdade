@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include "likwid.h"
 #include "ge.h"
 #include "gs.h"
 #include "ls.h"
 #include "utils.h"
 
 int main () {
+    LIKWID_MARKER_INIT;
+
     unsigned int n;
     scanf("%d", &n);
 
@@ -15,6 +18,8 @@ int main () {
     int it;
     
     readLS(ls);
+
+    LIKWID_MARKER_START("MFLOPs");
 
     copyLS(copy, ls);
     time = timestamp();
@@ -52,6 +57,10 @@ int main () {
     printf("%.8lf ms\n", time);
     printResolution(copy);
 
+    LIKWID_MARKER_STOP("MFLOPs");
+
     freeLS(ls);
     freeLS(copy);
+
+    LIKWID_MARKER_CLOSE;
 }
