@@ -37,26 +37,26 @@ int gaussSeidelTridiagonal(LS_t *ls, double tol) {
     diagonalLS(ls, a, 1, 0);
     diagonalLS(ls, c, 0, 1);
 
-    double erro = 1.0 + tol;
+    double error = 1.0 + tol;
     int it = 0;
 
-    while (erro > tol && it < MAXIT) {
-        double erroMax = 0.0;
+    while (error > tol && it < MAXIT) {
+        double maxError = 0.0;
         ls->x[0] = (ls->b[0] - c[0] * ls->x[1]) / d[0];
 
         double xi;
         for (int i = 1; i < ls->n - 1; ++i) {
             xi = (ls->b[i] - a[i] * ls->x[i - 1] - c[i] * ls->x[i + 1]) / d[i];
 
-            double erroAbs = fabs(xi - ls->x[i]);
-            if (erroAbs > erroMax)
-                erroMax = erroAbs;
+            double absError = fabs(xi - ls->x[i]);
+            if (absError > maxError)
+                maxError = absError;
 
             ls->x[i] = xi;
         }
         ls->x[ls->n - 1] = (ls->b[ls->n - 1] - a[ls->n - 2] * ls->x[ls->n - 2]) / d[ls->n - 1];
 
-        erro = erroMax;
+        error = maxError;
         it++;
     }
 
