@@ -1,8 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "ge.h"
-#include "ls.h"
 
 int findMax(LS_t *ls, int i) {
     double max = ls->A[i][i];
