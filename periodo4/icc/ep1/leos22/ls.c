@@ -8,9 +8,9 @@ LS_t *allocLS(int n) {
 
     ls->A = (real_t**) malloc(n * sizeof(real_t*));
     for (int i = 0; i < n; ++i)
-        ls->A[i] = (real_t*) malloc(n * sizeof(real_t));
+        ls->A[i] = (real_t*) calloc(n, sizeof(real_t));
 
-    ls->b = (real_t*) malloc(n * sizeof(real_t));
+    ls->b = (real_t*) calloc(n, sizeof(real_t));
     ls->x = (real_t*) calloc(n, sizeof(real_t));
     ls->r = (real_t*) calloc(n, sizeof(real_t));
     ls->n = n;
