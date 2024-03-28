@@ -66,9 +66,8 @@ void printLS(LS_t *ls) {
 void residueLS(LS_t *ls) {
     for (int i = 0; i < ls->n; ++i) {
         ls->r[i] = 0.0;
-        for (int j = 0; j < ls->n; ++j) {
+        for (int j = 0; j < ls->n; ++j)
             ls->r[i] += ls->A[i][j] * ls->x[j];
-        }
     }
 
     for (int i = 0; i < ls->n; ++i)
