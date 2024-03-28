@@ -8,14 +8,14 @@ def read_input(file):
                 n = int(next(f))
                 matrix = [list(map(float, next(f).split())) for _ in range(n)]
                 inputs.append((n, matrix))
-                next(f)  # Skip the empty line
+                next(f)
             except StopIteration:
                 break
     return inputs
 
 def execute_input(input_data):
     n, matrix = input_data
-    command = ['./leos22/perfSL']  # Adjust this command as needed
+    command = ['./leos22/perfSL']
     process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     input_str = f"{n}\n"
     for row in matrix:
@@ -34,6 +34,6 @@ def main(input_file):
             print(stderr)
 
 if __name__ == "__main__":
-    input_file = "sistemas.dat"  # Adjust this to your input file
+    input_file = "sistemas.dat"
     main(input_file)
 
