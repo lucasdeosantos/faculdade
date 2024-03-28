@@ -1,10 +1,12 @@
 #ifndef GS_H
 #define GS_H
 
+#include "ls.h"
+
 #define MAXIT 50
 
-int gaussSeidel(double **A, double *b, double *x, int n, double tol);
+int gaussSeidel(LS_t *ls, double *x, double tol);
 
-int gaussSeidelTridiagonal(double *d, double *a, double *c, double *b, double *x, int n, double tol);
+int gaussSeidelTridiagonal(LS_t *ls, double *x, double tol);
 
 #endif // GS_H
