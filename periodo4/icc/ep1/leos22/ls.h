@@ -1,7 +1,7 @@
 #ifndef LS_H
 #define LS_H
 
-typedef double real_t;
+#include "utils.h"
 
 struct LS {
     real_t **A;
