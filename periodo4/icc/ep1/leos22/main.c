@@ -1,93 +1,80 @@
 #include <stdio.h>
+#include <string.h>
 #include "eg.h"
 #include "gs.h"
-#include "sl.h"
+#include "ls.h"
 #include "utils.h"
 
 int main () {
     unsigned int n;
     scanf("%d", &n);
 
-    double **A = alocarMatriz(n);
-    double **copyA = alocarMatriz(n);
-    double *b = alocarVetor(n);
-    double *copyB = alocarVetor(n);
-    double *x = alocarVetor(n);
-    double *r = alocarVetor(n);
+    LS_t *ls = allocLS(n);
+    LS_t *copy = allocLS(n);
+    real_t *x = (real_t*) malloc(n * sizeof(real_t));
+    real_t *r = (real_t*) malloc(n * sizeof(real_t));
     double tol = 1e-9;
-    double tempo;
+    double time;
     int it;
     
-    lerSL(A, b, n);
+    readLS(ls);
 
-    copiarMatriz(A, copyA, n);
-    copiarVetor(b, copyB, n);
-    
-    tempo = timestamp();
-    eliminacaoGauss(copyA, copyB, n);
-    retrosSusbs(copyA, copyB, x, n);
-    tempo = timestamp() - tempo;
-    residuoSL(copyA, copyB, x, r, n);
+    copyLS(copy, ls);
+    time = timestamp();
+    // eliminacaoGauss(copy);
+    // retrosSusbs(copy, x);
+    time = timestamp() - time;
+    residueLS(copy, x, r);
     printf("EG clássico:\n");
-    printf("%.8lf ms\n", tempo);
-    imprimirVetor(x, n);
-    imprimirVetor(r, n);
+    printf("%.8lf ms\n", time);
+    // imprimirVetor(x, n);
+    // imprimirVetor(r, n);
     printf("\n");
-    
-    copiarMatriz(A, copyA, n);
-    copiarVetor(b, copyB, n);
-    inicializarVetor(x, n);
 
-    tempo = timestamp();
-    it = gaussSeidel(copyA, copyB, x, n, tol);
-    tempo = timestamp() - tempo;
-    residuoSL(copyA, copyB, x, r, n);
+    copyLS(copy, ls);
+    time = timestamp();
+    // it = gaussSeidel(copy, x, tol);
+    time = timestamp() - time;
+    residueLS(copy, x, r);
     printf("GS clássico [ %d iterações ]:\n", it);
-    printf("%.8lf ms\n", tempo);
-    imprimirVetor(x, n);
-    imprimirVetor(r, n);
+    printf("%.8lf ms\n", time);
+    // imprimirVetor(x, n);
+    // imprimirVetor(r, n);
     printf("\n");
 
-    double *d = alocarVetor(n);
-    double *a = alocarVetor(n-1);
-    double *c = alocarVetor(n-1);
-    diagonalMatriz(A, d, 0, 0, n);
-    diagonalMatriz(A, a, 1, 0, n);
-    diagonalMatriz(A, c, 0, 1, n);
+    real_t *d = (real_t*) malloc(n * sizeof(real_t));
+    real_t *a = (real_t*) malloc(n * sizeof(real_t));
+    real_t *c = (real_t*) malloc(n * sizeof(real_t));
+    diagonalLS(ls, d, 0, 0);
+    diagonalLS(ls, a, 1, 0);
+    diagonalLS(ls, c, 0, 1);
     
-    copiarMatriz(A, copyA, n);
-    copiarVetor(b, copyB, n);
-
-    tempo = timestamp();
-    eliminacaoGaussTridiagonal(d, a, c, b, x, n);
-    tempo = timestamp() - tempo;
-    residuoSL(copyA, copyB, x, r, n);
+    copyLS(copy, ls);
+    memset(x, 0, n * sizeof(real_t));
+    time = timestamp();
+    // eliminacaoGaussTridiagonal(d, a, c, b, x, n);
+    time = timestamp() - time;
+    residueLS(copy, x, r);
     printf("EG 3-diagonal:\n");
-    printf("%.8lf ms\n", tempo);
-    imprimirVetor(x, n);
-    imprimirVetor(r, n);
+    printf("%.8lf ms\n", time);
+    // imprimirVetor(x, n);
+    // imprimirVetor(r, n);
     printf("\n");
-       
-    copiarMatriz(A, copyA, n);
-    copiarVetor(b, copyB, n);
-    inicializarVetor(x, n);
 
-    tempo = timestamp();
-    it = gaussSeidelTridiagonal(d, a, c, b, x, n, tol);
-    tempo = timestamp() - tempo;
-    residuoSL(copyA, copyB, x, r, n);
+    copyLS(copy, ls);
+    memset(x, 0, n * sizeof(real_t));
+    time = timestamp();
+    // it = gaussSeidelTridiagonal(d, a, c, b, x, n, tol);
+    time = timestamp() - time;
+    residueLS(copy, x, r);
     printf("GS 3-diagonal [ %d iterações ]:\n", it);
-    printf("%.8lf ms\n", tempo);
-    imprimirVetor(x, n);
-    imprimirVetor(r, n);
+    printf("%.8lf ms\n", time);
+    // imprimirVetor(x, n);
+    // imprimirVetor(r, n);
     
-    desalocarMatriz(A, n);
-    desalocarMatriz(copyA, n);
-    desalocarVetor(b);
-    desalocarVetor(copyB);
-    desalocarVetor(d);
-    desalocarVetor(a);
-    desalocarVetor(c);
-    desalocarVetor(x);
-    desalocarVetor(r);
+    free(d);
+    free(a);
+    free(c);
+    free(x);
+    free(r);
 }

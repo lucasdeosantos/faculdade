@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sl.h"
+#include "ls.h"
 
 double **alocarMatriz(int n) {
     double **m = malloc(n * sizeof(double *));
