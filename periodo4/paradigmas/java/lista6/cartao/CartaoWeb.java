@@ -1,6 +1,6 @@
 package cartao;
 
-abstract class CartaoWeb {
+public abstract class CartaoWeb {
     protected String destinatario;
 
     public CartaoWeb() {}
