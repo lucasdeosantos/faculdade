@@ -6,6 +6,14 @@ public abstract class CartaoWeb {
     public CartaoWeb() {}
 
     public CartaoWeb(String destinatario) {
+        this.setDestinatario(destinatario);
+    }
+
+    public String getDestinatario() {
+        return this.destinatario;
+    }
+
+    public void setDestinatario(String destinatario) {
         this.destinatario = destinatario;
     }
 
