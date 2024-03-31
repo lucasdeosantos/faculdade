@@ -1,4 +1,3 @@
-#include <math.h>
 #include <stdlib.h>
 #include "gs.h"
 
@@ -16,7 +15,7 @@ int gaussSeidel(LS_t *ls, double tol) {
 
             double xi = (ls->b[i] - s) / ls->A[i][i];
 
-            double absError = fabs(xi - ls->x[i]);
+            double absError = ABS(xi - ls->x[i]);
             if (absError > maxError)
                 maxError = absError;
 
@@ -48,7 +47,7 @@ int gaussSeidelTridiagonal(LS_t *ls, double tol) {
         for (int i = 1; i < ls->n - 1; ++i) {
             xi = (ls->b[i] - a[i] * ls->x[i - 1] - c[i] * ls->x[i + 1]) / d[i];
 
-            double absError = fabs(xi - ls->x[i]);
+            double absError = ABS(xi - ls->x[i]);
             if (absError > maxError)
                 maxError = absError;
 
