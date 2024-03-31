@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "gs.h"
 
-int gaussSeidel(LS_t *ls, double tol) {
+int gaussSeidel(LS_t *ls, real_t tol) {
     double error = 1.0 + tol;
     int it = 0;
 
@@ -27,7 +27,7 @@ int gaussSeidel(LS_t *ls, double tol) {
     return it;
 }
 
-int gaussSeidelTridiagonal(LS_t *ls, double tol) {
+int gaussSeidelTridiagonal(LS_t *ls, real_t tol) {
     real_t *d = (real_t*) malloc(ls->n * sizeof(real_t));
     real_t *a = (real_t*) malloc(ls->n * sizeof(real_t));
     real_t *c = (real_t*) malloc(ls->n * sizeof(real_t));
