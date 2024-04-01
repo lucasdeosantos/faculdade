@@ -1,3 +1,8 @@
+/*
+* Author:
+*   Lucas Emanuel de Oliveira Santos
+*   GRR20224379
+*/
 #include <stdlib.h>
 #include "gs.h"
 
