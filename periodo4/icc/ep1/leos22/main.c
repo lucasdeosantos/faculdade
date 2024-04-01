@@ -19,8 +19,7 @@ int main () {
     
     readLS(ls);
 
-    LIKWID_MARKER_START("MFLOPs");
-
+    LIKWID_MARKER_START("EG_CLASSICO");
     copyLS(copy, ls);
     time = timestamp();
     gaussElimination(copy);
@@ -30,7 +29,9 @@ int main () {
     printf("%.8lf ms\n", time);
     printResolution(copy);
     printf("\n");
+    LIKWID_MARKER_STOP("EG_CLASSICO");
 
+    LIKWID_MARKER_START("GS_CLASSICO");
     copyLS(copy, ls);
     time = timestamp();
     it = gaussSeidel(copy, tol);
@@ -39,7 +40,9 @@ int main () {
     printf("%.8lf ms\n", time);
     printResolution(copy);
     printf("\n");
-    
+    LIKWID_MARKER_STOP("GS_CLASSICO");
+
+    LIKWID_MARKER_START("EG_TRIDIAGONAL");
     copyLS(copy, ls);
     time = timestamp();
     gaussTridiagonalElimination(copy);
@@ -48,7 +51,9 @@ int main () {
     printf("%.8lf ms\n", time);
     printResolution(copy);
     printf("\n");
+    LIKWID_MARKER_STOP("EG_TRIDIAGONAL");
 
+    LIKWID_MARKER_START("GS_TRIDIAGONAL");
     copyLS(copy, ls);
     time = timestamp();
     it = gaussSeidelTridiagonal(copy, tol);
@@ -56,8 +61,7 @@ int main () {
     printf("GS 3-diagonal [ %d iterações ]:\n", it);
     printf("%.8lf ms\n", time);
     printResolution(copy);
-
-    LIKWID_MARKER_STOP("MFLOPs");
+    LIKWID_MARKER_STOP("GS_TRIDIAGONAL");
 
     freeLS(ls);
     freeLS(copy);
