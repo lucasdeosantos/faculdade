@@ -8,7 +8,7 @@
 #include "ge.h"
 
 int findMax(LS_t *ls, int i) {
-    double max = ls->A[i][i];
+    real_t max = ls->A[i][i];
     int index = i;
 
     for (int j = i + 1; j < ls->n; ++j)
@@ -21,7 +21,7 @@ int findMax(LS_t *ls, int i) {
 }
 
 void changeLine(LS_t *ls, unsigned int i, int iPivo) {
-    double *temp = (real_t*) malloc(ls->n * sizeof(real_t));
+    real_t *temp = (real_t*) malloc(ls->n * sizeof(real_t));
     
     memcpy(temp, ls->A[i], ls->n * sizeof(real_t));
 
@@ -30,7 +30,7 @@ void changeLine(LS_t *ls, unsigned int i, int iPivo) {
         ls->A[iPivo][j] = temp[j];
     }
 
-    double aux = ls->b[i];
+    real_t aux = ls->b[i];
     ls->b[i] = ls->b[iPivo];
     ls->b[iPivo] = aux;
 
@@ -54,7 +54,7 @@ void gaussElimination(LS_t *ls) {
            changeLine(ls, i, iPivo);
 
         for (int k = i + 1; k < ls->n; ++k) {
-            double m = ls->A[k][i] / ls->A[i][i];
+            real_t m = ls->A[k][i] / ls->A[i][i];
             ls->A[k][i] = 0.0;
             for (int j = i + 1; j < ls->n; ++j)
                 ls->A[k][j] -= ls->A[i][j] * m;
@@ -73,7 +73,7 @@ void gaussTridiagonalElimination(LS_t *ls) {
     diagonalLS(ls, c, 0, 1);
 
     for (int i = 0; i < ls->n - 1; ++i) {
-        double m = a[i] / d[i];
+        real_t m = a[i] / d[i];
         a[i] = 0.0;
         d[i + 1] -= c[i] * m;
         ls->b[i + 1] -= ls->b[i] * m;

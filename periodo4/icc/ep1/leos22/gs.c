@@ -7,20 +7,20 @@
 #include "gs.h"
 
 int gaussSeidel(LS_t *ls, real_t tol) {
-    double error = 1.0 + tol;
+    real_t error = 1.0 + tol;
     int it = 0;
 
     while (error > tol && it < MAXIT) {
-        double maxError = 0.0;
+        real_t maxError = 0.0;
         for (int i = 0; i < ls->n; ++i) {
-            double s = 0.0;
+            real_t s = 0.0;
             for (int j = 0; j < ls->n; ++j)
                 if (i != j)
                     s += ls->A[i][j] * ls->x[j];
 
-            double xi = (ls->b[i] - s) / ls->A[i][i];
+            real_t xi = (ls->b[i] - s) / ls->A[i][i];
 
-            double absError = ABS(xi - ls->x[i]);
+            real_t absError = ABS(xi - ls->x[i]);
             if (absError > maxError)
                 maxError = absError;
 
@@ -41,18 +41,18 @@ int gaussSeidelTridiagonal(LS_t *ls, real_t tol) {
     diagonalLS(ls, a, 1, 0);
     diagonalLS(ls, c, 0, 1);
 
-    double error = 1.0 + tol;
+    real_t error = 1.0 + tol;
     int it = 0;
 
     while (error > tol && it < MAXIT) {
-        double maxError = 0.0;
+        real_t maxError = 0.0;
         ls->x[0] = (ls->b[0] - c[0] * ls->x[1]) / d[0];
 
-        double xi;
+        real_t xi;
         for (int i = 1; i < ls->n - 1; ++i) {
             xi = (ls->b[i] - a[i] * ls->x[i - 1] - c[i] * ls->x[i + 1]) / d[i];
 
-            double absError = ABS(xi - ls->x[i]);
+            real_t absError = ABS(xi - ls->x[i]);
             if (absError > maxError)
                 maxError = absError;
 
