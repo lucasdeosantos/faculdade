@@ -13,7 +13,7 @@ struct LS {
     real_t **A; // Matrix of coefficients for the equations
     real_t *b;  // Constants array
     real_t *x;  // Variables array
-    real_t *r;  // Residue array
+    real_t *r;  // Residues array
     int n;      // Size of the matrix and arrays
 };
 typedef struct LS LS_t;
