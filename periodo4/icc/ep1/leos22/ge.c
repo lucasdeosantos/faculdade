@@ -61,6 +61,7 @@ void gaussElimination(LS_t *ls) {
             ls->b[k] -= ls->b[i] * m;
         }
     }
+    retrosSusbs(ls);
 }
 
 void gaussTridiagonalElimination(LS_t *ls) {
