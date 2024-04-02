@@ -7,7 +7,6 @@
 #define GS_H
 
 #include "ls.h"
-#include "utils.h"
 
 #define MAXIT 50
 
