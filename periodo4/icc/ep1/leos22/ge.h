@@ -8,9 +8,6 @@
 
 #include "ls.h"
 
-// Performs backward substitution to find the solution of a linear system.
-void retrosSusbs(LS_t *ls);
-
 // Performs Gaussian elimination to solve a linear system.
 void gaussElimination(LS_t *ls);
 
