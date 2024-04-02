@@ -28,7 +28,6 @@ int main () {
     copyLS(copy, ls);
     time = timestamp();
     gaussElimination(copy);
-    retrosSusbs(copy);
     time = timestamp() - time;
     printf("EG clássico:\n");
     printf("%.8lf ms\n", time);
