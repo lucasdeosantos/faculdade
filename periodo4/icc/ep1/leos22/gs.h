@@ -8,6 +8,7 @@
 
 #include "ls.h"
 
+// Max number of iterations.
 #define MAXIT 50
 
 // Performs the Gauss-Seidel iterative method to solve a linear system, with a
