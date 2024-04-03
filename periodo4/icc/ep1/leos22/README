@@ -1,3 +1,9 @@
 Lucas Emanuel de Oliveira Santos
+GRR20224379
 
+Limitações:
+    A Eliminação de Gauss pode sofrer instabilidade numérica em matrizes mal condicionadas, essa instabilidade pode levar a erros significativos na solução.
+    Os métodos tridiagonais não funcionam em matrizes que não possuem essa estrutura, mas são significamente mais eficientes. 
+    Para os métodos Gauss-Seidel não existe garantia de convergência da matriz, pois a convergência depende the propriedades específicas, como simétria e definição positiva.
+    Métodos de Gauss-Seidel geram resultados incoerentes(números excessivamentes grandes) para matrizes que não são convergentes. 
 
