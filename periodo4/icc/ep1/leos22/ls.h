@@ -13,7 +13,7 @@ struct LS {
     real_t **A; // Matrix of coefficients for the equations
     real_t *b;  // Constants array
     real_t *x;  // Variables array
-    real_t *r;  // Residues array
+    real_t *r;  // Residue array
     int n;      // Size of the matrix and arrays
 };
 typedef struct LS LS_t;
@@ -37,7 +37,7 @@ void copyLS(LS_t *dest, LS_t *src);
 // Prints the coefficients matrix and the constants vector of the linear system "ls".
 void printLS(LS_t *ls);
 
-// Prints the solution (variables array) and the residual array of the linear system "ls".
+// Prints the solution (variables array) and the residue array of the linear system "ls".
 void printResolution(LS_t *ls);
 
 #endif // LS_H
