@@ -22,7 +22,7 @@ int findMax(LS_t *ls, int i) {
 }
 
 // Function to exchange two rows in the coefficient matrix and the constants array.
-void changeLine(LS_t *ls, unsigned int i, int iPivo) {
+void lineSwap(LS_t *ls, unsigned int i, int iPivo) {
     real_t *temp = (real_t*) malloc(ls->n * sizeof(real_t));
 
     // Swap rows in the coefficient matrix.
@@ -54,7 +54,7 @@ void gaussElimination(LS_t *ls) {
         // Find the row with the maximum value in the current column.
         int iPivo = findMax(ls, i);
         if (i != iPivo)
-           changeLine(ls, i, iPivo);
+           lineSwap(ls, i, iPivo);
 
         // Perform elimination.
         for (int k = i + 1; k < ls->n; ++k) {
