@@ -29,7 +29,7 @@ void readLS(LS_t *ls);
 // The diagonal starts from position A[i][j].
 void diagonalLS(LS_t *ls, real_t *d, int i, int j);
 
-// Copies the contents of the linear system src to the linear system dest.
+// Copies the contents of the linear system src to the linear system dst.
 void copyLS(LS_t *dst, LS_t *src);
 
 // Prints the coefficients matrix and the constants vector of the linear system.
