@@ -13,7 +13,7 @@
 
 int main () {
     int_t n;
-    scanf("%d", &n);
+    scanf("%ld", &n);
 
     LS_t *ls = allocLS(n);
     LS_t *copy = allocLS(n);
