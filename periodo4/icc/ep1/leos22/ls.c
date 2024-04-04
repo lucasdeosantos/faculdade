@@ -8,7 +8,8 @@
 #include <string.h>
 #include "ls.h"
 
-LS_t *allocLS(int_t n) {
+LS_t *allocLS(int_t n)
+{
     // Allocate memory for the LS_t structure.
     LS_t *ls = (LS_t*) malloc(sizeof(LS_t));
 
@@ -26,7 +27,8 @@ LS_t *allocLS(int_t n) {
     return ls;
 }
 
-void freeLS(LS_t *ls) {
+void freeLS(LS_t *ls)
+{
     // Free memory for the coefficient matrix.
     for (int_t i = 0; i < ls->n; ++i)
         free(ls->A[i]);
@@ -39,7 +41,8 @@ void freeLS(LS_t *ls) {
     free(ls);
 }
 
-void readLS(LS_t *ls) {
+void readLS(LS_t *ls)
+{
     for (int_t i = 0; i < ls->n; ++i) {
         // Read coefficients of the equation.
         for (int_t j = 0; j < ls->n; ++j)
@@ -50,12 +53,14 @@ void readLS(LS_t *ls) {
     }
 }
 
-void diagonalLS(LS_t *ls, real_t *d, int i, int j) {
+void diagonalLS(LS_t *ls, real_t *d, int i, int j)
+{
     for (int_t k = 0; k + i < ls->n && k + j < ls->n; ++k)
         d[k] = ls->A[k + i][k + j];
 }
 
-void copyLS(LS_t *dst, LS_t *src) {
+void copyLS(LS_t *dst, LS_t *src)
+{
     // Copy coefficients matrix.
     for (int_t i = 0; i < src->n; ++i)
         memcpy(dst->A[i], src->A[i], src->n * sizeof(real_t));
@@ -67,7 +72,8 @@ void copyLS(LS_t *dst, LS_t *src) {
     dst->n = src->n;
 }
 
-void printLS(LS_t *ls) {
+void printLS(LS_t *ls)
+{
      for (int_t i = 0; i < ls->n; ++i) {
         for (int_t j = 0; j < ls->n; ++j)
             printf(".12%lf ", ls->A[i][j]);
@@ -78,7 +84,8 @@ void printLS(LS_t *ls) {
 
 // Function to compute the residue array of a linear system.
 // R = AX - B
-void residueLS(LS_t *ls, real_t *x, real_t *r) {
+void residueLS(LS_t *ls, real_t *x, real_t *r)
+{
     for (int_t i = 0; i < ls->n; ++i) {
         r[i] = 0.0;
         for (int_t j = 0; j < ls->n; ++j)
@@ -89,7 +96,8 @@ void residueLS(LS_t *ls, real_t *x, real_t *r) {
         r[i] -= ls->b[i];
 }
 
-void printSolution(LS_t *ls, real_t *x, real_t *r) {
+void printSolution(LS_t *ls, real_t *x, real_t *r)
+{
     // Compute the residue array.
     residueLS(ls, x, r);
 
