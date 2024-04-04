@@ -51,7 +51,7 @@ void readLS(LS_t *ls) {
 }
 
 void diagonalLS(LS_t *ls, real_t *d, int i, int j) {
-    for(int k = 0; k < ls->n && k + i < ls->n && k + j < ls->n; ++k)
+    for(int k = 0; k + i < ls->n && k + j < ls->n; ++k)
         d[k] = ls->A[k + i][k + j];
 }
 
