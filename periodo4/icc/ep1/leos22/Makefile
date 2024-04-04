@@ -5,7 +5,7 @@ OBJS = gs.o ge.o ls.o utils.o main.o
 
 LIKWID_HOME = /home/soft/likwid
 CFLAGS = -Wall -Wextra -Werror -g -O0 -I$(LIKWID_HOME)/include -DLIKWID_PERFMON
-LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
+LFLAGS = -lm -L$(LIKWID_HOME)/lib -llikwid
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
