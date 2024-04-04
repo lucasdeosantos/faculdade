@@ -25,7 +25,7 @@ uint_t findMax(LS_t *ls, uint_t i)
 // Function to swap two rows in the coefficient matrix and the constants array.
 void lineSwap(LS_t *ls, uint_t i, uint_t iPivo)
 {
-    real_t *temp = (real_t*) malloc(ls->n * sizeof(real_t));
+    real_t *temp = (real_t *) malloc(ls->n * sizeof(real_t));
 
     // Swap rows in the coefficient matrix.
     memcpy(temp, ls->A[i], ls->n * sizeof(real_t));
@@ -76,9 +76,9 @@ void gaussElimination(LS_t *ls, real_t *x)
 void gaussTridiagonalElimination(LS_t *ls, real_t *x)
 {
     // Allocate memory for the diagonals.
-    real_t *d =(real_t *) malloc(ls->n * sizeof(real_t));
-    real_t *a =(real_t *) malloc(ls->n * sizeof(real_t));
-    real_t *c =(real_t *) malloc(ls->n * sizeof(real_t));
+    real_t *d = (real_t *) malloc(ls->n * sizeof(real_t));
+    real_t *a = (real_t *) malloc(ls->n * sizeof(real_t));
+    real_t *c = (real_t *) malloc(ls->n * sizeof(real_t));
 
     // Extract diagonals from the coefficient matrix.
     diagonalLS(ls, d, 0, 0);
