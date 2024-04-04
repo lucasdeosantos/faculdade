@@ -11,9 +11,10 @@
 #include "ge.h"
 #include "gs.h"
 
-int main () {
-    int_t n;
-    scanf("%ld", &n);
+int main ()
+{
+    uint_t n;
+    scanf("%d", &n);
 
     LS_t *ls = allocLS(n);
     LS_t *copy = allocLS(n);
@@ -21,7 +22,7 @@ int main () {
     real_t *r = (real_t *) malloc(n * sizeof(real_t));
     real_t tol = 1e-9;
     rtime_t time;
-    int_t it;
+    uint_t it;
     
     readLS(ls);
 
@@ -46,7 +47,7 @@ int main () {
     it = gaussSeidel(copy, x, tol);
     LIKWID_MARKER_STOP("GS_CLASSICO");
     time = timestamp() - time;
-    printf("GS clássico [ %ld iterações ]:\n", it);
+    printf("GS clássico [ %d iterações ]:\n", it);
     printf("%.8lf ms\n", time);
     printSolution(ls, x, r);
     printf("\n");
@@ -70,7 +71,7 @@ int main () {
     it = gaussSeidelTridiagonal(copy, x, tol);
     LIKWID_MARKER_STOP("GS_TRIDIAGONAL");
     time = timestamp() - time;
-    printf("GS 3-diagonal [ %ld iterações ]:\n", it);
+    printf("GS 3-diagonal [ %d iterações ]:\n", it);
     printf("%.8lf ms\n", time);
     printSolution(ls, x, r);
 
