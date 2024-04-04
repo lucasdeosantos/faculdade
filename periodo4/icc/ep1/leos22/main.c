@@ -12,7 +12,6 @@
 #include "utils.h"
 
 int main () {
-    LIKWID_MARKER_INIT;
 
     int n;
     scanf("%d", &n);
@@ -26,6 +25,8 @@ int main () {
     int it;
     
     readLS(ls);
+
+    LIKWID_MARKER_INIT;
 
     copyLS(copy, ls);
     memset(x, 0, n * sizeof(real_t));
@@ -80,4 +81,6 @@ int main () {
     free(r);
 
     LIKWID_MARKER_CLOSE;
+    
+    return 0;
 }
