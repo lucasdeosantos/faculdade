@@ -14,7 +14,7 @@ typedef double real_t;
 // int_t: tipo usado para representar valores em inteiros
 typedef int64_t int_t;
 
-// uint_t: tipo usado para representar valores inteiros sem sinal
+// uint_t: tipo usado para representar valores em inteiros sem sinal
 typedef unsigned int uint_t;
 
 // string_t: tipo usado para representar ponteiros para char/strings
