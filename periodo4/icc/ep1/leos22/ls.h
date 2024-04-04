@@ -36,6 +36,6 @@ void copyLS(LS_t *dst, LS_t *src);
 void printLS(LS_t *ls);
 
 // Prints the solution and the residue of ls.
-void printSolutionLS(LS_t *ls, real_t *x, real_t *r);
+void printSolution(LS_t *ls, real_t *x, real_t *r);
 
 #endif // __LS_H__
