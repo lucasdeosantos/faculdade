@@ -17,7 +17,7 @@ struct LS {
 typedef struct LS LS_t;
 
 // Allocates memory for a linear system with n variables and returns it.
-LS_t *allocLS(uint_t n);
+LS_t *createLS(uint_t n);
 
 // Frees the memory allocated for ls.
 void freeLS(LS_t *ls);
