@@ -30,7 +30,7 @@ void readLS(LS_t *ls);
 void diagonalLS(LS_t *ls, real_t *d, int i, int j);
 
 // Copies the contents of the linear system src to the linear system dest.
-void copyLS(LS_t *dest, LS_t *src);
+void copyLS(LS_t *dst, LS_t *src);
 
 // Prints the coefficients matrix and the constants vector of the linear system.
 void printLS(LS_t *ls);
