@@ -43,7 +43,7 @@ void lineSwap(LS_t *ls, uint_t i, uint_t iPivo)
 // Function to perform back substitution to solve the system of equations.
 void retrosSusbs(LS_t *ls, real_t *x)
 {
-    for (int i = int(ls->n) - 1; i >= 0; --i) {
+    for (int_t i = int_t(ls->n) - 1; i >= 0; --i) {
         x[i] = ls->b[i];
         for (uint_t j = i + 1; j < ls->n; ++j)
             x[i] -= ls->A[i][j] * x[j];
@@ -95,7 +95,7 @@ void gaussTridiagonalElimination(LS_t *ls, real_t *x)
 
     // Back substitution.
     x[ls->n - 1] = ls->b[ls->n - 1] / d[ls->n - 1];
-    for (int i = int(ls->n) - 2; i >= 0; --i)
+    for (int_t i = int_t(ls->n) - 2; i >= 0; --i)
         x[i] = (ls->b[i] - c[i] * x[i + 1]) / d[i];
 
     // Free allocated memory.
