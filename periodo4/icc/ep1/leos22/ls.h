@@ -12,12 +12,12 @@
 struct LS {
     real_t **A; // Matrix of coefficients for the equations.
     real_t *b;  // Constants array.
-    int n;      // Size of the matrix and array.
+    uint_t n;      // Size of the matrix and array.
 };
 typedef struct LS LS_t;
 
 // Allocates memory for a linear system with n variables and returns it.
-LS_t *allocLS(int_t n);
+LS_t *allocLS(uint_t n);
 
 // Frees the memory allocated for ls.
 void freeLS(LS_t *ls);
@@ -27,7 +27,7 @@ void readLS(LS_t *ls);
 
 // Computes a diagonal of the coefficients matrix A and stores it in the array d.
 // The diagonal starts from position A[i][j].
-void diagonalLS(LS_t *ls, real_t *d, int i, int j);
+void diagonalLS(LS_t *ls, real_t *d, uint_t i, uint_t j);
 
 // Copies the contents of the linear system src to dst.
 void copyLS(LS_t *dst, LS_t *src);
