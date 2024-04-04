@@ -3,8 +3,8 @@
 *   Lucas Emanuel de Oliveira Santos
 *   GRR20224379
 */
-#ifndef LS_H
-#define LS_H
+#ifndef __LS_H__
+#define __LS_H__
 
 #include "utils.h"
 
@@ -38,4 +38,4 @@ void printLS(LS_t *ls);
 // Prints the solution and the residue of ls.
 void printSolution(LS_t *ls, real_t *x, real_t *r);
 
-#endif // LS_H
+#endif // __LS_H__
