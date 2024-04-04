@@ -11,15 +11,15 @@
 LS_t *allocLS(uint_t n)
 {
     // Allocate memory for the LS_t structure.
-    LS_t *ls = (LS_t*) malloc(sizeof(LS_t));
+    LS_t *ls = (LS_t *) malloc(sizeof(LS_t));
 
     // Allocate memory for the coefficient matrix (2D array).
-    ls->A = (real_t**) malloc(n * sizeof(real_t*));
+    ls->A = (real_t **) malloc(n * sizeof(real_t *));
     for (uint_t i = 0; i < n; ++i)
-        ls->A[i] = (real_t*) malloc(n * sizeof(real_t));
+        ls->A[i] = (real_t *) malloc(n * sizeof(real_t));
 
     // Allocate memory for the constants array.
-    ls->b = (real_t*) malloc(n * sizeof(real_t));
+    ls->b = (real_t *) malloc(n * sizeof(real_t));
 
     // Set the size of the linear system.
     ls->n = n;
