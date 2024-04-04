@@ -16,8 +16,8 @@ int main ()
     uint_t n;
     scanf("%d", &n);
 
-    LS_t *ls = allocLS(n);
-    LS_t *copy = allocLS(n);
+    LS_t *ls = createLS(n);
+    LS_t *copy = createLS(n);
     real_t *x = (real_t *) malloc(n * sizeof(real_t));
     real_t *r = (real_t *) malloc(n * sizeof(real_t));
     real_t tol = 1e-9;
