@@ -6,21 +6,21 @@
 #include <stdlib.h>
 #include "gs.h"
 
-int_t gaussSeidel(LS_t *ls, real_t *x, real_t tol)
+uint_t gaussSeidel(LS_t *ls, real_t *x, real_t tol)
 {
     real_t error = 1.0 + tol; // Initialize error to ensure the loop starts.
-    int it = 0; // Iteration counter.
+    uint_t it = 0; // Iteration counter.
 
     // Continue iteration until error is below tolerance or maximum iterations reached.
     while (error > tol && it < MAXIT) {
         real_t maxError = 0.0; // Maximum error for this iteration.
 
         // Iterate over each equation in the system.
-        for (int_t i = 0; i < ls->n; ++i) {
+        for (uint_t i = 0; i < ls->n; ++i) {
             real_t s = 0.0; // Variable to store the sum of the other variables multiplied by their coefficients.
 
             // Compute the sum of the other variables multiplied by their coefficients.
-            for (int_t j = 0; j < ls->n; ++j)
+            for (uint_t j = 0; j < ls->n; ++j)
                 if (i != j)
                     s += ls->A[i][j] * x[j];
 
@@ -47,7 +47,7 @@ int_t gaussSeidel(LS_t *ls, real_t *x, real_t tol)
     return it;
 }
 
-int_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol)
+uint_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol)
 {
     // Allocate memory for the diagonals.
     real_t *d = (real_t*) malloc(ls->n * sizeof(real_t));
@@ -60,7 +60,7 @@ int_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol)
     diagonalLS(ls, c, 0, 1);
 
     real_t error = 1.0 + tol; // Initialize error to ensure the loop starts.
-    int it = 0; // Iteration counter.
+    uint_t it = 0; // Iteration counter.
 
     // Continue iteration until error is below tolerance or maximum iterations reached.
     while (error > tol && it < MAXIT) {
@@ -70,7 +70,7 @@ int_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol)
         x[0] = (ls->b[0] - c[0] * x[1]) / d[0];
 
         // Iterate over the remaining variables.
-        for (int_t i = 1; i < ls->n - 1; ++i) {
+        for (uint_t i = 1; i < ls->n - 1; ++i) {
             // Compute the new value of the variable using the tridiagonal structure.
             real_t xi = (ls->b[i] - a[i] * x[i - 1] - c[i] * x[i + 1]) / d[i];
 
