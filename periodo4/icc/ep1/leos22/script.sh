@@ -2,7 +2,7 @@
 
 # Check if perfSL executable exists, if not, run make
 if [ ! -x ./perfSL ]; then
-    make >> /dev/null
+    make > /dev/null
 fi
 
 # Export the likwid library path
