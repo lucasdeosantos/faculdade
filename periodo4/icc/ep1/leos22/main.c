@@ -37,7 +37,7 @@ int main ()
     time = timestamp() - time;
     printf("EG clássico:\n");
     printf("%.8lf ms\n", time);
-    printSolutionLS(ls, x, r);
+    printSolution(copy, x, r);
     printf("\n");
 
     copyLS(copy, ls);
@@ -49,7 +49,7 @@ int main ()
     time = timestamp() - time;
     printf("GS clássico [ %d iterações ]:\n", it);
     printf("%.8lf ms\n", time);
-    printSolutionLS(ls, x, r);
+    printSolution(copy, x, r);
     printf("\n");
 
     copyLS(copy, ls);
@@ -61,7 +61,7 @@ int main ()
     time = timestamp() - time;
     printf("EG 3-diagonal:\n");
     printf("%.8lf ms\n", time);
-    printSolutionLS(ls, x, r);
+    printSolution(copy, x, r);
     printf("\n");
 
     copyLS(copy, ls);
@@ -73,7 +73,7 @@ int main ()
     time = timestamp() - time;
     printf("GS 3-diagonal [ %d iterações ]:\n", it);
     printf("%.8lf ms\n", time);
-    printSolutionLS(ls, x, r);
+    printSolution(copy, x, r);
 
     LIKWID_MARKER_CLOSE;
 
