@@ -8,7 +8,7 @@
 #include <string.h>
 #include "ls.h"
 
-LS_t *allocLS(uint_t n)
+LS_t *createLS(uint_t n)
 {
     // Allocate memory for the LS_t structure.
     LS_t *ls = (LS_t *) malloc(sizeof(LS_t));
