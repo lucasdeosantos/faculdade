@@ -15,10 +15,10 @@ LS_t *allocLS(int n) {
     // Allocate memory for the coefficient matrix (2D array).
     ls->A = (real_t**) malloc(n * sizeof(real_t*));
     for (int i = 0; i < n; ++i)
-        ls->A[i] = (real_t*) calloc(n, sizeof(real_t));
+        ls->A[i] = (real_t*) malloc(n * sizeof(real_t));
 
     // Allocate memory for the constants array.
-    ls->b = (real_t*) calloc(n, sizeof(real_t));
+    ls->b = (real_t*) malloc(n * sizeof(real_t));
 
     // Set the size of the linear system.
     ls->n = n;
