@@ -89,7 +89,7 @@ void residueLS(LS_t *ls, real_t *x, real_t *r) {
         r[i] -= ls->b[i];
 }
 
-void printResolution(LS_t *ls, real_t *x, real_t *r) {
+void printSolution(LS_t *ls, real_t *x, real_t *r) {
     // Compute the residue array.
     residueLS(ls, x, r);
 
