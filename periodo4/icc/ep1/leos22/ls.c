@@ -92,7 +92,7 @@ void residueLS(LS_t *ls, real_t *x, real_t *r)
             r[i] += ls->A[i][j] * x[j];
     }
 
-    for (int_t i = 0; i < ls->n; ++i)
+    for (uint_t i = 0; i < ls->n; ++i)
         r[i] -= ls->b[i];
 }
 
