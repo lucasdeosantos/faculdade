@@ -12,7 +12,7 @@
 #include "gs.h"
 
 int main () {
-    int n;
+    int_t n;
     scanf("%d", &n);
 
     LS_t *ls = allocLS(n);
@@ -21,7 +21,7 @@ int main () {
     real_t *r = (real_t *) malloc(n * sizeof(real_t));
     real_t tol = 1e-9;
     rtime_t time;
-    int it;
+    int_t it;
     
     readLS(ls);
 
