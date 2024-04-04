@@ -19,9 +19,9 @@
 * tol is a specified tolerance for convergence.
 */
 
-int_t gaussSeidel(LS_t *ls, real_t *x, real_t tol);
+uint_t gaussSeidel(LS_t *ls, real_t *x, real_t tol);
 
 // Method optimized for tridiagonal linear systems.
-int_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol);
+uint_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol);
 
 #endif // __GS_H__
