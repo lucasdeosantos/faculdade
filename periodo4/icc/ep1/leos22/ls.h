@@ -19,23 +19,23 @@ typedef struct LS LS_t;
 // Allocates memory for a linear system with n variables and returns it.
 LS_t *allocLS(int n);
 
-// Frees the memory allocated for the linear system ls.
+// Frees the memory allocated for ls.
 void freeLS(LS_t *ls);
 
 // Reads the coefficients and the constants of a linear system from input and stores them in ls.
 void readLS(LS_t *ls);
 
-// Computes the diagonal of the linear system ls and stores it in the array d.
+// Computes a diagonal of the coefficients matrix A and stores it in the array d.
 // The diagonal starts from position A[i][j].
 void diagonalLS(LS_t *ls, real_t *d, int i, int j);
 
-// Copies the contents of the linear system src to the linear system dst.
+// Copies the contents of the linear system src to dst.
 void copyLS(LS_t *dst, LS_t *src);
 
-// Prints the coefficients matrix and the constants array of the linear system ls.
+// Prints the coefficients matrix and the constants array of ls.
 void printLS(LS_t *ls);
 
-// Prints the solution and the residue of the linear system ls.
+// Prints the solution and the residue of ls.
 // x is the solution array and r is the residue array.
 void printSolution(LS_t *ls, real_t *x, real_t *r);
 
