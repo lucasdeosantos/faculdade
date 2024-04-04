@@ -11,8 +11,8 @@
 // Represents a linear system of equations.
 struct LS {
     real_t **A; // Matrix of coefficients for the equations.
-    real_t *b;  // Constants array.
-    uint_t n;      // Size of the matrix and array.
+    real_t *b; // Constants array.
+    uint_t n; // Size of the matrix and array.
 };
 typedef struct LS LS_t;
 
