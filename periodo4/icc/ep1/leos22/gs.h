@@ -3,8 +3,8 @@
 *   Lucas Emanuel de Oliveira Santos
 *   GRR20224379
 */
-#ifndef GS_H
-#define GS_H
+#ifndef __GS_H__
+#define __GS_H__
 
 #include "ls.h"
 
@@ -24,4 +24,4 @@ int gaussSeidel(LS_t *ls, real_t *x, real_t tol);
 // Method optimized for tridiagonal linear systems.
 int gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol);
 
-#endif // GS_H
+#endif // __GS_H__
