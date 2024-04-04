@@ -12,8 +12,9 @@
 #define MAXIT 50
 
 /*
-* The following methods perform the Gauss-Seidel iterative method to solve a linear system,
+* The following methods perform the Gauss-Seidel iterative method to solve a linear system
 * and returns the number of iterations performed.
+* ls is the linear system.
 * x is the solution array.
 * tol is a specified tolerance for convergence.
 */
