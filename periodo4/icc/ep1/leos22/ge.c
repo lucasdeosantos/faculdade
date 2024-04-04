@@ -8,7 +8,8 @@
 #include "ge.h"
 
 // Function to find the row with the maximum value in a given column.
-int findMax(LS_t *ls, int_t i) {
+int findMax(LS_t *ls, int_t i)
+{
     real_t max = ls->A[i][i];
     int index = i;
 
@@ -22,7 +23,8 @@ int findMax(LS_t *ls, int_t i) {
 }
 
 // Function to swap two rows in the coefficient matrix and the constants array.
-void lineSwap(LS_t *ls, int_t i, int_t iPivo) {
+void lineSwap(LS_t *ls, int_t i, int_t iPivo)
+{
     real_t *temp = (real_t*) malloc(ls->n * sizeof(real_t));
 
     // Swap rows in the coefficient matrix.
@@ -39,7 +41,8 @@ void lineSwap(LS_t *ls, int_t i, int_t iPivo) {
 }
 
 // Function to perform back substitution to solve the system of equations.
-void retrosSusbs(LS_t *ls, real_t *x) {
+void retrosSusbs(LS_t *ls, real_t *x)
+{
     for (int_t i = ls->n - 1; i >= 0; --i) {
         x[i] = ls->b[i];
         for (int_t j = i + 1; j < ls->n; ++j)
@@ -49,7 +52,8 @@ void retrosSusbs(LS_t *ls, real_t *x) {
     }
 }
 
-void gaussElimination(LS_t *ls, real_t *x) {
+void gaussElimination(LS_t *ls, real_t *x)
+{
     for (int_t i = 0; i < ls->n; ++i) {
         // Find the row with the maximum value in the current column.
         int_t iPivo = findMax(ls, i);
@@ -69,7 +73,8 @@ void gaussElimination(LS_t *ls, real_t *x) {
     retrosSusbs(ls, x);
 }
 
-void gaussTridiagonalElimination(LS_t *ls, real_t *x) {
+void gaussTridiagonalElimination(LS_t *ls, real_t *x)
+{
     // Allocate memory for the diagonals.
     real_t *d =(real_t*) malloc(ls->n * sizeof(real_t));
     real_t *a =(real_t*) malloc(ls->n * sizeof(real_t));
