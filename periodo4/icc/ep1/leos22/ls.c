@@ -55,16 +55,16 @@ void diagonalLS(LS_t *ls, real_t *d, int i, int j) {
         d[k] = ls->A[k + i][k + j];
 }
 
-void copyLS(LS_t *dest, LS_t *src) {
+void copyLS(LS_t *dst, LS_t *src) {
     // Copy coefficients matrix.
     for (int i = 0; i < src->n; ++i)
-        memcpy(dest->A[i], src->A[i], src->n * sizeof(real_t));
+        memcpy(dst->A[i], src->A[i], src->n * sizeof(real_t));
 
     // Copy constants array.
-    memcpy(dest->b, src->b, src->n * sizeof(real_t));
+    memcpy(dst->b, src->b, src->n * sizeof(real_t));
 
-    // Set the size of the linear system.
-    dest->n = src->n;
+    // Set the size of the linear system dst.
+    dst->n = src->n;
 }
 
 void printLS(LS_t *ls) {
