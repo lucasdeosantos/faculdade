@@ -46,7 +46,7 @@ int main () {
     it = gaussSeidel(copy, x, tol);
     LIKWID_MARKER_STOP("GS_CLASSICO");
     time = timestamp() - time;
-    printf("GS clássico [ %d iterações ]:\n", it);
+    printf("GS clássico [ %ld iterações ]:\n", it);
     printf("%.8lf ms\n", time);
     printSolution(ls, x, r);
     printf("\n");
@@ -70,7 +70,7 @@ int main () {
     it = gaussSeidelTridiagonal(copy, x, tol);
     LIKWID_MARKER_STOP("GS_TRIDIAGONAL");
     time = timestamp() - time;
-    printf("GS 3-diagonal [ %d iterações ]:\n", it);
+    printf("GS 3-diagonal [ %ld iterações ]:\n", it);
     printf("%.8lf ms\n", time);
     printSolution(ls, x, r);
 
