@@ -74,12 +74,12 @@ int main () {
     printf("%.8lf ms\n", time);
     printResolution(ls, x, r);
 
+    LIKWID_MARKER_CLOSE;
+
     freeLS(ls);
     freeLS(copy);
     free(x);
     free(r);
-
-    LIKWID_MARKER_CLOSE;
     
     return 0;
 }
