@@ -8,10 +8,14 @@
 
 #include "ls.h"
 
-// Performs Gaussian elimination to solve a linear system.
+/*
+* The following methods perform Gaussian elimination to solve a linear system.
+* ls is the linear system.
+* x is the solution array.
+*/
 void gaussElimination(LS_t *ls, real_t *x);
 
-// Performs Gaussian elimination for tridiagonal linear systems.
+// Method optimized for tridiagonal linear systems.
 void gaussTridiagonalElimination(LS_t *ls, real_t *x);
 
 #endif // GE_H
