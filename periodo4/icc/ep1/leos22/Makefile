@@ -1,7 +1,7 @@
 PROG = perfSL
 
 CC = gcc
-OBJS = main.o gs.o ge.o ls.o utils.o
+OBJS = gs.o ge.o ls.o utils.o main.o
 
 LIKWID_HOME = /home/soft/likwid
 CFLAGS = -Wall -Wextra -Werror -g -O0 -I$(LIKWID_HOME)/include -DLIKIWD_PERFMON

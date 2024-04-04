@@ -9,9 +9,9 @@
 #include "ls.h"
 
 // Performs Gaussian elimination to solve a linear system.
-void gaussElimination(LS_t *ls);
+void gaussElimination(LS_t *ls, real_t *x);
 
 // Performs Gaussian elimination for tridiagonal linear systems.
-void gaussTridiagonalElimination(LS_t *ls);
+void gaussTridiagonalElimination(LS_t *ls, real_t *x);
 
 #endif // GE_H

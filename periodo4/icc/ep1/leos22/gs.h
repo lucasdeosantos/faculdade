@@ -13,10 +13,10 @@
 
 // Performs the Gauss-Seidel iterative method to solve a linear system, with a
 // specified tolerance for convergence. Returns the number of iterations performed.
-int gaussSeidel(LS_t *ls, real_t tol);
+int gaussSeidel(LS_t *ls, real_t *x, real_t tol);
 
 // Performs the Gauss-Seidel iterative method optimized for tridiagonal linear systems, with a
 // specified tolerance for convergence. Returns the number of iterations performed.
-int gaussSeidelTridiagonal(LS_t *ls, real_t tol);
+int gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol);
 
 #endif // GS_H

@@ -6,4 +6,4 @@ if [ ! -x ./perfSL ]; then
 fi
 
 # Execute the program perfSL through LIKWID, and show only DP MFLOP/s
-likwid-perfctr -C 1 -g FLOPS_DP -m ./perfSL | grep 'DP' | grep -v 'AVX'
+likwid-perfctr -C 8 -g FLOPS_DP -m ./perfSL | grep 'DP' | grep -v 'AVX'

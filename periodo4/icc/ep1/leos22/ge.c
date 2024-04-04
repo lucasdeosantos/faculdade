@@ -21,7 +21,7 @@ int findMax(LS_t *ls, int i) {
     return index;
 }
 
-// Function to exchange two rows in the coefficient matrix and the constants array.
+// Function to swap two rows in the coefficient matrix and the constants array.
 void lineSwap(LS_t *ls, unsigned int i, int iPivo) {
     real_t *temp = (real_t*) malloc(ls->n * sizeof(real_t));
 
@@ -39,17 +39,17 @@ void lineSwap(LS_t *ls, unsigned int i, int iPivo) {
 }
 
 // Function to perform back substitution to solve the system of equations.
-void retrosSusbs(LS_t *ls) {
+void retrosSusbs(LS_t *ls, real_t *x) {
     for (int i = ls->n - 1; i >= 0; --i) {
-        ls->x[i] = ls->b[i];
+        x[i] = ls->b[i];
         for (int j = i + 1; j < ls->n; ++j)
-            ls->x[i] -= ls->A[i][j] * ls->x[j];
+            x[i] -= ls->A[i][j] * x[j];
 
-        ls->x[i] /= ls->A[i][i];
+        x[i] /= ls->A[i][i];
     }
 }
 
-void gaussElimination(LS_t *ls) {
+void gaussElimination(LS_t *ls, real_t *x) {
     for (int i = 0; i < ls->n; ++i) {
         // Find the row with the maximum value in the current column.
         int iPivo = findMax(ls, i);
@@ -66,10 +66,10 @@ void gaussElimination(LS_t *ls) {
         }
     }
     // Perform back substitution.
-    retrosSusbs(ls);
+    retrosSusbs(ls, x);
 }
 
-void gaussTridiagonalElimination(LS_t *ls) {
+void gaussTridiagonalElimination(LS_t *ls, real_t *x) {
     // Allocate memory for the diagonals.
     real_t *d =(real_t*) malloc(ls->n * sizeof(real_t));
     real_t *a =(real_t*) malloc(ls->n * sizeof(real_t));
@@ -89,9 +89,9 @@ void gaussTridiagonalElimination(LS_t *ls) {
     }
 
     // Back substitution.
-    ls->x[ls->n - 1] = ls->b[ls->n - 1] / d[ls->n - 1];
+    x[ls->n - 1] = ls->b[ls->n - 1] / d[ls->n - 1];
     for (int i = ls->n - 2; i >= 0; --i)
-        ls->x[i] = (ls->b[i] - c[i] * ls->x[i + 1]) / d[i];
+        x[i] = (ls->b[i] - c[i] * x[i + 1]) / d[i];
 
     // Free allocated memory.
     free(d);
