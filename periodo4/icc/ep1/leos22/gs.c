@@ -50,9 +50,9 @@ uint_t gaussSeidel(LS_t *ls, real_t *x, real_t tol)
 uint_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol)
 {
     // Allocate memory for the diagonals.
-    real_t *d = (real_t*) malloc(ls->n * sizeof(real_t));
-    real_t *a = (real_t*) malloc(ls->n * sizeof(real_t));
-    real_t *c = (real_t*) malloc(ls->n * sizeof(real_t));
+    real_t *d = (real_t *) malloc(ls->n * sizeof(real_t));
+    real_t *a = (real_t *) malloc(ls->n * sizeof(real_t));
+    real_t *c = (real_t *) malloc(ls->n * sizeof(real_t));
 
     // Extract diagonals from the coefficient matrix.
     diagonalLS(ls, d, 0, 0);
