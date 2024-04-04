@@ -3,8 +3,8 @@
 *   Lucas Emanuel de Oliveira Santos
 *   GRR20224379
 */
-#ifndef GE_H
-#define GE_H
+#ifndef __GE_H__
+#define __GE_H__
 
 #include "ls.h"
 
@@ -19,4 +19,4 @@ void gaussElimination(LS_t *ls, real_t *x);
 // Method optimized for tridiagonal linear systems.
 void gaussTridiagonalElimination(LS_t *ls, real_t *x);
 
-#endif // GE_H
+#endif // __GE_H__
