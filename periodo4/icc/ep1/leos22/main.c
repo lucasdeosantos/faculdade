@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <likwid.h>
+#include "utils.h"
+#include "ls.h"
 #include "ge.h"
 #include "gs.h"
-#include "ls.h"
-#include "utils.h"
 
 int main () {
     int n;
