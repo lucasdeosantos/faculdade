@@ -13,6 +13,7 @@
 * ls is the linear system.
 * x is the solution array.
 */
+
 void gaussElimination(LS_t *ls, real_t *x);
 
 // Method optimized for tridiagonal linear systems.
