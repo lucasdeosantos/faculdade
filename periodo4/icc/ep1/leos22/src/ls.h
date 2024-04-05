@@ -1,7 +1,7 @@
 /*
  * Author:
- *  Lucas Emanuel de Oliveira Santos
- *  GRR20224379
+ * Lucas Emanuel de Oliveira Santos
+ * GRR20224379
 */
 #ifndef __LS_H__
 #define __LS_H__
