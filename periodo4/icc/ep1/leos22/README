@@ -1,15 +1,6 @@
 Lucas Emanuel de Oliveira Santos
 GRR20224379
 
-Uso:
-$ make
-$ ./perfSL < [arquivo de entrada]
-
-ou para calcular DP FLOPS através do likwid
-
-$ chmod +x script.sh
-$ script.sh < [arquivo de entrada]
-
 Limitações:
     A Eliminação de Gauss pode sofrer instabilidade numérica em matrizes mal condicionadas,
 essa instabilidade pode levar a erros significativos na solução.
