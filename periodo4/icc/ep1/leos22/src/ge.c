@@ -1,7 +1,7 @@
 /*
-* Author:
-*   Lucas Emanuel de Oliveira Santos
-*   GRR20224379
+ * Author:
+ *  Lucas Emanuel de Oliveira Santos
+ *  GRR20224379
 */
 #include <string.h>
 #include <stdlib.h>
