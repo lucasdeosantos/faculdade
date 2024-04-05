@@ -1,28 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define optimize() ios_base::sync_with_stdio(0); cin.tie();
 
-int maxCajus(vector<int>& cajus) {
-    int n = cajus.size();
-    vector<int> aux(n + 1, 0);
-    aux[0] = 0;
-
-    for (int i = 1; i <= n; ++i) {
-        aux[i] = max(aux[i - 1], cajus[i - 1] + (i >= 2 ? aux[i - 2] : 0));
-
-        if (i >= 3) {
-            aux[i] = max(aux[i], cajus[i - 1] + cajus[i - 2] + aux[i - 3]);
-        }
+void solve() {
+    int N, harvested = 0;
+    cin >> N;
+    for (int i = 0; i < N; ++i) {
+        int A;
+        cin >> A;
+        if (A > 10)
+            harvested += A - 10;
     }
 
-    return aux[n];
+    cout << harvested << "\n";
 }
 
 int main() {
-    int n;
-    cin >> n;
-    vector<int> cajus(n);
-    for (int i = 0; i < n; ++i)
-        cin >> cajus[i];
+    optimize();
 
-    cout << maxCajus(cajus) << "\n";
+    int t = 1;
+    while(t--)
+        solve();
 }
