@@ -8,6 +8,6 @@ public class ImovelVelho extends Imovel {
     }
 
     public double calcularValorImovel() {
-        return 1;
+        return preco;
     }
 }
