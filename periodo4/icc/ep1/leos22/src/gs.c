@@ -29,8 +29,7 @@ uint_t gaussSeidel(LS_t *ls, real_t *x, real_t tol)
 
             // Compute the absolute error for this variable and update the maximum error if needed.
             real_t absError = ABS(xi - x[i]);
-            if (absError > maxError)
-                maxError = absError;
+            maxError = (absError > maxError) ? absError : maxError;
 
             // Update the value of the variable in the solution array.
             x[i] = xi;
@@ -76,8 +75,7 @@ uint_t gaussSeidelTridiagonal(LS_t *ls, real_t *x, real_t tol)
 
             // Compute the absolute error for this variable and update the maximum error if needed.
             real_t absError = ABS(xi - x[i]);
-            if (absError > maxError)
-                maxError = absError;
+            maxError = (absError > maxError) ? absError : maxError;
 
             // Update the value of the variable in the solution array.
             x[i] = xi;
