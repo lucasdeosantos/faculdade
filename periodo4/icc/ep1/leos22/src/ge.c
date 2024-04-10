@@ -14,7 +14,7 @@ uint_t findMax(LS_t *ls, uint_t i)
     uint_t index = i;
 
     for (uint_t j = i + 1; j < ls->n; ++j)
-        if (ls->A[j][i] > max) {
+        if (ABS(ls->A[j][i]) > max) {
             max = ls->A[j][i];
             index = j;
         }
