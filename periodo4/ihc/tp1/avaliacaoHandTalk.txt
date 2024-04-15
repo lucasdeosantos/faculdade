@@ -8,7 +8,7 @@ aparecem muitos anúncios, o que dificulta o uso e a aderência do aplicativo
 
 anúncios aparecem do nada e podem ser fotossensíveis
 
-anúncios iniciam reprodução de áudio automatiamente
+anúncios iniciam reprodução de áudio automaticamente
 
 anúncios podem demorar demais
 
