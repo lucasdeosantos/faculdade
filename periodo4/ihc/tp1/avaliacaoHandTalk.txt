@@ -20,7 +20,7 @@ em palavras iguais, mas com sentidos diferentes, não é possível identificar q
 
 aba dicionário poderia ter um botão para iniciar a tradução da palavras
 
-aba traduzir deveria estar na centro do layout
+aba traduzir deveria estar no centro do layout
 
 áudios so são traduzidos até 30 segundos
 
