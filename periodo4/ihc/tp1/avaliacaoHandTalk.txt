@@ -14,8 +14,6 @@ anúncios podem demorar demais
 
 é preciso segurar o botão para falar ao microfone
 
-em palavras iguais, mas com sentidos diferentes, não é possível identificar qual delas esta sendo traduzida
-
 é difícil entender como a aba dicionário funciona em um primeiro momento
 
 aba dicionário poderia ter um botão para iniciar a tradução da palavras
