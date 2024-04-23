@@ -1,0 +1,41 @@
+algumas funcões so existem em português
+
+é preciso se cadastrar para acessar algumas funcoes
+
+é preciso se cadastrar para fazer a traducão a partir de fotos
+
+aparecem muitos anúncios, o que dificulta o uso e a aderência do aplicativo 
+
+anúncios aparecem do nada e podem ser fotossensíveis
+
+anúncios iniciam reprodução de áudio automaticamente
+
+anúncios podem demorar demais
+
+é preciso segurar o botão para falar ao microfone
+
+é difícil entender como a aba dicionário funciona em um primeiro momento
+
+aba dicionário poderia ter um botão para iniciar a tradução da palavras
+
+aba traduzir deveria estar no centro do layout
+
+áudios so são traduzidos até 30 segundos
+
+seria interessante adicionar um avatar infantil
+
+dificultade para entender algumas palavras mais complexas
+
+aba dicionário demora a carregar
+
+não existe nenhuma indicacão de qual é o limite máximo de palavras, quando chega ao final só não te deixa digitar
+
+quase sempre quanto se entra na aba conta é pedido para se tornar assinante
+
+não descobri se existe alguma forma de continuar a gravação do aúdio sem precisar ficar segurando o botão
+
+única forma de sair do tutorial é voltando pro início e clicando em cancelar
+
+único jeito de identificar pra que servem os botões na aba tradução é vendo o tutorial que está na aba perfil
+
+sempre faz a tradução, mesmo que a frase ou palavra não faça sentido
