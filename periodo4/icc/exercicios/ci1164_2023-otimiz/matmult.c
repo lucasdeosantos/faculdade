@@ -3,6 +3,8 @@
 #include <string.h>
 #include <getopt.h>    /* getopt */
 #include <time.h>
+//#include <likwid.h>
+#include "utils.h"
 
 #include "matriz.h"
 
@@ -13,8 +15,8 @@
 
 static void usage(char *progname)
 {
-  fprintf(stderr, "Forma de uso: %s [ <ordem> ] \n", progname);
-  exit(1);
+    fprintf(stderr, "Forma de uso: %s [ <ordem> ] \n", progname);
+    exit(1);
 }
 
 
@@ -28,40 +30,42 @@ static void usage(char *progname)
 
 int main (int argc, char *argv[]) 
 {
-  int n=DEF_SIZE;
-  
-  MatRow mRow_1, mRow_2, resMat;
-  Vetor vet, res;
-  
-  /* =============== TRATAMENTO DE LINHA DE COMANDO =============== */
+    int n=DEF_SIZE;
+    rtime_t time;
+    MatRow mRow_1, mRow_2, resMat;
+    Vetor vet, res;
 
-  if (argc < 2)
-    usage(argv[0]);
+    /* =============== TRATAMENTO DE LINHA DE COMANDO =============== */
 
-  n = atoi(argv[1]);
-  
-  /* ================ FIM DO TRATAMENTO DE LINHA DE COMANDO ========= */
- 
-  srandom(20232);
-      
-  res = geraVetor (n, 0); // (real_t *) malloc (n*sizeof(real_t));
-  resMat = geraMatRow(n, n, 1);
+    if (argc < 2)
+        usage(argv[0]);
+
+    n = atoi(argv[1]);
+
+    /* ================ FIM DO TRATAMENTO DE LINHA DE COMANDO ========= */
+
+    srandom(20232);
+
+    //    LIKWID_MARKER_INIT;
     
-  mRow_1 = geraMatRow (n, n, 0);
-  mRow_2 = geraMatRow (n, n, 0);
+    res = geraVetor (n, 0); // (real_t *) malloc (n*sizeof(real_t));
+    resMat = geraMatRow(n, n, 1);
 
-  vet = geraVetor (n, 0);
+    mRow_1 = geraMatRow (n, n, 0);
+    mRow_2 = geraMatRow (n, n, 0);
 
-  if (!res || !resMat || !mRow_1 || !mRow_2 || !vet) {
-    fprintf(stderr, "Falha em alocação de memória !!\n");
-    liberaVetor ((void*) mRow_1);
-    liberaVetor ((void*) mRow_2);
-    liberaVetor ((void*) resMat);
-    liberaVetor ((void*) vet);
-    liberaVetor ((void*) res);
-    exit(2);
-  }
-    
+    vet = geraVetor (n, 0);
+
+    if (!res || !resMat || !mRow_1 || !mRow_2 || !vet) {
+        fprintf(stderr, "Falha em alocação de memória !!\n");
+        liberaVetor ((void*) mRow_1);
+        liberaVetor ((void*) mRow_2);
+        liberaVetor ((void*) resMat);
+        liberaVetor ((void*) vet);
+        liberaVetor ((void*) res);
+        exit(2);
+    }
+
 #ifdef _DEBUG_
     prnMat (mRow_1, n, n);
     prnMat (mRow_2, n, n);
@@ -69,21 +73,34 @@ int main (int argc, char *argv[])
     printf ("=================================\n\n");
 #endif /* _DEBUG_ */
 
-  multMatVet (mRow_1, vet, n, n, res);
-    
-  multMatMat (mRow_1, mRow_2, n, resMat);
-    
+//    LIKWID_MARKER_INIT;
+
+//    LIKWID_MARKER_START("MULT_MAT_VET");
+    time = timestamp();    
+    multMatVet (mRow_1, vet, n, n, res);
+    time = timestamp() - time;
+    printf("%.8lf ms\n", time);
+//    LIKWID_MARKER_STOP("MULT_MAT_VET");
+        
+//    LIKWID_MARKER_START("MULT_MAT_MAT");
+    time = timestamp();    
+    multMatMat (mRow_1, mRow_2, n, resMat);
+    time = timestamp() - time;
+    printf("%.8lf ms\n", time);
+//    LIKWID_MARKER_STOP("MULT_MAT_MAT");
+
+//    LIKWID_MARKER_CLOSE;
+
 #ifdef _DEBUG_
     prnVetor (res, n);
     prnMat (resMat, n, n);
 #endif /* _DEBUG_ */
 
-  liberaVetor ((void*) mRow_1);
-  liberaVetor ((void*) mRow_2);
-  liberaVetor ((void*) resMat);
-  liberaVetor ((void*) vet);
-  liberaVetor ((void*) res);
+    liberaVetor ((void*) mRow_1);
+    liberaVetor ((void*) mRow_2);
+    liberaVetor ((void*) resMat);
+    liberaVetor ((void*) vet);
+    liberaVetor ((void*) res);
 
-  return 0;
+    return 0;
 }
-

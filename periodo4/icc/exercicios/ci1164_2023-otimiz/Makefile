@@ -1,12 +1,15 @@
 # PROGRAMA
-        PROG = matmult
-        OBJS = $(PROG).o matriz.o
+PROG = matmult
+OBJS = $(PROG).o matriz.o utils.o
+
+# Pathing do Likwid
+LIKWID_HOME = /home/soft/likwid
 
 # Compilador
-           CC = gcc -Wall
+CC = gcc -Wall
 
-       CFLAGS =  
-       LFLAGS = -lm
+CFLAGS = -O3 -mavx2 -march=native -I$(LIKWID_HOME)/include -DLIKWID_PERFMON
+LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
 
 # Lista de arquivos para distribuição
 DISTFILES = *.c *.h README.md Makefile perfctr

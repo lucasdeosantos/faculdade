@@ -12,8 +12,8 @@
   */
 static inline real_t generateRandomA( unsigned int i, unsigned int j)
 {
-  static real_t invRandMax = 1.0 / (real_t)RAND_MAX;
-  return ( (i==j) ? (real_t)(BASE<<1) : 1.0 )  * (real_t)random() * invRandMax;
+    static real_t invRandMax = 1.0 / (real_t)RAND_MAX;
+    return ( (i==j) ? (real_t)(BASE<<1) : 1.0 )  * (real_t)random() * invRandMax;
 }
 
 /**
@@ -23,8 +23,8 @@ static inline real_t generateRandomA( unsigned int i, unsigned int j)
  */
 static inline real_t generateRandomB( )
 {
-  static real_t invRandMax = 1.0 / (real_t)RAND_MAX;
-  return (real_t)(BASE<<2) * (real_t)random() * invRandMax;
+    static real_t invRandMax = 1.0 / (real_t)RAND_MAX;
+    return (real_t)(BASE<<2) * (real_t)random() * invRandMax;
 }
 
 
@@ -44,18 +44,18 @@ static inline real_t generateRandomB( )
 
 MatRow geraMatRow (int m, int n, int zerar)
 {
-  MatRow matriz = (real_t *) malloc(m*n*sizeof(real_t));
+    MatRow matriz = (real_t *) malloc(m*n*sizeof(real_t));
 
-  if (matriz) {
-    if (zerar)
-      memset(matriz,0,m*n*sizeof(real_t));
-    else
-      for (int i=0; i < m; ++i)
-	for (int j=0; j < n; ++j)
-	  matriz[i*n + j] = generateRandomA(i, j);
-  }
-  
-  return (matriz);
+    if (matriz) {
+        if (zerar)
+            memset(matriz,0,m*n*sizeof(real_t));
+        else
+            for (int i=0; i < m; ++i)
+            for (int j=0; j < n; ++j)
+                matriz[i*n + j] = generateRandomA(i, j);
+    }
+
+    return (matriz);
 }
 
 
@@ -71,17 +71,17 @@ MatRow geraMatRow (int m, int n, int zerar)
 
 Vetor geraVetor (int n, int zerar)
 {
-  Vetor vetor = (real_t *) malloc(n*sizeof(real_t));
+    Vetor vetor = (real_t *) malloc(n*sizeof(real_t));
 
-  if (vetor) {
-    if (zerar)
-      memset(vetor,0,n*sizeof(real_t));
-    else
-      for (int i=0; i < n; ++i)
-	vetor[i] = generateRandomB();
-  }
-  
-  return (vetor);
+    if (vetor) {
+        if (zerar)
+            memset(vetor,0,n*sizeof(real_t));
+        else
+            for (int i=0; i < n; ++i)
+            vetor[i] = generateRandomB();
+    }
+
+    return (vetor);
 }
 
 /**
@@ -92,7 +92,7 @@ Vetor geraVetor (int n, int zerar)
  */
 void liberaVetor (void *vet)
 {
-	free(vet);
+    free(vet);
 }
 
 
@@ -110,13 +110,13 @@ void liberaVetor (void *vet)
 
 void multMatVet (MatRow mat, Vetor v, int m, int n, Vetor res)
 {
-    
-  /* Efetua a multiplicação */
-  if (res) {
-    for (int i=0; i < m; ++i)
-      for (int j=0; j < n; ++j)
-        res[i] += mat[n*i + j] * v[j];
-  }
+
+    /* Efetua a multiplicação */
+    if (res) {
+        for (int i=0; i < m; ++i)
+            for (int j=0; j < n; ++j)
+                res[i] += mat[n*i + j] * v[j];
+    }
 }
 
 
@@ -133,11 +133,11 @@ void multMatVet (MatRow mat, Vetor v, int m, int n, Vetor res)
 void multMatMat (MatRow A, MatRow B, int n, MatRow C)
 {
 
-  /* Efetua a multiplicação */
-  for (int i=0; i < n; ++i)
-    for (int j=0; j < n; ++j)
-      for (int k=0; k < n; ++k)
-	C[i*n+j] += A[i*n+k] * B[k*n+j];
+    /* Efetua a multiplicação */
+    for (int i=0; i < n; ++i)
+        for (int j=0; j < n; ++j)
+            for (int k=0; k < n; ++k)
+                C[i*n+j] += A[i*n+k] * B[k*n+j];
 }
 
 
@@ -151,12 +151,12 @@ void multMatMat (MatRow A, MatRow B, int n, MatRow C)
 
 void prnMat (MatRow mat, int m, int n)
 {
-  for (int i=0; i < m; ++i) {
-    for (int j=0; j < n; ++j)
-      printf(DBL_FIELD, mat[n*i + j]);
-    printf("\n");
-  }
-  printf(SEP_RES);
+    for (int i=0; i < m; ++i) {
+        for (int j=0; j < n; ++j)
+            printf(DBL_FIELD, mat[n*i + j]);
+        printf("\n");
+    }
+    printf(SEP_RES);
 }
 
 /**
@@ -168,8 +168,8 @@ void prnMat (MatRow mat, int m, int n)
 
 void prnVetor (Vetor vet, int n)
 {
-  for (int i=0; i < n; ++i)
-    printf(DBL_FIELD, vet[i]);
-  printf(SEP_RES);
+    for (int i=0; i < n; ++i)
+        printf(DBL_FIELD, vet[i]);
+    printf(SEP_RES);
 }
 
