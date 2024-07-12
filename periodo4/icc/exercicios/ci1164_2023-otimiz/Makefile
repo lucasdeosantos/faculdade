@@ -12,7 +12,7 @@ CFLAGS = -O3 -mavx2 -march=native -I$(LIKWID_HOME)/include -DLIKWID_PERFMON
 LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
 
 # Lista de arquivos para distribuição
-DISTFILES = *.c *.h README.md Makefile perfctr
+DISTFILES = *.c *.h *.sh *.py *.gp README.md Makefile perfctr 
 DISTDIR = `basename ${PWD}`
 
 .PHONY: all debug clean purge dist

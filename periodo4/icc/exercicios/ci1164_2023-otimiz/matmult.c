@@ -3,7 +3,7 @@
 #include <string.h>
 #include <getopt.h>    /* getopt */
 #include <time.h>
-//#include <likwid.h>
+#include <likwid.h>
 #include "utils.h"
 
 #include "matriz.h"
@@ -73,23 +73,23 @@ int main (int argc, char *argv[])
     printf ("=================================\n\n");
 #endif /* _DEBUG_ */
 
-//    LIKWID_MARKER_INIT;
+    LIKWID_MARKER_INIT;
 
-//    LIKWID_MARKER_START("MULT_MAT_VET");
+    LIKWID_MARKER_START("MULT_MAT_VET");
     time = timestamp();    
     multMatVet (mRow_1, vet, n, n, res);
     time = timestamp() - time;
     printf("%.8lf ms\n", time);
-//    LIKWID_MARKER_STOP("MULT_MAT_VET");
+    LIKWID_MARKER_STOP("MULT_MAT_VET");
         
-//    LIKWID_MARKER_START("MULT_MAT_MAT");
+    LIKWID_MARKER_START("MULT_MAT_MAT");
     time = timestamp();    
     multMatMat (mRow_1, mRow_2, n, resMat);
     time = timestamp() - time;
     printf("%.8lf ms\n", time);
-//    LIKWID_MARKER_STOP("MULT_MAT_MAT");
+    LIKWID_MARKER_STOP("MULT_MAT_MAT");
 
-//    LIKWID_MARKER_CLOSE;
+    LIKWID_MARKER_CLOSE;
 
 #ifdef _DEBUG_
     prnVetor (res, n);

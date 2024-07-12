@@ -1,0 +1,162 @@
+--------------------------------------------------------------------------------
+CPU name:	Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz
+CPU type:	Intel Kabylake processor
+CPU clock:	2.90 GHz
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz,
+CPU type:,Intel Kabylake processor,
+CPU clock:,2.903816409 GHz,
+TABLE,Region MatPtrVet,Group 1 Raw,L3,5
+Region Info,HWThread 1,
+RDTSC Runtime [s],0.000005,
+call count,1,
+Event,Counter,HWThread 1
+INSTR_RETIRED_ANY,FIXC0,32761
+CPU_CLK_UNHALTED_CORE,FIXC1,26512
+CPU_CLK_UNHALTED_REF,FIXC2,21901
+L2_LINES_IN_ALL,PMC0,1149
+L2_TRANS_L2_WB,PMC1,227
+TABLE,Region MatPtrVet,Group 1 Metric,L3,10
+Metric,HWThread 1,
+Runtime (RDTSC) [s],4.580298e-06,
+Runtime unhalted [s],9.130054e-06,
+Clock [MHz],3515.1811,
+CPI,0.8093,
+L3 load bandwidth [MBytes/s],16054.8506,
+L3 load data volume [GBytes],0.0001,
+L3 evict bandwidth [MBytes/s],3171.8460,
+L3 evict data volume [GBytes],1.452800e-05,
+L3 bandwidth [MBytes/s],19226.6966,
+L3 data volume [GBytes],0.0001,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz,
+CPU type:,Intel Kabylake processor,
+CPU clock:,2.903816409 GHz,
+TABLE,Region MatPtrRowVet,Group 1 Raw,L3,5
+Region Info,HWThread 1,
+RDTSC Runtime [s],0.000004,
+call count,1,
+Event,Counter,HWThread 1
+INSTR_RETIRED_ANY,FIXC0,32713
+CPU_CLK_UNHALTED_CORE,FIXC1,23614
+CPU_CLK_UNHALTED_REF,FIXC2,19360
+L2_LINES_IN_ALL,PMC0,895
+L2_TRANS_L2_WB,PMC1,200
+TABLE,Region MatPtrRowVet,Group 1 Metric,L3,10
+Metric,HWThread 1,
+Runtime (RDTSC) [s],4.426715e-06,
+Runtime unhalted [s],8.132057e-06,
+Clock [MHz],3541.8761,
+CPI,0.7219,
+L3 load bandwidth [MBytes/s],12939.6178,
+L3 load data volume [GBytes],0.0001,
+L3 evict bandwidth [MBytes/s],2891.5347,
+L3 evict data volume [GBytes],1.280000e-05,
+L3 bandwidth [MBytes/s],15831.1524,
+L3 data volume [GBytes],0.0001,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz,
+CPU type:,Intel Kabylake processor,
+CPU clock:,2.903816409 GHz,
+TABLE,Region MatRowVet,Group 1 Raw,L3,5
+Region Info,HWThread 1,
+RDTSC Runtime [s],0.000004,
+call count,1,
+Event,Counter,HWThread 1
+INSTR_RETIRED_ANY,FIXC0,32704
+CPU_CLK_UNHALTED_CORE,FIXC1,23413
+CPU_CLK_UNHALTED_REF,FIXC2,19602
+L2_LINES_IN_ALL,PMC0,919
+L2_TRANS_L2_WB,PMC1,252
+TABLE,Region MatRowVet,Group 1 Metric,L3,10
+Metric,HWThread 1,
+Runtime (RDTSC) [s],4.389180e-06,
+Runtime unhalted [s],8.062838e-06,
+Clock [MHz],3468.3733,
+CPI,0.7159,
+L3 load bandwidth [MBytes/s],13400.2251,
+L3 load data volume [GBytes],0.0001,
+L3 evict bandwidth [MBytes/s],3674.4905,
+L3 evict data volume [GBytes],1.612800e-05,
+L3 bandwidth [MBytes/s],17074.7156,
+L3 data volume [GBytes],0.0001,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz,
+CPU type:,Intel Kabylake processor,
+CPU clock:,2.903816409 GHz,
+TABLE,Region MatMatPtr,Group 1 Raw,L3,5
+Region Info,HWThread 1,
+RDTSC Runtime [s],0.000247,
+call count,1,
+Event,Counter,HWThread 1
+INSTR_RETIRED_ANY,FIXC0,2133971
+CPU_CLK_UNHALTED_CORE,FIXC1,849711
+CPU_CLK_UNHALTED_REF,FIXC2,706882
+L2_LINES_IN_ALL,PMC0,2203
+L2_TRANS_L2_WB,PMC1,739
+TABLE,Region MatMatPtr,Group 1 Metric,L3,10
+Metric,HWThread 1,
+Runtime (RDTSC) [s],0.0002,
+Runtime unhalted [s],0.0003,
+Clock [MHz],3490.5469,
+CPI,0.3982,
+L3 load bandwidth [MBytes/s],570.1334,
+L3 load data volume [GBytes],0.0001,
+L3 evict bandwidth [MBytes/s],191.2522,
+L3 evict data volume [GBytes],4.729600e-05,
+L3 bandwidth [MBytes/s],761.3856,
+L3 data volume [GBytes],0.0002,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz,
+CPU type:,Intel Kabylake processor,
+CPU clock:,2.903816409 GHz,
+TABLE,Region MatMatPtrRow,Group 1 Raw,L3,5
+Region Info,HWThread 1,
+RDTSC Runtime [s],0.000252,
+call count,1,
+Event,Counter,HWThread 1
+INSTR_RETIRED_ANY,FIXC0,2134066
+CPU_CLK_UNHALTED_CORE,FIXC1,862352
+CPU_CLK_UNHALTED_REF,FIXC2,717046
+L2_LINES_IN_ALL,PMC0,2140
+L2_TRANS_L2_WB,PMC1,622
+TABLE,Region MatMatPtrRow,Group 1 Metric,L3,10
+Metric,HWThread 1,
+Runtime (RDTSC) [s],0.0003,
+Runtime unhalted [s],0.0003,
+Clock [MHz],3492.2611,
+CPI,0.4041,
+L3 load bandwidth [MBytes/s],543.4399,
+L3 load data volume [GBytes],0.0001,
+L3 evict bandwidth [MBytes/s],157.9531,
+L3 evict data volume [GBytes],3.980800e-05,
+L3 bandwidth [MBytes/s],701.3930,
+L3 data volume [GBytes],0.0002,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz,
+CPU type:,Intel Kabylake processor,
+CPU clock:,2.903816409 GHz,
+TABLE,Region MatMatRow,Group 1 Raw,L3,5
+Region Info,HWThread 1,
+RDTSC Runtime [s],0.000258,
+call count,1,
+Event,Counter,HWThread 1
+INSTR_RETIRED_ANY,FIXC0,2134172
+CPU_CLK_UNHALTED_CORE,FIXC1,887595
+CPU_CLK_UNHALTED_REF,FIXC2,738584
+L2_LINES_IN_ALL,PMC0,2216
+L2_TRANS_L2_WB,PMC1,624
+TABLE,Region MatMatRow,Group 1 Metric,L3,10
+Metric,HWThread 1,
+Runtime (RDTSC) [s],0.0003,
+Runtime unhalted [s],0.0003,
+Clock [MHz],3489.6680,
+CPI,0.4159,
+L3 load bandwidth [MBytes/s],549.3905,
+L3 load data volume [GBytes],0.0001,
+L3 evict bandwidth [MBytes/s],154.7020,
+L3 evict data volume [GBytes],3.993600e-05,
+L3 bandwidth [MBytes/s],704.0925,
+L3 data volume [GBytes],0.0002,
