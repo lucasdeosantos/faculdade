@@ -9,7 +9,7 @@ LIKWID_HOME = /home/soft/likwid
 CC = gcc -Wall
 
 CFLAGS = -O3 -mavx2 -march=native -I$(LIKWID_HOME)/include -DLIKWID_PERFMON
-LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
+LFLAGS = -L$(LIKWID_HOME)/lib -llikwid 
 
 # Lista de arquivos para distribuição
 DISTFILES = *.c *.h *.sh *.py *.gp README.md Makefile perfctr 
