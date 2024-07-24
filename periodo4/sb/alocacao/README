@@ -1,0 +1,24 @@
+========================================================================
+Authored by: Lucas Emanuel de Oliveira Santos & Thiago Fabricio de Mello
+Contact: lucasde@ufpr.br & thiago.mello@ufpr.br
+Date: 23/07/2024
+========================================================================
+
+Tamanho da header:
+        Foi escolhido o tamanho de 9 bytes para a header, sendo 1 byte para
+    o Id de uso e 8 bytes para o tamanho do bloco. A escolha foi feita
+    pelo fato de quando houve a possibilidade de usar a header de 16 bytes
+    o programa já estava implementado.
+
+Função Merge:
+        O motivo da escolha em implementar o merge, deu-se pelo desejo de realizar
+    algo mais estruturado que evite o desperdício de memória pela fragmentação
+    da mesma.
+
+    Implentação:
+        Em relação à implementação da função de desfragmentação da memória,
+    foi utilizada a seguinte estratégia: durante a função de busca por um
+    bloco vazio, ao encontrar um bloco que está disponível, verifica-se o 
+    bloco posterior, e, se este estiver livre, realiza a junção dos blocos.
+    A verificação acaba ao encontrar o final da heap ou o bloco posterior
+    estiver ocupado.
