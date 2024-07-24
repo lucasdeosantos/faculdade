@@ -1,12 +1,12 @@
 # PROGRAMA
-        PROG = matmult
-        OBJS = $(PROG).o matriz.o
+PROG = matmult
+OBJS = $(PROG).o matriz.o
 
 # Compilador
-           CC = gcc -Wall
+CC = gcc -Wall
 
-       CFLAGS =  
-       LFLAGS = -lm
+CFLAGS =  
+LFLAGS = -lm
 
 # Lista de arquivos para distribuição
 DISTFILES = *.c *.h README.md Makefile perfctr
