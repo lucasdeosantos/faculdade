@@ -2,20 +2,20 @@
 #define __SISLIN_H__
 
 #define COEF_MAX 32.0 // Valor máximo usado para gerar valores aleatórios de
-		      // coeficientes nos sistemas lineares.
+// coeficientes nos sistemas lineares.
 
 // Tipo de alocação para matrizes
 typedef enum {
-  pontPont=0, // Matriz como vetor de N ponteiros para vetores de tamanho N
-  pontVet     // Matriz como vetor de N ponteiros para um único vetor de tamanho N*N
+    pontPont=0, // Matriz como vetor de N ponteiros para vetores de tamanho N
+    pontVet     // Matriz como vetor de N ponteiros para um único vetor de tamanho N*N
 } tipoAloc_t;
 
 // Estrutura para definiçao de um sistema linear qualquer
 typedef struct {
-  real_t **A; // coeficientes
-  real_t *b; // termos independentes
-  unsigned int n; // tamanho do SL
-  tipoAloc_t tipoAloc_A; // tipo de alocação usada na matriz de coeficientes
+    real_t **A; // coeficientes
+    real_t *b; // termos independentes
+    unsigned int n; // tamanho do SL
+    tipoAloc_t tipoAloc_A; // tipo de alocação usada na matriz de coeficientes
 } SistLinear_t;
 
 // Tipos de matrizes de coeficientes usados pela função 'inicializaSistLinear()'
