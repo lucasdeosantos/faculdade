@@ -4,7 +4,8 @@ maioridadeGuardas idade
     | otherwise = False
 
 maioridadeIfElse :: Int -> Bool
-maioridadeIfElse idade = if idade >= 18
+maioridadeIfElse idade =
+    if idade >= 18
     then True
     else False
 
