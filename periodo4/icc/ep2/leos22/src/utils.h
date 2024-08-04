@@ -34,4 +34,3 @@ rtime_t timestamp(void);
 string_t markerName(string_t baseName, int n);
 
 #endif // __UTILS_H__
-

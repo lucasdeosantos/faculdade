@@ -47,8 +47,6 @@ int main (int argc, char *argv[])
 
     srandom(20232);
 
-    printf("%d,", n);
-
     res = geraVetor (n, 0); // (real_t *) malloc (n*sizeof(real_t));
     resMat = geraMatRow(n, n, 1);
 

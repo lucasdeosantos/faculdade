@@ -9,6 +9,7 @@ LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
 
 DISTFILES = Makefile gendata.sh genplot.py plot.gp myplot.gp README
 DISTDIR = `basename ${PWD}`
+
 RESTDIR = ./Resultados
 
 SRCDIR = ./src

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h> // Para uso de função 'memset()'
-
 #include "matriz.h"
+#include "utils.h"
 
 /**
  * Função que gera valores para para ser usado em uma matriz
@@ -110,15 +110,49 @@ void liberaVetor (void *vet)
 
 void multMatVet (MatRow mat, Vetor v, int m, int n, Vetor res)
 {
-
     /* Efetua a multiplicação */
     if (res) {
         for (int i=0; i < m; ++i)
             for (int j=0; j < n; ++j)
-                res[i] += mat[n*i + j] * v[j];
+                res[i] += mat[n*i+j] * v[j];
     }
 }
 
+void multMatVetUnrollJam (MatRow mat, Vetor v, int m, int n, Vetor res) {
+    if (res) {
+        for (int i=0; i < m-m%UF; i+=UF)
+            for(int j=0; j < n; ++j) {
+                res[i] += mat[n*i+j] * v[j];
+                res[i+1] += mat[n*i+j+1] * v[j+1];
+                res[i+2] += mat[n*i+j+2] * v[j+2];
+                res[i+3] += mat[n*i+j+3] * v[j+3];
+            }
+
+        for (int i=m-m%UF; i < m; ++i)
+            for(int j=0; j < n; ++j)
+                res[i] = mat[n*i+j] + v[j];
+    }
+}
+
+void multMatVetBlocking (MatRow mat, Vetor v, int m, int n, Vetor res) {
+    if (res) {
+        for(int ii=0; ii < m/BK; ++ii) {
+            int istart = ii*BK;
+            int iend = istart + BK;
+            for(int jj=0; jj < n/BK; ++jj) {
+                int jstart = jj*BK;
+                int jend = jstart + BK;
+                for (int i=istart; i < iend; i+=UF)
+                    for(int j=jstart; j < jend; ++j) {
+                        res[i] += mat[n*i+j] * v[j];
+                        res[i+1] += mat[n*i+j+1] * v[j+1];
+                        res[i+2] += mat[n*i+j+2] * v[j+2];
+                        res[i+3] += mat[n*i+j+3] * v[j+3];
+                    }
+            }
+        }
+    }
+}
 
 /**
  *  Funcao multMatMat: Efetua multiplicacao de duas matrizes 'n x n' 
@@ -132,7 +166,6 @@ void multMatVet (MatRow mat, Vetor v, int m, int n, Vetor res)
 
 void multMatMat (MatRow A, MatRow B, int n, MatRow C)
 {
-
     /* Efetua a multiplicação */
     for (int i=0; i < n; ++i)
         for (int j=0; j < n; ++j)
@@ -140,6 +173,50 @@ void multMatMat (MatRow A, MatRow B, int n, MatRow C)
                 C[i*n+j] += A[i*n+k] * B[k*n+j];
 }
 
+void multMatMatUnrollJam (MatRow A, MatRow B, int n, MatRow C) {
+    for (int i=0; i < n; ++i) {
+        for (int j=0; j < n-n%UF; j+=UF) {
+            C[i*n+j] = C[i*n+j+1] = C[i*n+j+2] = C[i*n+j+3] = 0.0;
+            for (int k=0; k < n; ++k) {
+                C[i*n+j] += A[i*n+k] * B[k*n+j];
+                C[i*n+j+1] += A[i*n+k] * B[k*n+j+1];
+                C[i*n+j+2] += A[i*n+k] * B[k*n+j+2];
+                C[i*n+j+3] += A[i*n+k] * B[k*n+j+3];
+            }
+        }
+        for (int j=n-n%UF; j < n; j+=UF) {
+            C[i*n+j] = 0.0;
+            for (int k=0; k < n; ++k)
+                C[i*n+j] += A[i*n+j] * B[k*n+j];
+        }
+    }
+}
+
+void multMatMatBlocking (MatRow A, MatRow B, int n, MatRow C) {
+    for(int ii=0; ii < n/BK; ++ii) {
+        int istart = ii*BK;
+        int iend = istart + BK;
+        for(int jj=0; jj < n/BK; ++jj) {
+            int jstart = jj*BK;
+            int jend = jj*BK;
+            for(int kk=0; kk < n/BK; ++kk) {
+                int kstart = kk*BK;
+                int kend = kk*BK;
+                for (int i=istart; i < iend; ++i) {
+                    for (int j=jstart; j < jend; j+=UF) {
+                        C[i*n+j] = C[i*n+j+1] = C[i*n+j+2] = C[i*n+j+3] = 0.0;
+                        for (int k=kstart; k < kend; ++k) {
+                            C[i*n+j] += A[i*n+k] * B[k*n+j];
+                            C[i*n+j+1] += A[i*n+k] * B[k*n+j+1];
+                            C[i*n+j+2] += A[i*n+k] * B[k*n+j+2];
+                            C[i*n+j+3] += A[i*n+k] * B[k*n+j+3];
+                        }
+                    }
+                }   
+            }
+        }
+    }
+}
 
 /**
  *  Funcao prnMat:  Imprime o conteudo de uma matriz em stdout
