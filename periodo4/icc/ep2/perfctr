@@ -8,17 +8,17 @@
 #
 #         perfctr 3 FLOPS_DP ./matmult 64
 #
+CPU=3
+LIKWID_CMD="likwid-perfctr -C ${CPU} -g $1 -m"
+shift 1
 
-LIKWID_CMD="likwid-perfctr -C $1 -g $2 -m"
-shift 2
-
-echo "performance" > /sys/devices/system/cpu/cpufreq/policy${1}/scaling_governor
+echo "performance" > /sys/devices/system/cpu/cpufreq/policy${CPU}/scaling_governor
 
 make purge matmult
 
 ${LIKWID_CMD} $*
 
-echo "powersave" > /sys/devices/system/cpu/cpufreq/policy${1}/scaling_governor
+echo "powersave" > /sys/devices/system/cpu/cpufreq/policy${CPU}/scaling_governor
 
 # Para obter topologia dos cpu's
 #      likwid-topology -c -g

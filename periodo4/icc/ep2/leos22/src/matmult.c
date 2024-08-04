@@ -6,6 +6,7 @@
 #include <likwid.h>
 
 #include "matriz.h"
+#include "utils.h"
 
 /**
  * Exibe mensagem de erro indicando forma de uso do programa e termina
@@ -33,6 +34,7 @@ int main (int argc, char *argv[])
 
     MatRow mRow_1, mRow_2, resMat;
     Vetor vet, res;
+    rtime_t time;
 
     /* =============== TRATAMENTO DE LINHA DE COMANDO =============== */
 
@@ -44,6 +46,8 @@ int main (int argc, char *argv[])
     /* ================ FIM DO TRATAMENTO DE LINHA DE COMANDO ========= */
 
     srandom(20232);
+
+    printf("%d,", n);
 
     res = geraVetor (n, 0); // (real_t *) malloc (n*sizeof(real_t));
     resMat = geraMatRow(n, n, 1);
@@ -73,11 +77,17 @@ int main (int argc, char *argv[])
     LIKWID_MARKER_INIT;
 
     LIKWID_MARKER_START("MULT_MAT_VET");
+    time = timestamp();
     multMatVet (mRow_1, vet, n, n, res);
+    time = timestamp() - time; 
+    printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_VET");
 
     LIKWID_MARKER_START("MULT_MAT_MAT");
+    time = timestamp();
     multMatMat (mRow_1, mRow_2, n, resMat);
+    time = timestamp() - time; 
+    printf("%.8lf\n", time);
     LIKWID_MARKER_STOP("MULT_MAT_MAT");
 
     LIKWID_MARKER_CLOSE;

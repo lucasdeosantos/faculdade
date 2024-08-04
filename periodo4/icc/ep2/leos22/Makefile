@@ -7,17 +7,17 @@ LIKWID_HOME = /home/soft/likwid
 CFLAGS = -O3 -mavx2 -march=native -I$(LIKWID_HOME)/include -DLIKWID_PERFMON
 LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
 
-DISTFILES = Makefile perfctr 
-# README
+DISTFILES = Makefile gendata.sh genplot.py plot.gp myplot.gp README
 DISTDIR = `basename ${PWD}`
+RESTDIR = ./Resultados
 
-SRCDIRS = ./src
-SOURCE = $(wildcard $(SRCDIRS)/*.c)
-OBJS = $(patsubst $(SRCDIRS)/%.c, $(SRCDIRS)/%.o, $(SOURCE))
+SRCDIR = ./src
+SOURCE = $(wildcard $(SRCDIR)/*.c)
+OBJS = $(patsubst $(SRCDIR)/%.c, $(SRCDIR)/%.o, $(SOURCE))
 
 .PHONY: all debug clean purge dist
 
-%.o: $(SRCDIRS)/%.c
+%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $<
 
 all: $(PROG)
@@ -36,6 +36,7 @@ purge:   clean
 	@echo "Faxina ...."
 	@rm -f  $(PROG) $(OBJS) a.out $(DISTDIR) $(DISTDIR).tar
 	@rm -f *.png marker.out
+	@rm -r $(RESTDIR)
 
 dist: purge
 	@echo "Gerando arquivo de distribuição ($(DISTDIR).tar) ..."
