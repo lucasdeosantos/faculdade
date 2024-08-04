@@ -22,13 +22,15 @@ set key left top
 set logscale y
 set ylabel  "Tempo (ms)"
 set title   "Tempo"
-set terminal qt 0 title "Tempos"
+set terminal pngcairo size 800,600
+set output 'Tempo.png'
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatMat" lc rgb "red" with linespoints
 #     '' using 1:4 title "MatVet-uj" lc rgb "magenta" with linespoints, \
 #     '' using 1:5 title "MatMat-b" lc rgb "cyan" with linespoints, \
 #     '' using 1:6 title "MatMat-uj" lc rgb "orange" with linespoints, \
 #     '' using 1:7 title "MatMat-b" lc rgb "black" with linespoints
+unset output
 
 
 #
@@ -39,13 +41,15 @@ set key right top
 unset logscale y
 set ylabel  "FLOPS DP [MFlops/s]"
 set title   "FLOPS DP"
-set terminal qt 1 title "FLOPS DP"
+set terminal pngcairo size 800,600
+set output 'FLOPS_DP.png'
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatMat" lc rgb "red" with linespoints
 #     '' using 1:4 title "MatVet-uj" lc rgb "magenta" with linespoints, \
 #     '' using 1:5 title "MatMat-b" lc rgb "cyan" with linespoints, \
 #     '' using 1:6 title "MatMat-uj" lc rgb "orange" with linespoints, \
 #     '' using 1:7 title "MatMat-b" lc rgb "black" with linespoints
+unset output
 
 
 #
@@ -56,13 +60,15 @@ set key left top
 unset logscale y
 set ylabel  "L3 [MBytes/s]"
 set title   "L3"
-set terminal qt 3 title "L3"
+set terminal pngcairo size 800,600
+set output 'L3.png'
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatMat" lc rgb "red" with linespoints
 #     '' using 1:4 title "MatVet-uj" lc rgb "magenta" with linespoints, \
 #     '' using 1:5 title "MatMat-b" lc rgb "cyan" with linespoints, \
 #     '' using 1:6 title "MatMat-uj" lc rgb "orange" with linespoints, \
 #     '' using 1:7 title "MatMat-b" lc rgb "black" with linespoints
+unset output
 
 
 #
@@ -73,13 +79,15 @@ set key right bottom
 unset logscale y
 set ylabel  "L2 miss ratio"
 set title   "L2 miss ratio"
-set terminal qt 4 title "L2 miss ratio"
+set terminal pngcairo size 800,600
+set output 'L2CACHE.png'
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatMat" lc rgb "red" with linespoints
 #     '' using 1:4 title "MatVet-uj" lc rgb "magenta" with linespoints, \
 #     '' using 1:5 title "MatMat-b" lc rgb "cyan" with linespoints, \
 #     '' using 1:6 title "MatMat-uj" lc rgb "orange" with linespoints, \
 #     '' using 1:7 title "MatMat-b" lc rgb "black" with linespoints
+unset output
 
 
 #
@@ -90,11 +98,12 @@ set key center top
 unset logscale y
 set ylabel  "Energia [J]"
 set title   "Energia"
-set terminal qt 2 title "Energia"
+set terminal pngcairo size 800,600
+set output 'ENERGY.png'
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatMat" lc rgb "red" with linespoints, \
 #     '' using 1:4 title "MatVet-uj" lc rgb "magenta" with linespoints, \
 #     '' using 1:5 title "MatMat-b" lc rgb "cyan" with linespoints, \
 #     '' using 1:6 title "MatMat-uj" lc rgb "orange" with linespoints, \
 #     '' using 1:7 title "MatMat-b" lc rgb "black" with linespoints
-pause -1
+unset output
