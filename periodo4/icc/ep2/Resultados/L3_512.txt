@@ -1,0 +1,156 @@
+STRUCT,Info,3
+CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
+CPU type:,Intel Xeon SandyBridge EN/EP processor,
+CPU clock:,2.593725021 GHz,
+TABLE,Region MULT_MAT_VET,Group 1 Raw,L3,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.000340,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,2110676
+CPU_CLK_UNHALTED_CORE,FIXC1,893159
+CPU_CLK_UNHALTED_REF,FIXC2,893100
+L2_LINES_IN_ALL,PMC0,34514
+L2_TRANS_L2_WB,PMC1,580
+TABLE,Region MULT_MAT_VET,Group 1 Metric,L3,10
+Metric,Core 3,
+Runtime (RDTSC) [s],0.0003,
+Runtime unhalted [s],0.0003,
+Clock [MHz],2593.8964,
+CPI,0.4232,
+L3 load bandwidth [MBytes/s],6489.7478,
+L3 load data volume [GBytes],0.0022,
+L3 evict bandwidth [MBytes/s],109.0588,
+L3 evict data volume [GBytes],3.712000e-05,
+L3 bandwidth [MBytes/s],6598.8066,
+L3 data volume [GBytes],0.0022,
+STRUCT,Info,3
+CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
+CPU type:,Intel Xeon SandyBridge EN/EP processor,
+CPU clock:,2.593725021 GHz,
+TABLE,Region MULT_MAT_VET_UF,Group 1 Raw,L3,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.000186,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,1188363
+CPU_CLK_UNHALTED_CORE,FIXC1,493728
+CPU_CLK_UNHALTED_REF,FIXC2,493792
+L2_LINES_IN_ALL,PMC0,34023
+L2_TRANS_L2_WB,PMC1,431
+TABLE,Region MULT_MAT_VET_UF,Group 1 Metric,L3,10
+Metric,Core 3,
+Runtime (RDTSC) [s],0.0002,
+Runtime unhalted [s],0.0002,
+Clock [MHz],2593.3889,
+CPI,0.4155,
+L3 load bandwidth [MBytes/s],11729.2441,
+L3 load data volume [GBytes],0.0022,
+L3 evict bandwidth [MBytes/s],148.5849,
+L3 evict data volume [GBytes],2.758400e-05,
+L3 bandwidth [MBytes/s],11877.8290,
+L3 data volume [GBytes],0.0022,
+STRUCT,Info,3
+CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
+CPU type:,Intel Xeon SandyBridge EN/EP processor,
+CPU clock:,2.593725021 GHz,
+TABLE,Region MULT_MAT_MAT,Group 1 Raw,L3,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.353501,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,1076900000
+CPU_CLK_UNHALTED_CORE,FIXC1,1152618000
+CPU_CLK_UNHALTED_REF,FIXC2,911445800
+L2_LINES_IN_ALL,PMC0,134745500
+L2_TRANS_L2_WB,PMC1,71281
+TABLE,Region MULT_MAT_MAT,Group 1 Metric,L3,10
+Metric,Core 3,
+Runtime (RDTSC) [s],0.3535,
+Runtime unhalted [s],0.4444,
+Clock [MHz],3280.0350,
+CPI,1.0703,
+L3 load bandwidth [MBytes/s],24395.1352,
+L3 load data volume [GBytes],8.6237,
+L3 evict bandwidth [MBytes/s],12.9051,
+L3 evict data volume [GBytes],0.0046,
+L3 bandwidth [MBytes/s],24408.0403,
+L3 data volume [GBytes],8.6283,
+STRUCT,Info,3
+CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
+CPU type:,Intel Xeon SandyBridge EN/EP processor,
+CPU clock:,2.593725021 GHz,
+TABLE,Region MULT_MAT_MAT_UF,Group 1 Raw,L3,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.177135,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,604652500
+CPU_CLK_UNHALTED_CORE,FIXC1,579524300
+CPU_CLK_UNHALTED_REF,FIXC2,456782900
+L2_LINES_IN_ALL,PMC0,44593490
+L2_TRANS_L2_WB,PMC1,4538
+TABLE,Region MULT_MAT_MAT_UF,Group 1 Metric,L3,10
+Metric,Core 3,
+Runtime (RDTSC) [s],0.1771,
+Runtime unhalted [s],0.2234,
+Clock [MHz],3290.6807,
+CPI,0.9584,
+L3 load bandwidth [MBytes/s],16111.8837,
+L3 load data volume [GBytes],2.8540,
+L3 evict bandwidth [MBytes/s],1.6396,
+L3 evict data volume [GBytes],0.0003,
+L3 bandwidth [MBytes/s],16113.5233,
+L3 data volume [GBytes],2.8543,
+STRUCT,Info,3
+CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
+CPU type:,Intel Xeon SandyBridge EN/EP processor,
+CPU clock:,2.593725021 GHz,
+TABLE,Region MULT_MAT_MAT_BK,Group 1 Raw,L3,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.306509,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,1516149000
+CPU_CLK_UNHALTED_CORE,FIXC1,1007832000
+CPU_CLK_UNHALTED_REF,FIXC2,794079200
+L2_LINES_IN_ALL,PMC0,6826447
+L2_TRANS_L2_WB,PMC1,592880
+TABLE,Region MULT_MAT_MAT_BK,Group 1 Metric,L3,10
+Metric,Core 3,
+Runtime (RDTSC) [s],0.3065,
+Runtime unhalted [s],0.3886,
+Clock [MHz],3291.9123,
+CPI,0.6647,
+L3 load bandwidth [MBytes/s],1425.3831,
+L3 load data volume [GBytes],0.4369,
+L3 evict bandwidth [MBytes/s],123.7952,
+L3 evict data volume [GBytes],0.0379,
+L3 bandwidth [MBytes/s],1549.1783,
+L3 data volume [GBytes],0.4748,
+STRUCT,Info,3
+CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
+CPU type:,Intel Xeon SandyBridge EN/EP processor,
+CPU clock:,2.593725021 GHz,
+TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Raw,L3,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.123295,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,670504800
+CPU_CLK_UNHALTED_CORE,FIXC1,404475900
+CPU_CLK_UNHALTED_REF,FIXC2,318707200
+L2_LINES_IN_ALL,PMC0,5400672
+L2_TRANS_L2_WB,PMC1,534449
+TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Metric,L3,10
+Metric,Core 3,
+Runtime (RDTSC) [s],0.1233,
+Runtime unhalted [s],0.1559,
+Clock [MHz],3291.7338,
+CPI,0.6032,
+L3 load bandwidth [MBytes/s],2803.3754,
+L3 load data volume [GBytes],0.3456,
+L3 evict bandwidth [MBytes/s],277.4212,
+L3 evict data volume [GBytes],0.0342,
+L3 bandwidth [MBytes/s],3080.7966,
+L3 data volume [GBytes],0.3798,
