@@ -26,8 +26,8 @@ set terminal qt 0 title "Tempos"
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatVet-uj" lc rgb "red" with linespoints, \
      '' using 1:4 title "MatMat" lc rgb "magenta" with linespoints, \
-     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints
-     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints, \
+     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints, \
+     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints
 #     '' using 1:7 title "MatMat-ujb" lc rgb "black" with linespoints
 
 
@@ -43,10 +43,9 @@ set terminal qt 1 title "FLOPS DP"
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatVet-uj" lc rgb "red" with linespoints, \
      '' using 1:4 title "MatMat" lc rgb "magenta" with linespoints, \
-     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints
-     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints, \
+     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints, \
+     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints
 #     '' using 1:7 title "MatMat-ujb" lc rgb "black" with linespoints
-
 
 
 #
@@ -61,10 +60,9 @@ set terminal qt 3 title "L3"
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatVet-uj" lc rgb "red" with linespoints, \
      '' using 1:4 title "MatMat" lc rgb "magenta" with linespoints, \
-     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints
-     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints, \
+     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints, \
+     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints
 #     '' using 1:7 title "MatMat-ujb" lc rgb "black" with linespoints
-
 
 
 #
@@ -79,10 +77,9 @@ set terminal qt 4 title "L2 miss ratio"
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatVet-uj" lc rgb "red" with linespoints, \
      '' using 1:4 title "MatMat" lc rgb "magenta" with linespoints, \
-     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints
-     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints, \
+     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints, \
+     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints
 #     '' using 1:7 title "MatMat-ujb" lc rgb "black" with linespoints
-
 
 
 #
@@ -97,7 +94,7 @@ set terminal qt 2 title "Energia"
 plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
      '' using 1:3 title "MatVet-uj" lc rgb "red" with linespoints, \
      '' using 1:4 title "MatMat" lc rgb "magenta" with linespoints, \
-     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints
-     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints, \
+     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints, \
+     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints
 #     '' using 1:7 title "MatMat-ujb" lc rgb "black" with linespoints
 pause -1
