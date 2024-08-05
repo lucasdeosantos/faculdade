@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
-
 #include "utils.h"
+
 
 /*  Retorna tempo em milisegundos desde EPOCH
 
@@ -13,13 +12,13 @@
     <trecho de programa do qual se deseja medir tempo>
     tempo = timestamp() - tempo;
 */
-
 rtime_t timestamp (void)
 {
     struct timespec tp;
     clock_gettime(CLOCK_MONOTONIC_RAW, &tp);
     return ( (rtime_t) tp.tv_sec*1.0e3 + (rtime_t) tp.tv_nsec*1.0e-6 );
 }
+
 
 /* Gera string '<baseName>_n'
  * Por exemplo, se baseName = "ABC" e n = 10,
@@ -37,6 +36,7 @@ string_t markerName(string_t baseName, int n)
     return mark;
 
 }
+
 
 /*
 // Retorna TRUE se 'n' é uma potência de 2

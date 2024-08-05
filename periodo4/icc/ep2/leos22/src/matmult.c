@@ -2,23 +2,20 @@
 #include <stdlib.h>    /* exit, malloc, calloc, etc. */
 #include <string.h>
 #include <getopt.h>    /* getopt */
-#include <time.h>
 #include <likwid.h>
-
 #include "matriz.h"
 #include "utils.h"
+
 
 /**
  * Exibe mensagem de erro indicando forma de uso do programa e termina
  * o programa.
  */
-
 static void usage(char *progname)
 {
     fprintf(stderr, "Forma de uso: %s [ <ordem> ] \n", progname);
     exit(1);
 }
-
 
 
 /**
@@ -27,7 +24,6 @@ static void usage(char *progname)
  * -n <ordem>: ordem da matriz quadrada e dos vetores
  *
  */
-
 int main (int argc, char *argv[]) 
 {
     int n=DEF_SIZE;
@@ -82,10 +78,6 @@ int main (int argc, char *argv[])
     time = timestamp() - time; 
     printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_VET");
-
-//    printf("=====================================================================================\n");
-//    prnVetor(res, n);
-//    printf("=====================================================================================\n");
     
     LIKWID_MARKER_START("MULT_MAT_VET_UF");
     time = timestamp();
@@ -94,10 +86,6 @@ int main (int argc, char *argv[])
     printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_VET_UF");
 
-//    printf("=====================================================================================\n");
-//    prnVetor(res, n);
-//    printf("=====================================================================================\n");
-
 
     LIKWID_MARKER_START("MULT_MAT_MAT");
     time = timestamp();
@@ -105,10 +93,6 @@ int main (int argc, char *argv[])
     time = timestamp() - time; 
     printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_MAT");
-
-//    printf("=====================================================================================\n");
-//    prnMat(resMat, n, n);
-//    printf("=====================================================================================\n");
     
     LIKWID_MARKER_START("MULT_MAT_MAT_UF");
     time = timestamp();
@@ -117,29 +101,23 @@ int main (int argc, char *argv[])
     printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_MAT_UF");
 
-//    printf("=====================================================================================\n");
-//    prnMat(resMat, n, n);
-//    printf("=====================================================================================\n");
     memset(resMat, 0, n * n * sizeof(real_t));
 
     LIKWID_MARKER_START("MULT_MAT_MAT_BK");
     time = timestamp();
     multMatMatBlocking (mRow_1, mRow_2, n, resMat);
     time = timestamp() - time; 
-    printf("%.8lf\n", time);
+    printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_MAT_BK");
 
-//    printf("=====================================================================================\n");
-//    prnMat(resMat, n, n);
-//    printf("=====================================================================================\n");
+    memset(resMat, 0, n * n * sizeof(real_t));
 
-//    LIKWID_MARKER_START("MULT_MAT_MAT_UF_BK");
-//    time = timestamp();
-//    multMatMatUnrollJamBlocking (mRow_1, mRow_2, n, resMat);
-//    time = timestamp() - time; 
-//    printf("%.8lf\n", time);
-//    LIKWID_MARKER_STOP("MULT_MAT_MAT_UF_BK");
-
+    LIKWID_MARKER_START("MULT_MAT_MAT_UF_BK");
+    time = timestamp();
+    multMatMatUnrollJamBlocking (mRow_1, mRow_2, n, resMat);
+    time = timestamp() - time; 
+    printf("%.8lf\n", time);
+    LIKWID_MARKER_STOP("MULT_MAT_MAT_UF_BK");
 
     LIKWID_MARKER_CLOSE;
 

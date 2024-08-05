@@ -5,7 +5,7 @@ CC = gcc -Wall
 LIKWID_HOME = /home/soft/likwid
 
 CFLAGS = -O3 -mavx2 -march=native -I$(LIKWID_HOME)/include -DLIKWID_PERFMON
-LFLAGS = -L$(LIKWID_HOME)/lib -llikwid -lm
+LFLAGS = -L$(LIKWID_HOME)/lib -llikwid
 
 DISTFILES = Makefile gendata.sh genplot.py plot.gp README
 DISTDIR = `basename ${PWD}`
