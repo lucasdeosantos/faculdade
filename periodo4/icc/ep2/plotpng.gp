@@ -53,6 +53,25 @@ unset output
 
 
 #
+# FLOPS_AVX
+#
+ARQ=ARG1."./Resultados/FLOPS_AVX.csv"
+set key right top
+unset logscale y
+set ylabel  "FLOPS AVX [MFlops/s]"
+set title   "FLOPS AVX"
+set terminal pngcairo size 800,600
+set output 'FLOPS_AVX.png'
+plot ARQ using 1:2 title "MatVet" lc rgb "green" with linespoints, \
+     '' using 1:3 title "MatVet-uj" lc rgb "red" with linespoints, \
+     '' using 1:4 title "MatMat" lc rgb "magenta" with linespoints, \
+     '' using 1:5 title "MatMat-uj" lc rgb "cyan" with linespoints, \
+     '' using 1:6 title "MatMat-b" lc rgb "orange" with linespoints
+#     '' using 1:7 title "MatMat-ujb" lc rgb "black" with linespoints
+unset output
+
+
+#
 # L3
 #
 ARQ=ARG1."./Resultados/L3.csv"
