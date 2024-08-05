@@ -5,7 +5,7 @@ set style function line
 set style line 1 lc 3 pt 7 ps 0.3
 set boxwidth 1
 set xtics
-set xrange [64:512]
+set xrange [64:2048]
 set xlabel  "N (bytes)"
 
 set logscale x
