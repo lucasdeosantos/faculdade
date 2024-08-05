@@ -1,4 +1,4 @@
-==========================================================================
+===========================================================================
 Autor: Lucas Emanuel de Oliveira Santos
 Contato: lucasde@ufpr.br
 GRR: 20224379
@@ -21,7 +21,7 @@ OBS: o script genplot.py é utilizado internamente em gendata.sh
 
 -------------------------------- Otimização --------------------------------
 
-    A máquina usada para teste foi a @zara.
+    A máquina usada para testes foi a @zara.
 
     Após a execução de diversos testes, ficou evidente que o melhor fator de
 unroll UF é igual a 8 e que o melhor fator de blocking BK é igual a 32.
@@ -37,4 +37,4 @@ Para multMatMat() foram feitas as seguintes otimização:
     Além disso foram usadas as flags "-O3 -mavx2 -march=native" na compilação 
 para o próprio compilador fazer vetorização(SIMD/AVX).
 
------------------------------------------------------------------------------    
+-----------------------------------------------------------------------------   

@@ -37,7 +37,7 @@ purge:   clean
 	@echo "Faxina ...."
 	@rm -f  $(PROG) $(OBJS) a.out $(DISTDIR) $(DISTDIR).tar
 	@rm -f *.png marker.out
-	@test -d $(RESTDIR) && rm -r $(RESTDIR) || true
+	@test -d $(RESTDIR) && rm -rf $(RESTDIR) || true
 
 dist: purge
 	@echo "Gerando arquivo de distribuição ($(DISTDIR).tar) ..."
