@@ -11,7 +11,7 @@ mkdir -p ${DATA_DIR}
 echo "performance" > /sys/devices/system/cpu/cpufreq/policy${CPU}/scaling_governor
 
 METRICA="FLOPS_DP L2CACHE L3 ENERGY"
-TEMPOS="${DATA_DIR}/Tempos.csv"
+TEMPOS="${DATA_DIR}/TEMPOS.csv"
 TAMANHOS="64 100 128 200 256 512 600 900 1024 2000 2048 3000 4000 5000 6000 10000"
 
 FLOPS_AVX_LOG="${DATA_DIR}/FLOPS_AVX.csv"

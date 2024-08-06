@@ -17,7 +17,7 @@ set datafile separator comma
 #
 # TEMPO
 #
-ARQ=ARG1."./Resultados/Tempos.csv"
+ARQ=ARG1."./Resultados/TEMPOS.csv"
 set key left top
 set logscale y
 set ylabel  "Tempo (ms)"
