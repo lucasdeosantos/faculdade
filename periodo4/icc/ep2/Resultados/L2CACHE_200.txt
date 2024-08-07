@@ -1,0 +1,138 @@
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407967561 GHz,
+TABLE,Region MULT_MAT_VET,Group 1 Raw,L2CACHE,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.000047,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,289814
+CPU_CLK_UNHALTED_CORE,FIXC1,184905
+CPU_CLK_UNHALTED_REF,FIXC2,166424
+L2_TRANS_ALL_REQUESTS,PMC0,27120
+L2_RQSTS_MISS,PMC1,8385
+TABLE,Region MULT_MAT_VET,Group 1 Metric,L2CACHE,7
+Metric,Core 3,
+Runtime (RDTSC) [s],4.721976e-05,
+Runtime unhalted [s],0.0001,
+Clock [MHz],3786.4145,
+CPI,0.6380,
+L2 request rate,0.0936,
+L2 miss rate,0.0289,
+L2 miss ratio,0.3092,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407967561 GHz,
+TABLE,Region MULT_MAT_VET_UF,Group 1 Raw,L2CACHE,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.000023,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,186701
+CPU_CLK_UNHALTED_CORE,FIXC1,96024
+CPU_CLK_UNHALTED_REF,FIXC2,86478
+L2_TRANS_ALL_REQUESTS,PMC0,23293
+L2_RQSTS_MISS,PMC1,7503
+TABLE,Region MULT_MAT_VET_UF,Group 1 Metric,L2CACHE,7
+Metric,Core 3,
+Runtime (RDTSC) [s],2.294703e-05,
+Runtime unhalted [s],2.817632e-05,
+Clock [MHz],3784.1610,
+CPI,0.5143,
+L2 request rate,0.1248,
+L2 miss rate,0.0402,
+L2 miss ratio,0.3221,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407967561 GHz,
+TABLE,Region MULT_MAT_MAT,Group 1 Raw,L2CACHE,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.008198,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,56487880
+CPU_CLK_UNHALTED_CORE,FIXC1,30305970
+CPU_CLK_UNHALTED_REF,FIXC2,27250370
+L2_TRANS_ALL_REQUESTS,PMC0,2530299
+L2_RQSTS_MISS,PMC1,1030267
+TABLE,Region MULT_MAT_MAT,Group 1 Metric,L2CACHE,7
+Metric,Core 3,
+Runtime (RDTSC) [s],0.0082,
+Runtime unhalted [s],0.0089,
+Clock [MHz],3790.1050,
+CPI,0.5365,
+L2 request rate,0.0448,
+L2 miss rate,0.0182,
+L2 miss ratio,0.4072,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407967561 GHz,
+TABLE,Region MULT_MAT_MAT_UF,Group 1 Raw,L2CACHE,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.005200,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,36059390
+CPU_CLK_UNHALTED_CORE,FIXC1,19317450
+CPU_CLK_UNHALTED_REF,FIXC2,17365040
+L2_TRANS_ALL_REQUESTS,PMC0,4569592
+L2_RQSTS_MISS,PMC1,1080453
+TABLE,Region MULT_MAT_MAT_UF,Group 1 Metric,L2CACHE,7
+Metric,Core 3,
+Runtime (RDTSC) [s],0.0052,
+Runtime unhalted [s],0.0057,
+Clock [MHz],3791.1368,
+CPI,0.5357,
+L2 request rate,0.1267,
+L2 miss rate,0.0300,
+L2 miss ratio,0.2364,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407967561 GHz,
+TABLE,Region MULT_MAT_MAT_BK,Group 1 Raw,L2CACHE,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.006060,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,82754370
+CPU_CLK_UNHALTED_CORE,FIXC1,22750650
+CPU_CLK_UNHALTED_REF,FIXC2,20455380
+L2_TRANS_ALL_REQUESTS,PMC0,354947
+L2_RQSTS_MISS,PMC1,85494
+TABLE,Region MULT_MAT_MAT_BK,Group 1 Metric,L2CACHE,7
+Metric,Core 3,
+Runtime (RDTSC) [s],0.0061,
+Runtime unhalted [s],0.0067,
+Clock [MHz],3790.3709,
+CPI,0.2749,
+L2 request rate,0.0043,
+L2 miss rate,0.0010,
+L2 miss ratio,0.2409,
+STRUCT,Info,3
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407967561 GHz,
+TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Raw,L2CACHE,5
+Region Info,Core 3,
+RDTSC Runtime [s],0.004247,
+call count,1,
+Event,Counter,Core 3
+INSTR_RETIRED_ANY,FIXC0,40109110
+CPU_CLK_UNHALTED_CORE,FIXC1,15796870
+CPU_CLK_UNHALTED_REF,FIXC2,14200140
+L2_TRANS_ALL_REQUESTS,PMC0,399215
+L2_RQSTS_MISS,PMC1,91355
+TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Metric,L2CACHE,7
+Metric,Core 3,
+Runtime (RDTSC) [s],0.0042,
+Runtime unhalted [s],0.0046,
+Clock [MHz],3791.1753,
+CPI,0.3938,
+L2 request rate,0.0100,
+L2 miss rate,0.0023,
+L2 miss ratio,0.2288,
