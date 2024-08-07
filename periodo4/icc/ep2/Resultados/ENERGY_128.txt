@@ -1,174 +1,192 @@
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593753993 GHz,
-TABLE,Region MULT_MAT_VET,Group 1 Raw,ENERGY,7
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.408016824 GHz,
+TABLE,Region MULT_MAT_VET,Group 1 Raw,ENERGY,8
 Region Info,Core 3,
-RDTSC Runtime [s],0.000023,
+RDTSC Runtime [s],0.000021,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,140953
-CPU_CLK_UNHALTED_CORE,FIXC1,88948
-CPU_CLK_UNHALTED_REF,FIXC2,70148
-TEMP_CORE,TMP0,200
+INSTR_RETIRED_ANY,FIXC0,124676
+CPU_CLK_UNHALTED_CORE,FIXC1,92372
+CPU_CLK_UNHALTED_REF,FIXC2,83070
+TEMP_CORE,TMP0,203
 PWR_PKG_ENERGY,PWR0,0
-PWR_PP0_ENERGY,PWR1,0
+PWR_PP0_ENERGY,PWR1,0.0015
+PWR_PP1_ENERGY,PWR2,0
 PWR_DRAM_ENERGY,PWR3,0
-TABLE,Region MULT_MAT_VET,Group 1 Metric,ENERGY,11
+TABLE,Region MULT_MAT_VET,Group 1 Metric,ENERGY,13
 Metric,Core 3,
-Runtime (RDTSC) [s],2.292521e-05,
-Runtime unhalted [s],3.429315e-05,
-Clock [MHz],3288.8925,
-CPI,0.6310,
-Temperature [C],200,
+Runtime (RDTSC) [s],2.091599e-05,
+Runtime unhalted [s],2.710433e-05,
+Clock [MHz],3789.6392,
+CPI,0.7409,
+Temperature [C],203,
 Energy [J],0,
 Power [W],0,
-Energy PP0 [J],0,
-Power PP0 [W],0,
+Energy PP0 [J],0.0015,
+Power PP0 [W],72.9528,
+Energy PP1 [J],0,
+Power PP1 [W],0,
 Energy DRAM [J],0,
 Power DRAM [W],0,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593753993 GHz,
-TABLE,Region MULT_MAT_VET_UF,Group 1 Raw,ENERGY,7
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.408016824 GHz,
+TABLE,Region MULT_MAT_VET_UF,Group 1 Raw,ENERGY,8
 Region Info,Core 3,
-RDTSC Runtime [s],0.000011,
+RDTSC Runtime [s],0.000010,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,80665
-CPU_CLK_UNHALTED_CORE,FIXC1,48666
-CPU_CLK_UNHALTED_REF,FIXC2,38402
-TEMP_CORE,TMP0,200
+INSTR_RETIRED_ANY,FIXC0,80580
+CPU_CLK_UNHALTED_CORE,FIXC1,47028
+CPU_CLK_UNHALTED_REF,FIXC2,42600
+TEMP_CORE,TMP0,203
 PWR_PKG_ENERGY,PWR0,0
-PWR_PP0_ENERGY,PWR1,0
+PWR_PP0_ENERGY,PWR1,0.0011
+PWR_PP1_ENERGY,PWR2,0
 PWR_DRAM_ENERGY,PWR3,0
-TABLE,Region MULT_MAT_VET_UF,Group 1 Metric,ENERGY,11
+TABLE,Region MULT_MAT_VET_UF,Group 1 Metric,ENERGY,13
 Metric,Core 3,
-Runtime (RDTSC) [s],1.120641e-05,
-Runtime unhalted [s],1.876277e-05,
-Clock [MHz],3287.0067,
-CPI,0.6033,
-Temperature [C],200,
+Runtime (RDTSC) [s],1.015371e-05,
+Runtime unhalted [s],1.379923e-05,
+Clock [MHz],3762.2586,
+CPI,0.5836,
+Temperature [C],203,
 Energy [J],0,
 Power [W],0,
-Energy PP0 [J],0,
-Power PP0 [W],0,
+Energy PP0 [J],0.0011,
+Power PP0 [W],108.2002,
+Energy PP1 [J],0,
+Power PP1 [W],0,
 Energy DRAM [J],0,
 Power DRAM [W],0,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593753993 GHz,
-TABLE,Region MULT_MAT_MAT,Group 1 Raw,ENERGY,7
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.408016824 GHz,
+TABLE,Region MULT_MAT_MAT,Group 1 Raw,ENERGY,8
 Region Info,Core 3,
-RDTSC Runtime [s],0.002457,
+RDTSC Runtime [s],0.002491,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,16980980
-CPU_CLK_UNHALTED_CORE,FIXC1,7916850
-CPU_CLK_UNHALTED_REF,FIXC2,6242756
-TEMP_CORE,TMP0,201
-PWR_PKG_ENERGY,PWR0,0.0858
-PWR_PP0_ENERGY,PWR1,0.0593
-PWR_DRAM_ENERGY,PWR3,0.0100
-TABLE,Region MULT_MAT_MAT,Group 1 Metric,ENERGY,11
+INSTR_RETIRED_ANY,FIXC0,14883930
+CPU_CLK_UNHALTED_CORE,FIXC1,9119186
+CPU_CLK_UNHALTED_REF,FIXC2,8201494
+TEMP_CORE,TMP0,206
+PWR_PKG_ENERGY,PWR0,0.0197
+PWR_PP0_ENERGY,PWR1,0.0245
+PWR_PP1_ENERGY,PWR2,0
+PWR_DRAM_ENERGY,PWR3,0.0010
+TABLE,Region MULT_MAT_MAT,Group 1 Metric,ENERGY,13
 Metric,Core 3,
 Runtime (RDTSC) [s],0.0025,
-Runtime unhalted [s],0.0031,
-Clock [MHz],3289.3103,
-CPI,0.4662,
-Temperature [C],201,
-Energy [J],0.0858,
-Power [W],34.9277,
-Energy PP0 [J],0.0593,
-Power PP0 [W],24.1320,
-Energy DRAM [J],0.0100,
-Power DRAM [W],4.0624,
+Runtime unhalted [s],0.0027,
+Clock [MHz],3789.3510,
+CPI,0.6127,
+Temperature [C],206,
+Energy [J],0.0197,
+Power [W],7.9154,
+Energy PP0 [J],0.0245,
+Power PP0 [W],9.8514,
+Energy PP1 [J],0,
+Power PP1 [W],0,
+Energy DRAM [J],0.0010,
+Power DRAM [W],0.4166,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593753993 GHz,
-TABLE,Region MULT_MAT_MAT_UF,Group 1 Raw,ENERGY,7
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.408016824 GHz,
+TABLE,Region MULT_MAT_MAT_UF,Group 1 Raw,ENERGY,8
 Region Info,Core 3,
-RDTSC Runtime [s],0.001560,
+RDTSC Runtime [s],0.001419,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,9486639
-CPU_CLK_UNHALTED_CORE,FIXC1,5074236
-CPU_CLK_UNHALTED_REF,FIXC2,4000750
-TEMP_CORE,TMP0,201
-PWR_PKG_ENERGY,PWR0,0.0850
-PWR_PP0_ENERGY,PWR1,0.0585
-PWR_DRAM_ENERGY,PWR3,0.0100
-TABLE,Region MULT_MAT_MAT_UF,Group 1 Metric,ENERGY,11
+INSTR_RETIRED_ANY,FIXC0,9466124
+CPU_CLK_UNHALTED_CORE,FIXC1,5389221
+CPU_CLK_UNHALTED_REF,FIXC2,4844330
+TEMP_CORE,TMP0,207
+PWR_PKG_ENERGY,PWR0,0.0192
+PWR_PP0_ENERGY,PWR1,0.0140
+PWR_PP1_ENERGY,PWR2,0
+PWR_DRAM_ENERGY,PWR3,0.0010
+TABLE,Region MULT_MAT_MAT_UF,Group 1 Metric,ENERGY,13
 Metric,Core 3,
-Runtime (RDTSC) [s],0.0016,
-Runtime unhalted [s],0.0020,
-Clock [MHz],3289.7132,
-CPI,0.5349,
-Temperature [C],201,
-Energy [J],0.0850,
-Power [W],54.4863,
-Energy PP0 [J],0.0585,
-Power PP0 [W],37.4979,
-Energy DRAM [J],0.0100,
-Power DRAM [W],6.4159,
+Runtime (RDTSC) [s],0.0014,
+Runtime unhalted [s],0.0016,
+Clock [MHz],3791.3511,
+CPI,0.5693,
+Temperature [C],207,
+Energy [J],0.0192,
+Power [W],13.5468,
+Energy PP0 [J],0.0140,
+Power PP0 [W],9.8483,
+Energy PP1 [J],0,
+Power PP1 [W],0,
+Energy DRAM [J],0.0010,
+Power DRAM [W],0.7311,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593753993 GHz,
-TABLE,Region MULT_MAT_MAT_BK,Group 1 Raw,ENERGY,7
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.408016824 GHz,
+TABLE,Region MULT_MAT_MAT_BK,Group 1 Raw,ENERGY,8
 Region Info,Core 3,
-RDTSC Runtime [s],0.002045,
+RDTSC Runtime [s],0.002014,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,23695050
-CPU_CLK_UNHALTED_CORE,FIXC1,6745616
-CPU_CLK_UNHALTED_REF,FIXC2,5314738
-TEMP_CORE,TMP0,201
-PWR_PKG_ENERGY,PWR0,0.0824
-PWR_PP0_ENERGY,PWR1,0.0830
-PWR_DRAM_ENERGY,PWR3,0.0100
-TABLE,Region MULT_MAT_MAT_BK,Group 1 Metric,ENERGY,11
+INSTR_RETIRED_ANY,FIXC0,21597990
+CPU_CLK_UNHALTED_CORE,FIXC1,7645421
+CPU_CLK_UNHALTED_REF,FIXC2,6872942
+TEMP_CORE,TMP0,209
+PWR_PKG_ENERGY,PWR0,0.0175
+PWR_PP0_ENERGY,PWR1,0.0178
+PWR_PP1_ENERGY,PWR2,0
+PWR_DRAM_ENERGY,PWR3,0.0010
+TABLE,Region MULT_MAT_MAT_BK,Group 1 Metric,ENERGY,13
 Metric,Core 3,
 Runtime (RDTSC) [s],0.0020,
-Runtime unhalted [s],0.0026,
-Clock [MHz],3292.0660,
-CPI,0.2847,
-Temperature [C],201,
-Energy [J],0.0824,
-Power [W],40.2628,
-Energy PP0 [J],0.0830,
-Power PP0 [W],40.5985,
-Energy DRAM [J],0.0100,
-Power DRAM [W],4.8790,
+Runtime unhalted [s],0.0022,
+Clock [MHz],3791.0582,
+CPI,0.3540,
+Temperature [C],209,
+Energy [J],0.0175,
+Power [W],8.6969,
+Energy PP0 [J],0.0178,
+Power PP0 [W],8.8181,
+Energy PP1 [J],0,
+Power PP1 [W],0,
+Energy DRAM [J],0.0010,
+Power DRAM [W],0.5151,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593753993 GHz,
-TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Raw,ENERGY,7
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.408016824 GHz,
+TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Raw,ENERGY,8
 Region Info,Core 3,
-RDTSC Runtime [s],0.001570,
+RDTSC Runtime [s],0.001200,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,10479810
-CPU_CLK_UNHALTED_CORE,FIXC1,4712123
-CPU_CLK_UNHALTED_REF,FIXC2,3738800
-TEMP_CORE,TMP0,201
-PWR_PKG_ENERGY,PWR0,0.0436
-PWR_PP0_ENERGY,PWR1,0.0299
-PWR_DRAM_ENERGY,PWR3,0.0050
-TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Metric,ENERGY,11
+INSTR_RETIRED_ANY,FIXC0,10479850
+CPU_CLK_UNHALTED_CORE,FIXC1,4557667
+CPU_CLK_UNHALTED_REF,FIXC2,4096700
+TEMP_CORE,TMP0,209
+PWR_PKG_ENERGY,PWR0,0.0086
+PWR_PP0_ENERGY,PWR1,0.0114
+PWR_PP1_ENERGY,PWR2,0
+PWR_DRAM_ENERGY,PWR3,0.0005
+TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Metric,ENERGY,13
 Metric,Core 3,
-Runtime (RDTSC) [s],0.0016,
-Runtime unhalted [s],0.0018,
-Clock [MHz],3268.9868,
-CPI,0.4496,
-Temperature [C],201,
-Energy [J],0.0436,
-Power [W],27.8037,
-Energy PP0 [J],0.0299,
-Power PP0 [W],19.0251,
-Energy DRAM [J],0.0050,
-Power DRAM [W],3.1790,
+Runtime (RDTSC) [s],0.0012,
+Runtime unhalted [s],0.0013,
+Clock [MHz],3791.4921,
+CPI,0.4349,
+Temperature [C],209,
+Energy [J],0.0086,
+Power [W],7.1726,
+Energy PP0 [J],0.0114,
+Power PP0 [W],9.5126,
+Energy PP1 [J],0,
+Power PP1 [W],0,
+Energy DRAM [J],0.0005,
+Power DRAM [W],0.4070,

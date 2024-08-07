@@ -1,138 +1,138 @@
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593700503 GHz,
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407999376 GHz,
 TABLE,Region MULT_MAT_VET,Group 1 Raw,L2CACHE,5
 Region Info,Core 3,
-RDTSC Runtime [s],0.000088,
+RDTSC Runtime [s],0.000074,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,534831
-CPU_CLK_UNHALTED_CORE,FIXC1,242033
-CPU_CLK_UNHALTED_REF,FIXC2,242060
-L2_TRANS_ALL_REQUESTS,PMC0,31947
-L2_RQSTS_MISS,PMC1,10175
+INSTR_RETIRED_ANY,FIXC0,469250
+CPU_CLK_UNHALTED_CORE,FIXC1,286870
+CPU_CLK_UNHALTED_REF,FIXC2,257872
+L2_TRANS_ALL_REQUESTS,PMC0,42544
+L2_RQSTS_MISS,PMC1,12929
 TABLE,Region MULT_MAT_VET,Group 1 Metric,L2CACHE,7
 Metric,Core 3,
 Runtime (RDTSC) [s],0.0001,
 Runtime unhalted [s],0.0001,
-Clock [MHz],2593.4112,
-CPI,0.4525,
-L2 request rate,0.0597,
-L2 miss rate,0.0190,
-L2 miss ratio,0.3185,
+Clock [MHz],3791.2328,
+CPI,0.6113,
+L2 request rate,0.0907,
+L2 miss rate,0.0276,
+L2 miss ratio,0.3039,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593700503 GHz,
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407999376 GHz,
 TABLE,Region MULT_MAT_VET_UF,Group 1 Raw,L2CACHE,5
 Region Info,Core 3,
-RDTSC Runtime [s],0.000047,
+RDTSC Runtime [s],0.000039,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,302267
-CPU_CLK_UNHALTED_CORE,FIXC1,135741
-CPU_CLK_UNHALTED_REF,FIXC2,135720
-L2_TRANS_ALL_REQUESTS,PMC0,29755
-L2_RQSTS_MISS,PMC1,9863
+INSTR_RETIRED_ANY,FIXC0,301883
+CPU_CLK_UNHALTED_CORE,FIXC1,157823
+CPU_CLK_UNHALTED_REF,FIXC2,141432
+L2_TRANS_ALL_REQUESTS,PMC0,34785
+L2_RQSTS_MISS,PMC1,10274
 TABLE,Region MULT_MAT_VET_UF,Group 1 Metric,L2CACHE,7
 Metric,Core 3,
-Runtime (RDTSC) [s],4.720296e-05,
-Runtime unhalted [s],0.0001,
-Clock [MHz],2594.1018,
-CPI,0.4491,
-L2 request rate,0.0984,
-L2 miss rate,0.0326,
-L2 miss ratio,0.3315,
+Runtime (RDTSC) [s],3.925875e-05,
+Runtime unhalted [s],4.630957e-05,
+Clock [MHz],3802.9632,
+CPI,0.5228,
+L2 request rate,0.1152,
+L2 miss rate,0.0340,
+L2 miss ratio,0.2954,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593700503 GHz,
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407999376 GHz,
 TABLE,Region MULT_MAT_MAT,Group 1 Raw,L2CACHE,5
 Region Info,Core 3,
-RDTSC Runtime [s],0.035320,
+RDTSC Runtime [s],0.029851,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,135013600
-CPU_CLK_UNHALTED_CORE,FIXC1,110146700
-CPU_CLK_UNHALTED_REF,FIXC2,90356060
-L2_TRANS_ALL_REQUESTS,PMC0,33978710
-L2_RQSTS_MISS,PMC1,16854940
+INSTR_RETIRED_ANY,FIXC0,118236300
+CPU_CLK_UNHALTED_CORE,FIXC1,111314300
+CPU_CLK_UNHALTED_REF,FIXC2,100076800
+L2_TRANS_ALL_REQUESTS,PMC0,64787510
+L2_RQSTS_MISS,PMC1,28901850
 TABLE,Region MULT_MAT_MAT,Group 1 Metric,L2CACHE,7
 Metric,Core 3,
-Runtime (RDTSC) [s],0.0353,
-Runtime unhalted [s],0.0425,
-Clock [MHz],3161.7974,
-CPI,0.8158,
-L2 request rate,0.2517,
-L2 miss rate,0.1248,
-L2 miss ratio,0.4960,
+Runtime (RDTSC) [s],0.0299,
+Runtime unhalted [s],0.0327,
+Clock [MHz],3790.6794,
+CPI,0.9415,
+L2 request rate,0.5479,
+L2 miss rate,0.2444,
+L2 miss ratio,0.4461,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593700503 GHz,
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407999376 GHz,
 TABLE,Region MULT_MAT_MAT_UF,Group 1 Raw,L2CACHE,5
 Region Info,Core 3,
-RDTSC Runtime [s],0.020116,
+RDTSC Runtime [s],0.017667,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,75673220
-CPU_CLK_UNHALTED_CORE,FIXC1,66036050
-CPU_CLK_UNHALTED_REF,FIXC2,52032060
-L2_TRANS_ALL_REQUESTS,PMC0,11240890
-L2_RQSTS_MISS,PMC1,5556494
+INSTR_RETIRED_ANY,FIXC0,75591090
+CPU_CLK_UNHALTED_CORE,FIXC1,66347510
+CPU_CLK_UNHALTED_REF,FIXC2,59652210
+L2_TRANS_ALL_REQUESTS,PMC0,31399510
+L2_RQSTS_MISS,PMC1,11875790
 TABLE,Region MULT_MAT_MAT_UF,Group 1 Metric,L2CACHE,7
 Metric,Core 3,
-Runtime (RDTSC) [s],0.0201,
-Runtime unhalted [s],0.0255,
-Clock [MHz],3291.7731,
-CPI,0.8726,
-L2 request rate,0.1485,
-L2 miss rate,0.0734,
-L2 miss ratio,0.4943,
+Runtime (RDTSC) [s],0.0177,
+Runtime unhalted [s],0.0195,
+Clock [MHz],3790.5096,
+CPI,0.8777,
+L2 request rate,0.4154,
+L2 miss rate,0.1571,
+L2 miss ratio,0.3782,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593700503 GHz,
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407999376 GHz,
 TABLE,Region MULT_MAT_MAT_BK,Group 1 Raw,L2CACHE,5
 Region Info,Core 3,
-RDTSC Runtime [s],0.028148,
+RDTSC Runtime [s],0.020279,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,189523100
-CPU_CLK_UNHALTED_CORE,FIXC1,92502730
-CPU_CLK_UNHALTED_REF,FIXC2,72884990
-L2_TRANS_ALL_REQUESTS,PMC0,26772820
-L2_RQSTS_MISS,PMC1,645378
+INSTR_RETIRED_ANY,FIXC0,172745700
+CPU_CLK_UNHALTED_CORE,FIXC1,76110410
+CPU_CLK_UNHALTED_REF,FIXC2,68437180
+L2_TRANS_ALL_REQUESTS,PMC0,38794860
+L2_RQSTS_MISS,PMC1,987429
 TABLE,Region MULT_MAT_MAT_BK,Group 1 Metric,L2CACHE,7
 Metric,Core 3,
-Runtime (RDTSC) [s],0.0281,
-Runtime unhalted [s],0.0357,
-Clock [MHz],3291.8215,
-CPI,0.4881,
-L2 request rate,0.1413,
-L2 miss rate,0.0034,
-L2 miss ratio,0.0241,
+Runtime (RDTSC) [s],0.0203,
+Runtime unhalted [s],0.0223,
+Clock [MHz],3790.1069,
+CPI,0.4406,
+L2 request rate,0.2246,
+L2 miss rate,0.0057,
+L2 miss ratio,0.0255,
 STRUCT,Info,3
-CPU name:,Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz,
-CPU type:,Intel Xeon SandyBridge EN/EP processor,
-CPU clock:,2.593700503 GHz,
+CPU name:,Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz,
+CPU type:,Intel Coffeelake processor,
+CPU clock:,3.407999376 GHz,
 TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Raw,L2CACHE,5
 Region Info,Core 3,
-RDTSC Runtime [s],0.014222,
+RDTSC Runtime [s],0.011876,
 call count,1,
 Event,Counter,Core 3
-INSTR_RETIRED_ANY,FIXC0,83811800
-CPU_CLK_UNHALTED_CORE,FIXC1,46659590
-CPU_CLK_UNHALTED_REF,FIXC2,36766160
-L2_TRANS_ALL_REQUESTS,PMC0,7973535
-L2_RQSTS_MISS,PMC1,460793
+INSTR_RETIRED_ANY,FIXC0,83811750
+CPU_CLK_UNHALTED_CORE,FIXC1,44701680
+CPU_CLK_UNHALTED_REF,FIXC2,40190260
+L2_TRANS_ALL_REQUESTS,PMC0,12626400
+L2_RQSTS_MISS,PMC1,596056
 TABLE,Region MULT_MAT_MAT_UF_BK,Group 1 Metric,L2CACHE,7
 Metric,Core 3,
-Runtime (RDTSC) [s],0.0142,
-Runtime unhalted [s],0.0180,
-Clock [MHz],3291.6411,
-CPI,0.5567,
-L2 request rate,0.0951,
-L2 miss rate,0.0055,
-L2 miss ratio,0.0578,
+Runtime (RDTSC) [s],0.0119,
+Runtime unhalted [s],0.0131,
+Clock [MHz],3790.5527,
+CPI,0.5334,
+L2 request rate,0.1507,
+L2 miss rate,0.0071,
+L2 miss ratio,0.0472,
