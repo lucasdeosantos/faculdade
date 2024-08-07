@@ -130,7 +130,7 @@ int main (int argc, char *argv[])
     LIKWID_MARKER_STOP("MULT_MAT_MAT");
 
     int BK[] = {16, 32, 48, 64, 128, 256};
-    for(int i = 0; i < 5; ++i) {
+    for(int i = 0; i < 6; ++i) {
         memset(resMat, 0, n * n * sizeof(real_t));
 
         char markerStart[50];
@@ -138,16 +138,19 @@ int main (int argc, char *argv[])
         
         snprintf(markerStart, sizeof(markerStart), "MULT_MAT_MAT_BK_%d", BK[i]);
         snprintf(markerStop, sizeof(markerStop), "MULT_MAT_MAT_BK_%d", BK[i]);
-
+        
         LIKWID_MARKER_START(markerStart);
         time = timestamp();
         multMatMatBlocking (mRow_1, mRow_2, n, resMat, BK[i]);
         time = timestamp() - time; 
-        printf("%.8lf,", time);
+
+        if (BK[i] == 256)
+            printf("%.8lf\n", time);
+        else
+            printf("%.8lf,", time);
+
         LIKWID_MARKER_STOP(markerStop);
     }
-
-    printf("\n");
 
     LIKWID_MARKER_CLOSE;
 
