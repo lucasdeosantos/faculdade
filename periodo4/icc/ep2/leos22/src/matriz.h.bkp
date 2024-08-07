@@ -6,6 +6,9 @@
 #define DEF_SIZE 128
 #define BASE 32
 
+#define UF 8
+#define BK 32
+
 #define ABS(num)  ((num) < 0.0 ? -(num) : (num))
 
 /* Tipos para matrizes e vetores */
@@ -23,15 +26,12 @@ Vetor geraVetor (int n, int zerar);
 void liberaVetor (void *vet);
 
 void multMatVet (MatRow mat, Vetor v, int m, int n, Vetor res);
-void multMatVetUnrollJam4 (MatRow mat, Vetor v, int m, int n, Vetor res);
-void multMatVetUnrollJam8 (MatRow mat, Vetor v, int m, int n, Vetor res);
-void multMatVetUnrollJam16 (MatRow mat, Vetor v, int m, int n, Vetor res);
-void multMatVetUnrollJam32 (MatRow mat, Vetor v, int m, int n, Vetor res);
-void multMatVetUnrollJam48 (MatRow mat, Vetor v, int m, int n, Vetor res);
-void multMatVetUnrollJam64 (MatRow mat, Vetor v, int m, int n, Vetor res);
+void multMatVetUnrollJam (MatRow mat, Vetor v, int m, int n, Vetor res);
 
 void multMatMat (MatRow A, MatRow B, int n, MatRow C);
-void multMatMatBlocking (MatRow A, MatRow B, int n, MatRow C, int BK);
+void multMatMatUnrollJam (MatRow A, MatRow B, int n, MatRow C);
+void multMatMatBlocking (MatRow A, MatRow B, int n, MatRow C);
+void multMatMatUnrollJamBlocking (MatRow A, MatRow B, int n, MatRow C);
 
 void prnMat (MatRow mat, int m, int n);
 void prnVetor (Vetor vet, int n);
