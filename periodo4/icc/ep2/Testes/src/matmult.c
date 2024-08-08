@@ -79,12 +79,47 @@ int main (int argc, char *argv[])
     printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_VET");
     
-    LIKWID_MARKER_START("MULT_MAT_VET_UF");
+    LIKWID_MARKER_START("MULT_MAT_VET_UF_4");
     time = timestamp();
-    multMatVetUnrollJam (mRow_1, vet, n, n, res);
+    multMatVetUnrollJam4 (mRow_1, vet, n, n, res);
     time = timestamp() - time; 
     printf("%.8lf,", time);
-    LIKWID_MARKER_STOP("MULT_MAT_VET_UF");
+    LIKWID_MARKER_STOP("MULT_MAT_VET_UF_4");
+
+    LIKWID_MARKER_START("MULT_MAT_VET_UF_8");
+    time = timestamp();
+    multMatVetUnrollJam8 (mRow_1, vet, n, n, res);
+    time = timestamp() - time; 
+    printf("%.8lf,", time);
+    LIKWID_MARKER_STOP("MULT_MAT_VET_UF_8");
+
+    LIKWID_MARKER_START("MULT_MAT_VET_UF_16");
+    time = timestamp();
+    multMatVetUnrollJam16 (mRow_1, vet, n, n, res);
+    time = timestamp() - time; 
+    printf("%.8lf,", time);
+    LIKWID_MARKER_STOP("MULT_MAT_VET_UF_16");
+
+    LIKWID_MARKER_START("MULT_MAT_VET_UF_32");
+    time = timestamp();
+    multMatVetUnrollJam32 (mRow_1, vet, n, n, res);
+    time = timestamp() - time; 
+    printf("%.8lf,", time);
+    LIKWID_MARKER_STOP("MULT_MAT_VET_UF_32");
+
+    LIKWID_MARKER_START("MULT_MAT_VET_UF_48");
+    time = timestamp();
+    multMatVetUnrollJam48 (mRow_1, vet, n, n, res);
+    time = timestamp() - time; 
+    printf("%.8lf,", time);
+    LIKWID_MARKER_STOP("MULT_MAT_VET_UF_48");
+
+    LIKWID_MARKER_START("MULT_MAT_VET_UF_64");
+    time = timestamp();
+    multMatVetUnrollJam64 (mRow_1, vet, n, n, res);
+    time = timestamp() - time; 
+    printf("%.8lf,", time);
+    LIKWID_MARKER_STOP("MULT_MAT_VET_UF_64");
 
 
     LIKWID_MARKER_START("MULT_MAT_MAT");
@@ -93,31 +128,29 @@ int main (int argc, char *argv[])
     time = timestamp() - time; 
     printf("%.8lf,", time);
     LIKWID_MARKER_STOP("MULT_MAT_MAT");
-    
-    LIKWID_MARKER_START("MULT_MAT_MAT_UF");
-    time = timestamp();
-    multMatMatUnrollJam (mRow_1, mRow_2, n, resMat);
-    time = timestamp() - time; 
-    printf("%.8lf,", time);
-    LIKWID_MARKER_STOP("MULT_MAT_MAT_UF");
 
-    memset(resMat, 0, n * n * sizeof(real_t));
+    int BK[] = {16, 32, 48, 64, 128, 256};
+    for(int i = 0; i < 6; ++i) {
+        memset(resMat, 0, n * n * sizeof(real_t));
 
-    LIKWID_MARKER_START("MULT_MAT_MAT_BK");
-    time = timestamp();
-    multMatMatBlocking (mRow_1, mRow_2, n, resMat);
-    time = timestamp() - time; 
-    printf("%.8lf,", time);
-    LIKWID_MARKER_STOP("MULT_MAT_MAT_BK");
+        char markerStart[50];
+        char markerStop[50];
+        
+        snprintf(markerStart, sizeof(markerStart), "MULT_MAT_MAT_BK_%d", BK[i]);
+        snprintf(markerStop, sizeof(markerStop), "MULT_MAT_MAT_BK_%d", BK[i]);
+        
+        LIKWID_MARKER_START(markerStart);
+        time = timestamp();
+        multMatMatBlocking (mRow_1, mRow_2, n, resMat, BK[i]);
+        time = timestamp() - time; 
 
-    memset(resMat, 0, n * n * sizeof(real_t));
+        if (BK[i] == 256)
+            printf("%.8lf\n", time);
+        else
+            printf("%.8lf,", time);
 
-    LIKWID_MARKER_START("MULT_MAT_MAT_UF_BK");
-    time = timestamp();
-    multMatMatUnrollJamBlocking (mRow_1, mRow_2, n, resMat);
-    time = timestamp() - time; 
-    printf("%.8lf\n", time);
-    LIKWID_MARKER_STOP("MULT_MAT_MAT_UF_BK");
+        LIKWID_MARKER_STOP(markerStop);
+    }
 
     LIKWID_MARKER_CLOSE;
 
