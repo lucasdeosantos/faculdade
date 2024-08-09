@@ -121,7 +121,7 @@ void multMatVetUnrollJam (MatRow mat, Vetor v, int m, int n, Vetor res) {
             res[i] = res[i+1] = res[i+2] = res[i+3] = 0.0;
             res[i+4] = res[i+5] = res[i+6] = res[i+7] = 0.0;
             for(int j = 0; j < n; ++j) {
-                res[i] += mat[n*i + j] * v[j];
+                res[i] += mat[n*i+j] * v[j];
                 res[i+1] += mat[n*(i+1)+j] * v[j];
                 res[i+2] += mat[n*(i+2)+j] * v[j];
                 res[i+3] += mat[n*(i+3)+j] * v[j];

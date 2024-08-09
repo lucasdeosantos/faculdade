@@ -1,13 +1,13 @@
-===========================================================================
+=================================================================================
 Autor: Lucas Emanuel de Oliveira Santos
 Contato: lucasde@ufpr.br
 GRR: 20224379
 Data: 04/08/2024
-===========================================================================
------------------------- Como utilizar os scripts: ------------------------ 
+=================================================================================
+--------------------------- Como utilizar os scripts: --------------------------- 
 
-1. Criar um diretório "Resultados" com os arquivos *.csv necessários para
-fazer os gráficos. Execute no seu terminal:
+1. Criar um diretório "Resultados" com os arquivos *.csv necessários para fazer 
+os gráficos. Execute no seu terminal:
 
 > chmod +x gendata.sh
 > ./gendata.sh
@@ -17,14 +17,11 @@ fazer os gráficos. Execute no seu terminal:
 > chmod +x plot.gp
 > ./plot.gp
 
-OBS: o script genplot.py é utilizado internamente em gendata.sh
+OBS: o script genplot.py é utilizado internamente em gendata.sh.
 
-------------------------------- Otimizações -------------------------------
+---------------------------------- Otimizações ----------------------------------
 
-    A máquina usada para testes foi a @zara.
-
-    Após a execução de diversos testes, ficou evidente que o melhor fator 
-de unroll UF é igual a 8 e que o melhor fator de blocking BK é igual a 32.
+para os fatores 8 e 16, que tiveram resultados similares.
 
 Para multMatVet() foi feita a seguinte otimização: 
     1. multMatVetUnrollJam()
@@ -34,7 +31,36 @@ Para multMatMat() foram feitas as seguintes otimização:
     2. multMatMatBlocking()
     3. multMatMatUnrollJamBlocking()
 
-    Além disso foram usadas as flags "-O3 -mavx2 -march=native" na 
-compilação para o próprio compilador fazer vetorização(SIMD/AVX).
+    A máquina usada para testes foi a @zara.
 
----------------------------------------------------------------------------  
+    Foram testados 6 diferentes fatores de Unroll, sendo eles: 4, 8, 16, 32, 
+48 e 64. Os testes apresentaram uma melhora significativa no tempo de execução
+para os fatores 4, 8, 16 e 32. O fator 48 apresentou um melhora pequena, e o
+fator 64 piorou o tempo de execução das funções.
+    Dos fatores que se destaram, os fatores 8 e 16 foram os que apresentaram o 
+melhor desempenho, obtendo resultados similares.
+    Sobre o uso da cache com L2 miss ratio e L3, os fatores maiores, como 32, 48 
+e 64, foram os que apresentaram os melhores resultados, mesmo assim, nenhum foi 
+melhor que o uso da função sem Unroll.
+    A quantidade de FLOPS DP aumentou em relação a função sem a utilização do 
+Unroll.
+    Como a única métrica que melhorou o desempenho em relação ao programa sem o
+uso do Unroll foi o tempo de execução, na versão final, o fator de Unroll usado 
+foi 8, pois esse se manteve mais estável ao longo dos testes, além de deixar o 
+código com uma visualização mais simples.
+
+    Para o fator de Blocking, foram testados 6 fatores diferentes, sendo eles:
+16, 32, 48, 64, 128 e 256. Desses, o fator 16 se destacou diante dos demais por
+apresentar o melhor tempo de execução, assim como melhorar significativamente o 
+acesso à L3, sendo o fator mais constante ao longo da execução dos testes(outros
+fatores como o 64 e 128 tiveram resultados melhores para n maiores, porém 
+apresentaram uma variação de picos muito grande).
+    O fator 16 não foi o que apresentou a melhor otimização no L2 miss ratio(
+esses foram 64 e 128), mas apresentou uma melhora significativa em relação à 
+função sem o Blocking.
+    Nenhum fator de Blocking melhorou a quantidade de FLOPS DP.
+    O fator de Blocking implementado na versão final foi 16, por ser o mais
+otimizado em relação ao tempo de execução e, ao mesmo tempo, melhorar o acesso à
+L3 e dimuir a quantidade de L2 miss ratio.
+
+---------------------------------------------------------------------------------  
