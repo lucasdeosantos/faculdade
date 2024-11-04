@@ -82,6 +82,7 @@ int compare(const void *a, const void *b) {
 int main(int argc, char *argv[]) {
     int nThreads, nTotalElements;
     long long *InputVec, *queries;
+    int *Pos;
     chronometer_t parallelBsearchTime;
 
     if(argc != 3) {
@@ -111,13 +112,13 @@ int main(int argc, char *argv[]) {
     // Aloca memória para os vetores
     InputVec = (long long *)malloc(nTotalElements * sizeof(long long));
     queries = (long long *)malloc(QUERY_SIZE * sizeof(long long));
+    Pos = (int *)malloc(QUERY_SIZE * sizeof(int));
 
-    if (!InputVec || !queries) {
+    if (!InputVec || !queries || !Pos) {
         return 1;
     }
 
-    srand(42);
-
+    srand(42);// The answer to life, the universe, and everything
     for (int i = 0; i < nTotalElements; i++) {
         InputVec[i] = rand() % (10 * nTotalElements);
     }
@@ -131,7 +132,7 @@ int main(int argc, char *argv[]) {
     chrono_start(&parallelBsearchTime);
 
     for (int i = 0; i < QUERY_SIZE; i++)
-        parallel_bsearch_lower_bound(InputVec, nTotalElements, queries[i], nThreads);
+        Pos[i] = parallel_bsearch_lower_bound(InputVec, nTotalElements, queries[i], nThreads);
 
     chrono_stop(&parallelBsearchTime);
     chrono_reportTime(&parallelBsearchTime, "parallelBsearchTime");
@@ -144,6 +145,7 @@ int main(int argc, char *argv[]) {
 
     free(InputVec);
     free(queries);
+    free(Pos);
 
     return 0;
 }

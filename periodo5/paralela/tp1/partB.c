@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    srand(42);
+    srand(42);// The answer to life, the universe, and everything
     for (int i = 0; i < nTotalElements; i++) {
         InputVec[i] = rand() % (10 * nTotalElements);
     }
