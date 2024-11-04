@@ -1,10 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <sys/syscall.h>
-#include <sys/time.h>
-#include <stdlib.h>
-#include <string.h>
 #include "chrono.h"
 
 #define MAX_THREADS 8
@@ -24,12 +21,17 @@ typedef struct {
 pthread_t parallelBsearch_Thread[MAX_THREADS];
 ThreadArgs threads[MAX_THREADS];
 pthread_barrier_t parallelBsearch_barrier;
+long long global_bsearch_operations = 0;
+pthread_mutex_t ops_mutex;
 
 int bsearch_lower_bound(long long *arr, int size, long long value) {
     int left = 0;
     int right = size;
     while (left < right) {
         int mid = left + (right - left) / 2;
+        pthread_mutex_lock(&ops_mutex);
+        global_bsearch_operations++;
+        pthread_mutex_unlock(&ops_mutex);
         if (arr[mid] < value)
             left = mid + 1;
         else
@@ -52,6 +54,7 @@ void *parallel_bsearch_worker(void *ptr) {
 
 void parallel_bsearch_lower_bound(long long *InputVec, int nTotalElements, long long *queries, int nQueries, int *Pos, int nThreads) {
     pthread_barrier_init(&parallelBsearch_barrier, NULL, nThreads);
+    pthread_mutex_init(&ops_mutex, NULL);
 
     for (int i = 0; i < nThreads; i++) {
         threads[i] = (ThreadArgs){InputVec, queries, Pos, nTotalElements, nQueries, i, nThreads};
@@ -62,6 +65,7 @@ void parallel_bsearch_lower_bound(long long *InputVec, int nTotalElements, long 
         pthread_join(parallelBsearch_Thread[i], NULL);
     }
     
+    pthread_mutex_destroy(&ops_mutex);
     pthread_barrier_destroy(&parallelBsearch_barrier);
 }
 
@@ -129,8 +133,8 @@ int main(int argc, char *argv[]) {
     double total_time_in_seconds = (double)chrono_gettotal(&parallelBsearchTime) / ((double)1000*1000*1000);
     printf("Total time: %lf seconds\n", total_time_in_seconds);
 
-    double OPS = ((double)QUERY_SIZE) / total_time_in_seconds;
-    printf("Throughput: %lf OP/s\n", OPS);
+    double operations_per_second = ((double)global_bsearch_operations) / total_time_in_seconds;
+    printf("Throughput: %lf OP/s\n", operations_per_second);
 
     free(InputVec);
     free(queries);
