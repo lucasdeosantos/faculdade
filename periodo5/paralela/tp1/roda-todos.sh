@@ -22,5 +22,5 @@ do
     done
 done
 
-echo "Limpando os arquivos de objeto..."
+echo "Limpando os arquivos objeto..."
 make clean
