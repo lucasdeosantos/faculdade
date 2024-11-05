@@ -1,5 +1,9 @@
 #!/bin/bash
-echo "USAGE: ./rodaTodos.sh <nElements>"
+
+if [ -z "$1" ]; then
+    echo "USAGE: ./roda-todos.sh <nElements>"
+    exit 1
+fi
 
 # Compila os arquivos se partA ou partB não existirem
 if [ ! -f ./partA ] || [ ! -f ./partB ]; then
