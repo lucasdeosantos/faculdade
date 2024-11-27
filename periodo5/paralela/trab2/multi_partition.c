@@ -4,14 +4,17 @@
 #include <limits.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 #include <stdatomic.h>
 #include "chrono.h"
+#include "verifica_particoes.h"
 
+#define INPUT_SIZE 8000000
 #define MAX_THREADS 8
 #define NTIMES 10
 
-#define INPUT_SIZE 16000000
-#define P_SIZE 1000
+pthread_t multiPartition_Threads[MAX_THREADS];
+pthread_barrier_t multiPartition_Barrier;
 
 typedef struct {
     long long *Input;
@@ -67,12 +70,12 @@ void* multi_partition_thread(void* args) {
         int index = atomic_fetch_add(&data->range_index[range], 1);
         data->Output[index] = data->Input[i];
     }
-
+    
+    pthread_barrier_wait(&multiPartition_Barrier);
     pthread_exit(NULL);
 }
 
 void multi_partition(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos, int nThreads) {
-    pthread_t threads[nThreads];
     ThreadData thread_data[nThreads];
 
     int range_count[np];
@@ -97,41 +100,30 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 
     int range_per_thread = n / nThreads;
 
+    pthread_barrier_init(&multiPartition_Barrier, NULL, nThreads);
+
     for (int i = 0; i < nThreads; i++) {
         int start = i * range_per_thread;
         int end = (i == nThreads - 1) ? n : (i + 1) * range_per_thread;
 
         thread_data[i] = (ThreadData){Input, n, P, np, Output, Pos, start, end, range_index};
-        pthread_create(&threads[i], NULL, multi_partition_thread, &thread_data[i]);
+        pthread_create(&multiPartition_Threads[i], NULL, multi_partition_thread, &thread_data[i]);
     }
 
     for (int t = 0; t < nThreads; t++) {
-        pthread_join(threads[t], NULL);
+        pthread_join(multiPartition_Threads[t], NULL);
     }
-}
-
-void verifica_particoes(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos) {
-    for (int i = 0; i < np; i++) {
-        int start = Pos[i];
-        int end = (i == np - 1) ? n : Pos[i + 1];
-
-        for (int j = start; j < end; j++) {
-            if ((i == 0 && Output[j] >= P[i]) ||
-                (i > 0 && (Output[j] < P[i - 1] || Output[j] >= P[i]))) {
-                printf("===> particionamento COM ERROS\n");
-                return;
-            }
-        }
-    }
-    printf("===> particionamento CORRETO\n");
+    
+    pthread_barrier_destroy(&multiPartition_Barrier);
 }
 
 int main(int argc, char *argv[]) {
-    int nThreads;
+    int nThreads, np;
+    char exp;
     chronometer_t multiPartitionTime;
 
-    if (argc != 2) {
-        printf("usage: %s <nThreads>\n", argv[0]);
+    if (argc != 3) {
+        printf("usage: %s <nThreads> <exp>\n", argv[0]);
         return 0;
     }
     else {
@@ -144,12 +136,22 @@ int main(int argc, char *argv[]) {
             printf("<nThreads> must be less than or equal to %d\n", MAX_THREADS);
             return 0;
         }
+        exp = toupper((unsigned char)argv[2][0]);
+        if (exp == 'A') {
+            np = 1000;
+        }
+        else if (exp == 'B') {
+            np = 100000;
+        }
+        else {
+            printf("<exp> must be A or B\n");
+            return 0;
+        }
     }
 
     srand(42); // The answer to life, the universe, and everything
 
     int n = INPUT_SIZE;
-    int np = P_SIZE;
 
     long long *Input = (long long *)malloc(n * sizeof(long long));
     long long *P = (long long *)malloc(np * sizeof(long long));
@@ -179,9 +181,6 @@ int main(int argc, char *argv[]) {
 
     double total_time_in_seconds = (double)chrono_gettotal(&multiPartitionTime) / ((double)1000*1000*1000);
     printf("total_time_in_seconds: %lf s\n", total_time_in_seconds);
-
-    double EPS = ((double)INPUT_SIZE * NTIMES) / total_time_in_seconds;
-    printf("Throughput: %lf EP/s\n", EPS);
 
     free(Input);
     free(P);

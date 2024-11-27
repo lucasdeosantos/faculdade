@@ -1,14 +1,14 @@
 CC = gcc
 CFLAGS = -Wall -O3
 
-SRC = chrono.c multi_partition.c
+SRC = multi_partition.c chrono.c verifica_particoes.c
 OBJ = $(SRC:.c=.o)
 
 EXEC = multi_partition
 
 all: $(EXEC)
 
-$(EXEC): multi_partition.o chrono.o
+$(EXEC): multi_partition.o chrono.o verifica_particoes.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c chrono.h
