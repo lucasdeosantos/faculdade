@@ -9,8 +9,7 @@
 #include "chrono.h"
 #include "verifica_particoes.h"
 
-#define CACHE_SIZE 8000000 // Cache com aproximadamente 8Mib
-#define INPUT_SIZE 8000000
+#define MAX_TOTAL_ELEMENTS 8000000
 #define MAX_THREADS 8
 #define NTIMES 10
 
@@ -23,6 +22,7 @@ typedef struct {
     unsigned int *Pos;
     int start;
     int end;
+    int *range_count;
     atomic_int *range_index;
 } ThreadData;
 
@@ -64,7 +64,19 @@ int binary_search(long long *P, int np, long long value) {
     return start;
 }
 
-void* multi_partition_thread(void* args) {
+void *calculate_range_count(void *args) {
+    ThreadData *data = (ThreadData*)args;
+
+    for (int i = data->start; i < data->end; i++) {
+        int range = binary_search(data->P, data->np, data->Input[i]);
+        __atomic_fetch_add(&data->range_count[range], 1, __ATOMIC_RELAXED);
+    }
+
+    pthread_barrier_wait(&multiPartition_Barrier);
+    pthread_exit(NULL);
+}
+
+void* calculate_output(void *args) {
     ThreadData *data = (ThreadData*)args;
 
     for (int i = data->start; i < data->end; i++) {
@@ -73,7 +85,7 @@ void* multi_partition_thread(void* args) {
         data->Output[index] = data->Input[i];
     }
 
-    pthread_barrier_wait(&multiPartition_Barrier);    
+    pthread_barrier_wait(&multiPartition_Barrier);
     pthread_exit(NULL);
 }
 
@@ -85,10 +97,17 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         range_count[i] = 0;
     }
 
-    for (int i = 0; i < n; i++) {
-        int range = binary_search(P, np, Input[i]);
-        range_count[range]++;
+    int range_per_thread = n / nThreads;
+
+    for (int i = 0; i < nThreads; i++) {
+        int start = i * range_per_thread;
+        int end = (i == nThreads - 1) ? n : (i + 1) * range_per_thread;
+
+        thread_data[i] = (ThreadData){Input, n, P, np, Output, Pos, start, end, range_count, NULL};
+        pthread_create(&multiPartition_Threads[i], NULL, calculate_range_count, &thread_data[i]);
     }
+
+    pthread_barrier_wait(&multiPartition_Barrier);
 
     Pos[0] = 0;
     for (int i = 1; i < np; i++) {
@@ -100,14 +119,12 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         atomic_init(&range_index[i], Pos[i]);
     }
 
-    int range_per_thread = n / nThreads;
-
     for (int i = 0; i < nThreads; i++) {
         int start = i * range_per_thread;
         int end = (i == nThreads - 1) ? n : (i + 1) * range_per_thread;
 
-        thread_data[i] = (ThreadData){Input, n, P, np, Output, Pos, start, end, range_index};
-        pthread_create(&multiPartition_Threads[i], NULL, multi_partition_thread, &thread_data[i]);
+        thread_data[i] = (ThreadData){Input, n, P, np, Output, Pos, start, end, NULL, range_index};
+        pthread_create(&multiPartition_Threads[i], NULL, calculate_output, &thread_data[i]);
     }
 
     pthread_barrier_wait(&multiPartition_Barrier);
@@ -115,7 +132,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 }
 
 int main(int argc, char *argv[]) {
-    int nThreads, np;
+    int nThreads, np, n = MAX_TOTAL_ELEMENTS;
     char exp;
     chronometer_t multiPartitionTime;
 
@@ -148,8 +165,6 @@ int main(int argc, char *argv[]) {
 
     srand(42); // The answer to life, the universe, and everything
 
-    int n = INPUT_SIZE;
-
     long long *Input = (long long *)malloc(n * sizeof(long long));
     long long *P = (long long *)malloc(np * sizeof(long long));
     long long *Output = (long long *)malloc(n * sizeof(long long));
@@ -165,32 +180,11 @@ int main(int argc, char *argv[]) {
     P[np - 1] = LLONG_MAX;
     qsort(P, np, sizeof(long long), (int (*)(const void *, const void *))compare_LL);
 
-    long long *InputVec = (long long *)malloc(CACHE_SIZE * sizeof(long long));
-    for (int i = 0; i < CACHE_SIZE / n; i++)
-        memcpy(&InputVec[i * n], Input, n * sizeof(long long));
-
-    long long *PVec = (long long *)malloc(CACHE_SIZE * sizeof(long long));
-    for (int i = 0; i < CACHE_SIZE / np; i++)
-        memcpy(&PVec[i * np], P, np * sizeof(long long));
-    
-    long long *InputCopy;
-    long long *PCopy;
-    int position_Input = 0;
-    int position_P = 0;
-
     chrono_reset(&multiPartitionTime);
     chrono_start(&multiPartitionTime);
 
     for(int i = 0; i < NTIMES; i++) {
-        InputCopy = &InputVec[position_Input];
-        PCopy = &PVec[position_P];
-
-        multi_partition(InputCopy, n, PCopy, np, Output, Pos, nThreads);
-
-        position_Input += n; 
-        position_P += np;
-        if (position_Input + n > CACHE_SIZE) position_Input = 0;
-        if (position_P + np > CACHE_SIZE) position_P = 0;
+        multi_partition(Input, n, P, np, Output, Pos, nThreads);
     }
 
     chrono_stop(&multiPartitionTime);

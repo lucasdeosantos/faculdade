@@ -1,5 +1,9 @@
 #!/bin/bash
-echo "USAGE: ./gera-planilhas.sh"
+
+if [ $# -ne 0 ]; then
+    echo "USAGE: ./gera-resultados.sh"
+    exit 1
+fi
 
 NTIMES=5
 
@@ -8,6 +12,7 @@ EXP_B="experiencia_B.csv"
 
 if [ ! -f "multi_partition" ]; then
     make
+    MAKE_EXECUTED=true
 fi
 
 run_experiment() {
@@ -30,6 +35,8 @@ run_experiment() {
 run_experiment "A" $EXP_A
 run_experiment "B" $EXP_B
 
-make clean
+if [ "$MAKE_EXECUTED" = true ]; then
+    make clean
+fi
 
 echo "Experimentos finalizados. Resultados armazenados em $EXP_A e $EXP_B."
