@@ -9,7 +9,7 @@
 #include "chrono.h"
 #include "verifica_particoes.h"
 
-#define MAX_TOTAL_ELEMENTS (240*1000*1000) // must be a multiple of n and np
+#define MAX_TOTAL_ELEMENTS (250*1000*1000)
 #define MAX_THREADS 8
 #define NTIMES 10
 
