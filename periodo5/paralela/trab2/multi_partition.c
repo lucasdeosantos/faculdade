@@ -10,7 +10,7 @@
 #include "verifica_particoes.h"
 
 #define INPUT_SIZE 8000000
-#define CACHE_SIZE 8000000 // Cache com Aproximadamente 8Mib
+#define CACHE_SIZE 8000000 // Cache com aproximadamente 8Mib
 #define MAX_THREADS 8
 #define NTIMES 10
 
