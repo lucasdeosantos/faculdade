@@ -14,9 +14,6 @@
 #define MAX_THREADS 8
 #define NTIMES 10
 
-pthread_t multiPartition_Threads[MAX_THREADS];
-pthread_barrier_t multiPartition_Barrier;
-
 typedef struct {
     long long *Input;
     int n;
@@ -28,6 +25,10 @@ typedef struct {
     int end;
     atomic_int *range_index;
 } ThreadData;
+
+pthread_t multiPartition_Threads[MAX_THREADS];
+ThreadData thread_data[MAX_THREADS];
+pthread_barrier_t multiPartition_Barrier;
 
 long long geraAleatorioLL() {
     int a = rand();
@@ -77,8 +78,6 @@ void* multi_partition_thread(void* args) {
 }
 
 void multi_partition(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos, int nThreads) {
-    ThreadData thread_data[nThreads];
-
     pthread_barrier_init(&multiPartition_Barrier, NULL, nThreads + 1);
 
     int range_count[np];
