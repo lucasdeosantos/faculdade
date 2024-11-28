@@ -10,6 +10,7 @@
 #include "verifica_particoes.h"
 
 #define INPUT_SIZE 8000000
+#define CACHE_SIZE 8000000 // Cache com Aproximadamente 8Mib
 #define MAX_THREADS 8
 #define NTIMES 10
 
@@ -70,13 +71,15 @@ void* multi_partition_thread(void* args) {
         int index = atomic_fetch_add(&data->range_index[range], 1);
         data->Output[index] = data->Input[i];
     }
-    
-    pthread_barrier_wait(&multiPartition_Barrier);
+
+    pthread_barrier_wait(&multiPartition_Barrier);    
     pthread_exit(NULL);
 }
 
 void multi_partition(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos, int nThreads) {
     ThreadData thread_data[nThreads];
+
+    pthread_barrier_init(&multiPartition_Barrier, NULL, nThreads + 1);
 
     int range_count[np];
     for (int i = 0; i < np; i++) {
@@ -100,8 +103,6 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 
     int range_per_thread = n / nThreads;
 
-    pthread_barrier_init(&multiPartition_Barrier, NULL, nThreads);
-
     for (int i = 0; i < nThreads; i++) {
         int start = i * range_per_thread;
         int end = (i == nThreads - 1) ? n : (i + 1) * range_per_thread;
@@ -110,10 +111,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         pthread_create(&multiPartition_Threads[i], NULL, multi_partition_thread, &thread_data[i]);
     }
 
-    for (int t = 0; t < nThreads; t++) {
-        pthread_join(multiPartition_Threads[t], NULL);
-    }
-    
+    pthread_barrier_wait(&multiPartition_Barrier);
     pthread_barrier_destroy(&multiPartition_Barrier);
 }
 
@@ -137,10 +135,10 @@ int main(int argc, char *argv[]) {
             return 0;
         }
         exp = toupper((unsigned char)argv[2][0]);
-        if (exp == 'A') {
+        if (exp == 'A' && strlen(argv[2]) == 1) {
             np = 1000;
         }
-        else if (exp == 'B') {
+        else if (exp == 'B' && strlen(argv[2]) == 1) {
             np = 100000;
         }
         else {
@@ -168,11 +166,33 @@ int main(int argc, char *argv[]) {
     P[np - 1] = LLONG_MAX;
     qsort(P, np, sizeof(long long), (int (*)(const void *, const void *))compare_LL);
 
+    long long *InputVec = (long long *)malloc(CACHE_SIZE * sizeof(long long));
+    for (int i = 0; i < CACHE_SIZE / n; i++)
+        memcpy(&InputVec[i * n], Input, n * sizeof(long long));
+
+    long long *PVec = (long long *)malloc(CACHE_SIZE * sizeof(long long));
+    for (int i = 0; i < CACHE_SIZE / np; i++)
+        memcpy(&PVec[i * np], P, np * sizeof(long long));
+    
+    long long *InputCopy;
+    long long *PCopy;
+    int position_Input = 0;
+    int position_P = 0;
+
     chrono_reset(&multiPartitionTime);
     chrono_start(&multiPartitionTime);
 
-    for(int i = 0; i < NTIMES; ++i)
-        multi_partition(Input, n, P, np, Output, Pos, nThreads);
+    for(int i = 0; i < NTIMES; i++) {
+        InputCopy = &InputVec[position_Input];
+        PCopy = &PVec[position_P];
+
+        multi_partition(InputCopy, n, PCopy, np, Output, Pos, nThreads);
+
+        position_Input += n; 
+        position_P += np;
+        if (position_Input + n > CACHE_SIZE) position_Input = 0;
+        if (position_P + np > CACHE_SIZE) position_P = 0;
+    }
 
     chrono_stop(&multiPartitionTime);
     chrono_reportTime(&multiPartitionTime, "multiPartitionTime");
