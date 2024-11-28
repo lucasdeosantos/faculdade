@@ -195,7 +195,6 @@ int main(int argc, char *argv[]) {
     }
 
     chrono_stop(&multiPartitionTime);
-    chrono_reportTime(&multiPartitionTime, "multiPartitionTime");
 
     verifica_particoes(Input, n, P, np, Output, Pos);
 
