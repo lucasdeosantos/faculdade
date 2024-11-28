@@ -9,7 +9,7 @@
 #include "chrono.h"
 #include "verifica_particoes.h"
 
-#define MAX_TOTAL_ELEMENTS 8000000
+#define MAX_TOTAL_ELEMENTS (240*1000*1000)
 #define MAX_THREADS 8
 #define NTIMES 10
 
@@ -132,7 +132,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 }
 
 int main(int argc, char *argv[]) {
-    int nThreads, np, n = MAX_TOTAL_ELEMENTS;
+    int nThreads, np, n = 8000000;
     char exp;
     chronometer_t multiPartitionTime;
 
@@ -180,11 +180,31 @@ int main(int argc, char *argv[]) {
     P[np - 1] = LLONG_MAX;
     qsort(P, np, sizeof(long long), (int (*)(const void *, const void *))compare_LL);
 
+    long long *InputG = (long long *)malloc(MAX_TOTAL_ELEMENTS * sizeof(long long));
+    for (int i  = 0; i < MAX_TOTAL_ELEMENTS / n; i++) {
+        memcpy(&InputG[i * n], Input, n * sizeof(long long));
+    }
+
+    long long *PG = (long long *)malloc(MAX_TOTAL_ELEMENTS * sizeof(long long));
+    for (int i  = 0; i < MAX_TOTAL_ELEMENTS / np; i++) {
+        memcpy(&PG[i * np], P, np * sizeof(long long));
+    }
+
+    long long *InputCopy, *PCopy;
+    int position_Input = 0, position_P = 0;
+
     chrono_reset(&multiPartitionTime);
     chrono_start(&multiPartitionTime);
 
     for(int i = 0; i < NTIMES; i++) {
-        multi_partition(Input, n, P, np, Output, Pos, nThreads);
+        InputCopy = &InputG[position_Input];
+        PCopy = &PG[position_P];
+
+        multi_partition(InputCopy, n, PCopy, np, Output, Pos, nThreads);
+
+        position_Input += n; position_P += np;
+        if (position_Input + n > MAX_TOTAL_ELEMENTS) position_Input = 0;
+        if (position_P + np > MAX_TOTAL_ELEMENTS) position_P = 0;
     }
 
     chrono_stop(&multiPartitionTime);
