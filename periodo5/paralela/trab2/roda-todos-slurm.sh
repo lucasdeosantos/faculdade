@@ -13,7 +13,7 @@ if [[ "$EXP" != "A" && "$EXP" != "B" ]]; then
 fi
 
 echo "$0 rodando no host " `hostname`
-echo "$0 rodando no host " `hostname` > saida.txt
+echo "$0 rodando no host " `hostname` > saida_experiencia_$EXP.txt
 
 echo "SLURM_JOB_NAME: "  $SLURM_JOB_NAME
 echo "SLURM_NODELIST: " $SLURM_NODELIST
@@ -36,7 +36,7 @@ fi
 for i in $(seq 1 $MAX_THREADS); do
     echo "Executando $NTIMES vezes com configuração EXP=$EXP e $i threads:"
     for j in $(seq 1 $NTIMES); do
-        echo "-----------------------" >>saida.txt
+        echo "-----------------------" >> saida_experiencia_$EXP.txt
         if [ $j -le $MAX_EXECS ]; then
             ./multi_partition $i $EXP | tee -a saida.txt | grep -oP '(?<=total_time_in_seconds: )[^ ]*'
         else
