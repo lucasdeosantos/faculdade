@@ -73,34 +73,28 @@ int binary_search(long long *P, int np, long long value) {
 void *thread_worker(void *args) {
     ThreadData *data = (ThreadData*)args;
 
-    // Define o intervalo de trabalho de cada thread
     int range_per_thread = data->n / multiPartition_nThreads;
     int start = data->thread_id * range_per_thread;
     int end = (data->thread_id == multiPartition_nThreads - 1) ? data->n : (data->thread_id + 1) * range_per_thread;
 
     while (1) {
-        // Threads trabalhadoras esperam a caller thread
         pthread_barrier_wait(&multiPartition_Barrier);
 
         if (data->op == RANGE_COUNT) {
-            // Contagem dos elementos dentro de cada partição
             for (int i = start; i < end; i++) {
                 int range = binary_search(data->P, data->np, data->Input[i]);
                 __atomic_fetch_add(&data->range_count[range], 1, __ATOMIC_RELAXED);
             }
         } 
         else if (data->op == CALCULATE_OUTPUT) {
-            // Preenche o vetor de saída com os valores nas posições corretas
             for (int i = start; i < end; i++) {
                 int range = binary_search(data->P, data->np, data->Input[i]);
                 int index = atomic_fetch_add(&data->range_index[range], 1);
                 data->Output[index] = data->Input[i];
             }
         }
-        // Sincroniza apos o trabalho da thread
         pthread_barrier_wait(&multiPartition_Barrier);
 
-        // Retorna para a caller thread
         if (data->thread_id == 0) {
             return NULL;
         }
@@ -119,11 +113,9 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     int range_count[np];
     atomic_int range_index[np];
 
-    // A thread 0 e a caller thread
     if (!initialized) {
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
         
-        // Inicializa as threads trabalhadoras
         for (int i = 1; i < multiPartition_nThreads; i++) {
             multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
@@ -132,7 +124,6 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         initialized = 1;
     }
     else {
-        // Reutiliza as threads, atualizando os dados
         for (int i = 1; i < multiPartition_nThreads; i++) {
             multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, RANGE_COUNT};
         }
@@ -143,29 +134,24 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         atomic_init(&range_index[i], 0);
     }
 
-    // Thread 0 inicia o processo de contagem de elementos por intervalo
     multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, NULL, RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
-    // Calcula as posicoes de cada particao
     Pos[0] = 0;
     for (int i = 1; i < np; i++) {
         Pos[i] = Pos[i - 1] + range_count[i - 1];
     }
 
-    // Atualiza os indices atomicos com as posicoes
     for (int i = 0; i < np; i++) {
         atomic_store(&range_index[i], Pos[i]);
     }
 
-    // Prepara as threads para o calculo de Output
     for (int i = 0; i < multiPartition_nThreads; i++) {
         multiPartition_thread_data[i].range_count = NULL;
         multiPartition_thread_data[i].range_index = range_index;
         multiPartition_thread_data[i].op = CALCULATE_OUTPUT;
     }
     
-    // Thread 0 inicia o calculo de Output
     thread_worker(&multiPartition_thread_data[0]);
 }
 
