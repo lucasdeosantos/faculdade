@@ -14,7 +14,7 @@
 #define NTIMES 10
 
 typedef enum {
-    RANGE_COUNT,
+    CALCULATE_RANGE_COUNT,
     CALCULATE_OUTPUT
 } Operation;
 
@@ -73,14 +73,16 @@ int binary_search(long long *P, int np, long long value) {
 void *thread_worker(void *args) {
     ThreadData *data = (ThreadData*)args;
 
+    // defines the working range of each thread
     int range_per_thread = data->n / multiPartition_nThreads;
     int start = data->thread_id * range_per_thread;
     int end = (data->thread_id == multiPartition_nThreads - 1) ? data->n : (data->thread_id + 1) * range_per_thread;
 
     while (1) {
+        // all worker threads will be waiting here for the caller thread
         pthread_barrier_wait(&multiPartition_Barrier);
 
-        if (data->op == RANGE_COUNT) {
+        if (data->op == CALCULATE_RANGE_COUNT) {
             for (int i = start; i < end; i++) {
                 int range = binary_search(data->P, data->np, data->Input[i]);
                 __atomic_fetch_add(&data->range_count[range], 1, __ATOMIC_RELAXED);
@@ -93,17 +95,17 @@ void *thread_worker(void *args) {
                 data->Output[index] = data->Input[i];
             }
         }
-        pthread_barrier_wait(&multiPartition_Barrier);
 
+        pthread_barrier_wait(&multiPartition_Barrier);
+        // return to caller thread
         if (data->thread_id == 0) {
             return NULL;
         }
     }
-    
+    // NEVER HERE!
     if (data->thread_id != 0) {
         pthread_exit(NULL);
     }
-
     return NULL;
 }
 
@@ -115,17 +117,20 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 
     if (!initialized) {
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
+        // thread 0 will be the caller thread
         
+        // create all worker threads
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, CALCULATE_RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
         }
 
         initialized = 1;
     }
     else {
+        // updates thread data each execution of multi_partition
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, CALCULATE_RANGE_COUNT};
         }
     }
     
@@ -134,7 +139,8 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         atomic_init(&range_index[i], 0);
     }
 
-    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, NULL, RANGE_COUNT};
+    // caller thread will be thread 0, and will start calculating range_count
+    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, NULL, CALCULATE_RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
@@ -152,6 +158,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         multiPartition_thread_data[i].op = CALCULATE_OUTPUT;
     }
     
+    // caller thread will start calculating Output
     thread_worker(&multiPartition_thread_data[0]);
 }
 
@@ -187,7 +194,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    srand(42); // The answer to life, the universe, and everything
+    srand(42); // the answer to life, the universe, and everything
 
     long long *Input = (long long *)malloc(n * sizeof(long long));
     long long *P = (long long *)malloc(np * sizeof(long long));
