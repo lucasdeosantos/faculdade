@@ -121,7 +121,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         
         // create all worker threads
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, range_index, CALCULATE_RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
         }
 
@@ -130,7 +130,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     else {
         // updates thread data each execution of multi_partition
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, NULL, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, range_index, CALCULATE_RANGE_COUNT};
         }
     }
     
@@ -140,7 +140,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     }
 
     // caller thread will be thread 0, and will start calculating range_count
-    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, NULL, CALCULATE_RANGE_COUNT};
+    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, range_index, CALCULATE_RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
@@ -153,11 +153,8 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     }
 
     for (int i = 0; i < multiPartition_nThreads; i++) {
-        multiPartition_thread_data[i].range_count = NULL;
-        multiPartition_thread_data[i].range_index = range_index;
         multiPartition_thread_data[i].op = CALCULATE_OUTPUT;
     }
-    
     // caller thread will start calculating Output
     thread_worker(&multiPartition_thread_data[0]);
 }
