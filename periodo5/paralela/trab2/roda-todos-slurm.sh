@@ -40,7 +40,7 @@ for i in $(seq 1 $MAX_THREADS); do
         if [ $j -le $MAX_EXECS ]; then
             ./multi_partition $i $EXP | tee -a saida.txt | grep -oP '(?<=total_time_in_seconds: )[^ ]*'
         else
-            echo "nao executado" | tee -a saida.txt
+            echo "nao executado" | tee -a saida_experiencia_$EXP.txt
         fi
     done
 done
