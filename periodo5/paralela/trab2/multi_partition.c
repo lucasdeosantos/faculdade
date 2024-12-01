@@ -144,11 +144,9 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
+    atomic_store(&range_index[0], 0);
     for (int i = 1; i < np; i++) {
         Pos[i] = Pos[i - 1] + range_count[i - 1];
-    }
-
-    for (int i = 0; i < np; i++) {
         atomic_store(&range_index[i], Pos[i]);
     }
 
