@@ -1,0 +1,108 @@
+/var/spool/slurmd/job13405/slurm_script rodando no host  wz11
+SLURM_JOB_NAME:  roda-todos-slurm.sh
+SLURM_NODELIST:  wz11
+SLURM_JOB_NODELIST:  wz11
+SLURM_JOB_CPUS_PER_NODE:  8
+NTIMES = 10
+MAX_THREADS = 8
+EXP = B
+gcc -O3 -pthread -c -o multi_partition.o multi_partition.c
+gcc -O3 -pthread -c -o chrono.o chrono.c
+gcc -O3 -pthread -c -o verifica_particoes.o verifica_particoes.c
+gcc -O3 -pthread -o multi_partition multi_partition.o chrono.o verifica_particoes.o
+Executando 10 vezes com configuração EXP=B e 1 threads:
+27.664867
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 2 threads:
+16.970573
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 3 threads:
+12.637403
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 4 threads:
+9.555276
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 5 threads:
+7.886297
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 6 threads:
+6.626619
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 7 threads:
+5.768079
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+Executando 10 vezes com configuração EXP=B e 8 threads:
+5.266510
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+nao executado
+O tempo total dessa shell foi de 133 segundos
+SLURM_JOB_NAME:  roda-todos-slurm.sh
+SLURM_NODELIST:  wz11
+SLURM_JOB_NODELIST:  wz11
+SLURM_JOB_CPUS_PER_NODE:  8
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+             13405     debug roda-tod   nobody  R       2:13      1 wz11
+rm -f multi_partition.o chrono.o verifica_particoes.o multi_partition

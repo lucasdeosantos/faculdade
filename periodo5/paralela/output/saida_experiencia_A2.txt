@@ -1,0 +1,169 @@
+/var/spool/slurmd/job13408/slurm_script rodando no host  wz11
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 15.476440 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 15.510472 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 15.530368 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 11.196567 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 9.975079 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 11.636223 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 9.052730 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 9.013314 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 9.063422 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 7.028280 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 7.017937 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 7.018018 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 5.876159 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 5.856578 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 5.871732 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 4.987357 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 4.988148 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 5.002296 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 4.431877 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 4.444892 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 4.440485 s
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+nao executado
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 3.964100 s
+-----------------------
+===> particionamento CORRETO
+total_time_in_seconds: 3.966417 s
+-----------------------
