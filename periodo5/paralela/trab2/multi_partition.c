@@ -28,7 +28,6 @@ typedef struct {
     long long *P;
     int np;
     long long *Output;
-    unsigned int *Pos;
     int *range_count;
     atomic_int *range_index;
     Operation op;
@@ -118,13 +117,18 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     int range_count[np];
     atomic_int range_index[np];
 
+    for (int i = 0; i < np; i++) {
+        range_count[i] = 0;
+        atomic_init(&range_index[i], 0);
+    }
+
     if (!initialized) {
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
         // thread 0 will be the caller thread
         
         // create all worker threads
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, range_index, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, CALCULATE_RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
         }
 
@@ -133,17 +137,12 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     else {
         // updates thread data each execution of multi_partition
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, range_index, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, CALCULATE_RANGE_COUNT};
         }
     }
     
-    for (int i = 0; i < np; i++) {
-        range_count[i] = 0;
-        atomic_init(&range_index[i], 0);
-    }
-
     // caller thread will be thread 0, and will start calculating range_count
-    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, range_index, CALCULATE_RANGE_COUNT};
+    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, range_count, range_index, CALCULATE_RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
