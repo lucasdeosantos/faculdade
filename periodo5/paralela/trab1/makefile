@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -O3 -pthread
+CFLAGS = -O3 -pthread
 
 SRC = chrono.c parteA.c parteB.c
 OBJ = $(SRC:.c=.o)
