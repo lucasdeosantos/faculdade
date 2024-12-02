@@ -46,15 +46,9 @@ long long geraAleatorioLL() {
 
 int compare_LL(const void *a, const void *b) {
     long long diff = *(long long *)a - *(long long *)b;
-    if (diff < 0) {
-        return -1;
-    }
-    else if (diff > 0) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
+    if (diff < 0) return -1;
+    if (diff > 0) return 1;
+    return 0;
 }
 
 int binary_search(long long *P, int np, long long value) {
