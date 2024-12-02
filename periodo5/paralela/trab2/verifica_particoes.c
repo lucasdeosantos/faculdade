@@ -1,3 +1,6 @@
+//
+// By Lucas Emanuel de Oliveira Santos
+//
 #include <stdio.h>
 
 void verifica_particoes(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos) {

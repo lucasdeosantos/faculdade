@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O3 -pthread
+CFLAGS = -Wall -O3 -pthread
 
 SRC = multi_partition.c chrono.c verifica_particoes.c
 OBJ = $(SRC:.c=.o)

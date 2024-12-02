@@ -1,3 +1,6 @@
+//
+// By Lucas Emanuel de Oliveira Santos
+//
 #ifndef VERIFICA_PARTICOES_H
 #define VERIFICA_PARTICOES_H
 

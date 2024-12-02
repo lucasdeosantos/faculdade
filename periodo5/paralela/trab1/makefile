@@ -1,19 +1,19 @@
 CC = gcc
-CFLAGS = -Wall -O3
+CFLAGS = -Wall -O3 -pthread
 
-SRC = chrono.c partA.c partB.c
+SRC = chrono.c parteA.c parteB.c
 OBJ = $(SRC:.c=.o)
 
-EXEC_PARTA = partA
-EXEC_PARTB = partB
+EXEC_PARTEA = parteA
+EXEC_PARTEB = parteB
 
-all: $(EXEC_PARTA) $(EXEC_PARTB)
+all: $(EXEC_PARTEA) $(EXEC_PARTEB)
 
 # Compilação dos executáveis
-$(EXEC_PARTA): partA.o chrono.o
+$(EXEC_PARTEA): parteA.o chrono.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(EXEC_PARTB): partB.o chrono.o
+$(EXEC_PARTEB): parteB.o chrono.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 # Compilação dos arquivos objeto
@@ -21,6 +21,6 @@ $(EXEC_PARTB): partB.o chrono.o
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJ) $(EXEC_PARTA) $(EXEC_PARTB)
+	rm -f $(OBJ) $(EXEC_PARTEA) $(EXEC_PARTEB)
 
 .PHONY: all clean

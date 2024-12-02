@@ -5,9 +5,9 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-# Compila os arquivos se partA ou partB não existirem
-if [ ! -f ./partA ] || [ ! -f ./partB ]; then
-    echo "Compilando partA e partB..."
+# Compila os arquivos se parteA ou parteB não existirem
+if [ ! -f ./parteA ] || [ ! -f ./parteB ]; then
+    echo "Compilando parteA e parteB..."
     make
 fi
 
@@ -18,17 +18,17 @@ do
     do
         echo "Medição $j:"
         
-        # Executa partA, filtra para mostrar o total time e throughput
-        total_time_partA=$(./partA $1 $i | grep -oP '(?<=Total time: )[^ ]*')
-        throughput_partA=$(./partA $1 $i | grep -oP '(?<=Throughput: )[^ ]*')
-        echo "partA Total time: $total_time_partA seconds"
-        echo "partA Throughput: $throughput_partA OP/s"
+        # Executa parteA, filtra para mostrar o total time e throughput
+        total_time_parteA=$(./parteA $1 $i | grep -oP '(?<=Total time: )[^ ]*')
+        throughput_parteA=$(./parteA $1 $i | grep -oP '(?<=Throughput: )[^ ]*')
+        echo "parteA Total time: $total_time_parteA seconds"
+        echo "parteA Throughput: $throughput_parteA OP/s"
 
-        # Executa partB, filtra para mostrar o total time e throughput
-        total_time_partB=$(./partB $1 $i | grep -oP '(?<=Total time: )[^ ]*')
-        throughput_partB=$(./partB $1 $i | grep -oP '(?<=Throughput: )[^ ]*')
-        echo "partB Total time: $total_time_partB seconds"
-        echo "partB Throughput: $throughput_partB OP/s"
+        # Executa parteB, filtra para mostrar o total time e throughput
+        total_time_parteB=$(./parteB $1 $i | grep -oP '(?<=Total time: )[^ ]*')
+        throughput_parteB=$(./parteB $1 $i | grep -oP '(?<=Throughput: )[^ ]*')
+        echo "parteB Total time: $total_time_parteB seconds"
+        echo "parteB Throughput: $throughput_parteB OP/s"
     done
 done
 
