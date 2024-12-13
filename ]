@@ -1,0 +1,159 @@
+#include <stdlib.h>
+#include <mpi.h>
+#include <string.h>
+#include <limits.h>
+#include "chrono.h"
+#include "verifica_particoes.h"
+
+#define NTIMES 10
+#define TOTAL_ELEMENTS 8000000
+
+long long geraAleatorioLL() {
+    int a = rand();
+    int b = rand();
+    long long v = (long long)a * 100 + b;
+    return v;
+}
+
+int binary_search(long long *P, int np, long long value) {
+    int start = 0, end = np - 1, mid;
+
+    while (start < end) {
+        mid = (start + end) / 2;
+        if (value < P[mid]) {
+            end = mid;
+        } else {
+            start = mid + 1;
+        }
+    }
+    return start;
+}
+
+int compare_long_long(const void *a, const void *b) {
+    return (*(long long *)a > *(long long *)b) - (*(long long *)a < *(long long *)b);
+}
+
+void multi_partition_mpi(long long *Input, int n, long long *P, int np, long long *Output, int *nO) {
+    int *count_p = calloc(np, sizeof(int));
+    int *insert_pos = malloc(sizeof(int) * np);
+    int *tmp_N = calloc(np, sizeof(int));
+
+    for (int i = 0; i < n; i++) {
+        int curr_pos = binary_search(P, np, Input[i]);
+        count_p[curr_pos]++;
+    }
+
+    int pos = 0;
+    for (int i = 0; i < np - 1; i++) {
+        pos += count_p[i];
+        tmp_N[i + 1] = pos;
+    }
+
+    for (int i = 0; i < np; i++) {
+        insert_pos[i] = tmp_N[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        int part = binary_search(P, np, Input[i]);
+        Output[insert_pos[part]++] = Input[i];
+    }
+
+    int *sendcounts = malloc(np * sizeof(int));
+    int *sdispls = malloc(np * sizeof(int));
+    int *recvcounts = malloc(np * sizeof(int));
+    int *rdispls = malloc(np * sizeof(int));
+
+    for (int i = 0; i < np; i++) {
+        sendcounts[i] = count_p[i];
+        sdispls[i] = tmp_N[i];
+    }
+
+    MPI_Alltoall(sendcounts, 1, MPI_INT, recvcounts, 1, MPI_INT, MPI_COMM_WORLD);
+
+    int total_recv_size = 0;
+    for (int i = 0; i < np; i++) {
+        rdispls[i] = total_recv_size;
+        total_recv_size += recvcounts[i];
+    }
+    *nO = total_recv_size;
+
+    long long *recvbuf = malloc(total_recv_size * sizeof(long long));
+
+    MPI_Alltoallv(Output, sendcounts, sdispls, MPI_LONG_LONG,
+                  recvbuf, recvcounts, rdispls, MPI_LONG_LONG, MPI_COMM_WORLD);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    if (rank == 0) {
+        for (int i = 0; i < n; i++) {
+            printf("%lld ", Output[i]);
+        }
+        printf("\n");
+    }
+
+    free(count_p);
+    free(insert_pos);
+    free(tmp_N);
+    free(sendcounts);
+    free(sdispls);
+    free(recvcounts);
+    free(rdispls);
+    free(recvbuf);
+}
+
+int main(int argc, char **argv) {
+    chronometer_t multiPartitionMPITime;
+
+    MPI_Init(&argc, &argv);
+
+    int rank, size;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    srand(2024 * 100 + rank);
+
+    int n = TOTAL_ELEMENTS / size;
+    int np = size;
+    int nO;
+
+    long long *Input = (long long *)malloc(n * sizeof(long long));
+    long long *P = (long long *)malloc(size * sizeof(long long));
+    long long *Output = (long long *)malloc(n * sizeof(long long));
+
+    if (Input == NULL || P == NULL || Output == NULL) {
+        fprintf(stderr, "Erro na alocação de memória.\n");
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        Input[i] = geraAleatorioLL();
+    }
+
+    if (rank == 0) {
+        for (int i = 0; i < np - 1; ++i) {
+            P[i] = geraAleatorioLL();
+        }
+        P[np - 1] = LLONG_MAX;
+        qsort(P, size, sizeof(long long), compare_long_long);
+    }
+    MPI_Bcast(P, np, MPI_LONG_LONG, 0, MPI_COMM_WORLD);
+
+    chrono_reset(&multiPartitionMPITime);
+    chrono_start(&multiPartitionMPITime);
+
+    multi_partition_mpi(Input, n, P, size, Output, &nO);
+
+    chrono_stop(&multiPartitionMPITime);
+
+    double total_time_in_seconds = (double)chrono_gettotal(&multiPartitionMPITime) / ((double)1000 * 1000 * 1000);
+//    printf("total_time_in_seconds: %lf s\n", total_time_in_seconds);
+
+    free(Input);
+    free(P);
+    free(Output);
+
+    MPI_Finalize();
+    return 0;
+}
+
