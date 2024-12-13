@@ -2,36 +2,30 @@
 // By Lucas Emanuel de Oliveira Santos
 //
 #include <stdio.h>
-#include <stdlib.h>
 #include <mpi.h>
-#include "binary_search.h"
 
 void verifica_particoes(long long *Input, int n, long long *P, int np, long long *Output, int *nO) {
-    int *aux_p = calloc(np, sizeof(int));
-    int *pos = malloc(sizeof(int) * np);
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    for (int i = 0; i < n; i++) {
-        int aux_pos = binary_search(P, np, Input[i]);
-        aux_p[aux_pos]++;
-    }
+    int ok = 0;
 
-    pos[0] = 0;
-    for (int i = 1; i < np; i++) {
-        pos[i] = pos[i - 1] + aux_p[i - 1];
-    }
-
-    for (int i = 0; i < np; i++) {
-        int start = pos[i];
-        int end = (i == np - 1) ? n : pos[i + 1];
-        for (int j = start; j < end; j++) {
-            if ((i == 0 && Output[j] >= P[i]) || (i > 0 && (Output[j] < P[i - 1] || Output[j] >= P[i]))) {
-                printf("===> particionamento COM ERROS\n");
-                return;
+    for (int i = 0; i < *nO; i++) {
+        int found = 0;
+        for (int j = 0; j < np; j++) {
+            if (Output[i] >= P[j] && (j == np - 1 || Output[i] < P[j + 1])) {
+                found = 1;
+                break;
             }
         }
+        if (!found) {
+            ok = 1;
+            break;
+        }
     }
-    printf("===> particionamento CORRETO\n");
 
-    free(aux_p);
-    free(pos);
+    if (ok)
+        printf("Rank %d: ===> particionamento CORRETO\n", rank);
+    else
+        printf("Rank %d: ===> particionamento COM ERROS\n", rank);
 }
