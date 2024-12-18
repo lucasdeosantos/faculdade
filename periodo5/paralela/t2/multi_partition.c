@@ -29,6 +29,7 @@ typedef struct {
     int np;
     long long *Output;
     int *range_count;
+    atomic_int *range_temp;
     atomic_int *range_index;
     Operation op;
 } ThreadData;
@@ -69,36 +70,33 @@ int binary_search(long long *P, int np, long long value) {
 void *thread_worker(void *args) {
     ThreadData *data = (ThreadData*)args;
 
-    // defines the working range of each thread
     int range_per_thread = data->n / multiPartition_nThreads;
     int start = data->thread_id * range_per_thread;
     int end = (data->thread_id == multiPartition_nThreads - 1) ? data->n : (data->thread_id + 1) * range_per_thread;
 
     while (1) {
-        // all worker threads will be waiting here for the caller thread
         pthread_barrier_wait(&multiPartition_Barrier);
 
         if (data->op == CALCULATE_RANGE_COUNT) {
             for (int i = start; i < end; i++) {
                 int range = binary_search(data->P, data->np, data->Input[i]);
+                atomic_store(&data->range_temp[i], range);
                 __atomic_fetch_add(&data->range_count[range], 1, __ATOMIC_RELAXED);
             }
         } 
         else if (data->op == CALCULATE_OUTPUT) {
             for (int i = start; i < end; i++) {
-                int range = binary_search(data->P, data->np, data->Input[i]);
+                int range = data->range_temp[i];
                 int index = atomic_fetch_add(&data->range_index[range], 1);
                 data->Output[index] = data->Input[i];
             }
         }
 
         pthread_barrier_wait(&multiPartition_Barrier);
-        // return to caller thread
         if (data->thread_id == 0) {
             return NULL;
         }
     }
-    // NEVER HERE!
     if (data->thread_id != 0) {
         pthread_exit(NULL);
     }
@@ -110,6 +108,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 
     int range_count[np];
     atomic_int range_index[np];
+    atomic_int *range_temp = (atomic_int *)malloc(n * sizeof(atomic_int));
 
     for (int i = 0; i < np; i++) {
         range_count[i] = 0;
@@ -118,25 +117,21 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
 
     if (!initialized) {
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
-        // thread 0 will be the caller thread
         
-        // create all worker threads
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_temp, range_index, CALCULATE_RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
         }
 
         initialized = 1;
     }
     else {
-        // updates thread data each execution of multi_partition
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_temp, range_index, CALCULATE_RANGE_COUNT};
         }
     }
     
-    // caller thread will be thread 0, and will start calculating range_count
-    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, range_count, range_index, CALCULATE_RANGE_COUNT};
+    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, range_count, range_temp, range_index, CALCULATE_RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
@@ -148,8 +143,8 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     for (int i = 0; i < multiPartition_nThreads; i++) {
         multiPartition_thread_data[i].op = CALCULATE_OUTPUT;
     }
-    // caller thread will start calculating Output
     thread_worker(&multiPartition_thread_data[0]);
+    free(range_temp);
 }
 
 int main(int argc, char *argv[]) {
@@ -234,6 +229,9 @@ int main(int argc, char *argv[]) {
 
     double total_time_in_seconds = (double)chrono_gettotal(&multiPartitionTime) / ((double)1000*1000*1000);
     printf("total_time_in_seconds: %lf s\n", total_time_in_seconds);
+
+    double OPS = ((double)n * NTIMES) / total_time_in_seconds;
+    printf("Throughput: %lf OP/s\n", OPS);
 
     free(Input);
     free(InputG);
