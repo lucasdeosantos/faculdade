@@ -8,7 +8,6 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
-#include <stdatomic.h>
 #include "chrono.h"
 #include "verifica_particoes.h"
 
@@ -29,8 +28,8 @@ typedef struct {
     int np;
     long long *Output;
     int *range_count;
-    atomic_int *range_temp;
-    atomic_int *range_index;
+    int *range_index;
+    int *range_temp;
     Operation op;
 } ThreadData;
 
@@ -68,7 +67,7 @@ int binary_search(long long *P, int np, long long value) {
 }
 
 void *thread_worker(void *args) {
-    ThreadData *data = (ThreadData*)args;
+    ThreadData *data = (ThreadData *)args;
 
     int range_per_thread = data->n / multiPartition_nThreads;
     int start = data->thread_id * range_per_thread;
@@ -80,14 +79,14 @@ void *thread_worker(void *args) {
         if (data->op == CALCULATE_RANGE_COUNT) {
             for (int i = start; i < end; i++) {
                 int range = binary_search(data->P, data->np, data->Input[i]);
-                atomic_store(&data->range_temp[i], range);
                 __atomic_fetch_add(&data->range_count[range], 1, __ATOMIC_RELAXED);
+                data->range_temp[i] = range;
             }
         } 
         else if (data->op == CALCULATE_OUTPUT) {
             for (int i = start; i < end; i++) {
                 int range = data->range_temp[i];
-                int index = atomic_fetch_add(&data->range_index[range], 1);
+                int index = __atomic_fetch_add(&data->range_index[range], 1, __ATOMIC_RELAXED);
                 data->Output[index] = data->Input[i];
             }
         }
@@ -97,29 +96,31 @@ void *thread_worker(void *args) {
             return NULL;
         }
     }
+
     if (data->thread_id != 0) {
         pthread_exit(NULL);
     }
     return NULL;
 }
 
+
 void multi_partition(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos) {
     static int initialized = 0;
 
     int range_count[np];
-    atomic_int range_index[np];
-    atomic_int *range_temp = (atomic_int *)malloc(n * sizeof(atomic_int));
+    int range_index[np];
+    int *range_temp = (int *)malloc(n * sizeof(int));
 
     for (int i = 0; i < np; i++) {
         range_count[i] = 0;
-        atomic_init(&range_index[i], 0);
+        range_index[i] = 0;
     }
 
     if (!initialized) {
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
         
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_temp, range_index, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
         }
 
@@ -127,17 +128,17 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     }
     else {
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_temp, range_index, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
         }
     }
     
-    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, range_count, range_temp, range_index, CALCULATE_RANGE_COUNT};
+    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
     for (int i = 1; i < np; i++) {
         Pos[i] = Pos[i - 1] + range_count[i - 1];
-        atomic_store(&range_index[i], Pos[i]);
+        range_index[i] = Pos[i];
     }
 
     for (int i = 0; i < multiPartition_nThreads; i++) {
