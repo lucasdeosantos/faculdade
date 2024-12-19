@@ -14,11 +14,8 @@
 #define MAX_TOTAL_ELEMENTS (250*1000*1000)
 #define MAX_THREADS 8
 #define NTIMES 10
-
-typedef enum {
-    CALCULATE_RANGE_COUNT,
-    CALCULATE_OUTPUT
-} Operation;
+#define CALCULATE_RANGE_COUNT 1
+#define CALCULATE_OUTPUT 2
 
 typedef struct {
     int thread_id;
@@ -30,7 +27,7 @@ typedef struct {
     int *range_count;
     int *range_index;
     int *range_temp;
-    Operation op;
+    int op;
 } ThreadData;
 
 pthread_t multiPartition_Threads[MAX_THREADS];
@@ -77,16 +74,21 @@ void *thread_worker(void *args) {
         pthread_barrier_wait(&multiPartition_Barrier);
 
         if (data->op == CALCULATE_RANGE_COUNT) {
+            int *local_range_count = (int *)calloc(data->np, sizeof(int));
             for (int i = start; i < end; i++) {
                 int range = binary_search(data->P, data->np, data->Input[i]);
-                __atomic_fetch_add(&data->range_count[range], 1, __ATOMIC_RELAXED);
+                local_range_count[range]++;
                 data->range_temp[i] = range;
             }
+            for (int i = 0; i < data->np; i++) {
+                __sync_fetch_and_add(&data->range_count[i], local_range_count[i]);
+            }
+            free(local_range_count);
         } 
         else if (data->op == CALCULATE_OUTPUT) {
             for (int i = start; i < end; i++) {
                 int range = data->range_temp[i];
-                int index = __atomic_fetch_add(&data->range_index[range], 1, __ATOMIC_RELAXED);
+                int index = __sync_fetch_and_add(&data->range_index[range], 1);
                 data->Output[index] = data->Input[i];
             }
         }
@@ -96,25 +98,18 @@ void *thread_worker(void *args) {
             return NULL;
         }
     }
-
     if (data->thread_id != 0) {
         pthread_exit(NULL);
     }
     return NULL;
 }
 
-
 void multi_partition(long long *Input, int n, long long *P, int np, long long *Output, unsigned int *Pos) {
     static int initialized = 0;
 
-    int range_count[np];
-    int range_index[np];
+    int *range_count = (int *)calloc(np, sizeof(int));
+    int *range_index = (int *)calloc(np, sizeof(int));
     int *range_temp = (int *)malloc(n * sizeof(int));
-
-    for (int i = 0; i < np; i++) {
-        range_count[i] = 0;
-        range_index[i] = 0;
-    }
 
     if (!initialized) {
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
@@ -145,6 +140,9 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         multiPartition_thread_data[i].op = CALCULATE_OUTPUT;
     }
     thread_worker(&multiPartition_thread_data[0]);
+
+    free(range_count);
+    free(range_index);
     free(range_temp);
 }
 
