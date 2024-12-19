@@ -24,6 +24,7 @@ typedef struct {
     long long *P;
     int np;
     long long *Output;
+    unsigned int *Pos;
     int *range_count;
     int *range_index;
     int *range_temp;
@@ -85,12 +86,36 @@ void *thread_worker(void *args) {
             }
             free(local_range_count);
         } 
+        /*
         else if (data->op == CALCULATE_OUTPUT) {
             for (int i = start; i < end; i++) {
                 int range = data->range_temp[i];
                 int index = __sync_fetch_and_add(&data->range_index[range], 1);
                 data->Output[index] = data->Input[i];
             }
+        }
+        */
+        else if (data->op == CALCULATE_OUTPUT) {
+            int *local_range_index = (int *)calloc(data->np, sizeof(int));
+
+            for (int i = start; i < end; i++) {
+                int range = data->range_temp[i];
+                local_range_index[range]++;
+            }
+
+            for (int range = 0; range < data->np; range++) {
+                if (local_range_index[range] > 0) {
+                    local_range_index[range] = __sync_fetch_and_add(&data->range_index[range], local_range_index[range]);
+                }
+            }
+
+            for (int i = start; i < end; i++) {
+                int range = data->range_temp[i];
+                int index = local_range_index[range]++;
+                data->Output[index] = data->Input[i];
+            }
+
+            free(local_range_index);
         }
 
         pthread_barrier_wait(&multiPartition_Barrier);
@@ -115,7 +140,7 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
         pthread_barrier_init(&multiPartition_Barrier, NULL, multiPartition_nThreads);
         
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
             pthread_create(&multiPartition_Threads[i], NULL, thread_worker, &multiPartition_thread_data[i]);
         }
 
@@ -123,11 +148,11 @@ void multi_partition(long long *Input, int n, long long *P, int np, long long *O
     }
     else {
         for (int i = 1; i < multiPartition_nThreads; i++) {
-            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
+            multiPartition_thread_data[i] = (ThreadData){i, Input, n, P, np, Output, Pos, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
         }
     }
     
-    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
+    multiPartition_thread_data[0] = (ThreadData){0, Input, n, P, np, Output, Pos, range_count, range_index, range_temp, CALCULATE_RANGE_COUNT};
     thread_worker(&multiPartition_thread_data[0]);
 
     Pos[0] = 0;
