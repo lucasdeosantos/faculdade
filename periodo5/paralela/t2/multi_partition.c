@@ -245,8 +245,8 @@ int main(int argc, char *argv[]) {
     double total_time_in_seconds = (double)chrono_gettotal(&multiPartitionTime) / ((double)1000*1000*1000);
     printf("total_time_in_seconds: %lf s\n", total_time_in_seconds);
 
-    double OPS = ((double)n * NTIMES) / total_time_in_seconds;
-    printf("Throughput: %lf OP/s\n", OPS);
+    double MEPS = ((double)n * NTIMES) / (total_time_in_seconds * 1000 * 1000);
+    printf("Throughput: %lf MEPS/s\n", MEPS);
 
     free(Input);
     free(InputG);
