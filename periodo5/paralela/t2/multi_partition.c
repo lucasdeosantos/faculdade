@@ -86,15 +86,6 @@ void *thread_worker(void *args) {
             }
             free(local_range_count);
         } 
-        /*
-        else if (data->op == CALCULATE_OUTPUT) {
-            for (int i = start; i < end; i++) {
-                int range = data->range_temp[i];
-                int index = __sync_fetch_and_add(&data->range_index[range], 1);
-                data->Output[index] = data->Input[i];
-            }
-        }
-        */
         else if (data->op == CALCULATE_OUTPUT) {
             int *local_range_index = (int *)calloc(data->np, sizeof(int));
 
