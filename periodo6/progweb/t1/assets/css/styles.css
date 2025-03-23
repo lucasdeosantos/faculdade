@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'JetBrains Mono';
+}
+
+article {
+    display: none;
+}
+
+article:target {
+    display: block;
+}
+
+body:not(:has(:target)) #home {
+    display: block;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100vh;
+    background-color: #111111;
+    color: white;
+    padding: 20px;
+    z-index: 100;
+}
+
+.content {
+    background-color: #252525;
+    color: white;
+    margin-left: 30%;
+    padding: 20px;
+    width: 70%;
+    min-height: 100vh;
+}
