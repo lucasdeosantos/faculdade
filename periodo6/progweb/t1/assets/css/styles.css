@@ -15,7 +15,7 @@ body {
 }
 
 html {
-    font-size: clamp(0.75em, 2vw, 1.2em);
+    font-size: clamp(0.75em, 1.5vw, 1.3em);
 }
 /********************************/
 
@@ -113,7 +113,7 @@ html {
     background-color: #222222;
     color: white;
     margin-left: 30%;
-    padding: 90px 80px;
+    padding: 80px 40px;
     width: 70%;
     min-height: 100vh;
 }
@@ -166,8 +166,8 @@ html {
     background: #111111;
     border-radius: 12px;
     overflow: hidden;
-    width: 98%;
-    max-height: 620px;
+    width: 100%;
+    max-height: 680px;
     display: flex;
     flex-direction: column;
 }
@@ -251,6 +251,10 @@ html {
     #sidebar {
         padding: 20px;
     }
+
+    .project-card {
+        height: 80vh;
+    }
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -265,6 +269,10 @@ html {
 
     #sidebar {
         padding: 20px;
+    }
+
+    .project-card {
+        height: 80vh;
     }
 }
 
@@ -281,6 +289,10 @@ html {
     #sidebar {
         padding: 40px;
     }
+
+    .project-card {
+        height: 80vh;
+    }
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -292,9 +304,15 @@ html {
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
+    .content {
+        padding: 80px;
+    }
 }
 
 /* Extra extra large devices (large desktops, 1400px and up)*/
 @media (min-width: 1400px) {
+    .content {
+        padding: 80px;
+    }
 }
 /**************************/
