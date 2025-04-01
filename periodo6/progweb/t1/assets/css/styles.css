@@ -1,5 +1,4 @@
 /***** Configurações Gerais *****/
-
 * {
     margin: 0;
     padding: 0;
@@ -14,20 +13,34 @@
 body {
     font-family: 'JetBrains Mono';
 }
+
+html {
+    font-size: clamp(0.75em, 2vw, 1.2em);
+}
 /********************************/
 
 /***** Barra de Navegação Lateral *****/
-
 #sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 30%;
+    width: 30vw;
     height: 100vh;
     background-color: #111111;
     color: white;
-    padding: 60px 80px;
     z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .profile {
@@ -43,15 +56,17 @@ body {
 }
 
 .profile img {
-    width: 140px;
-    height: 90px;
+    min-width: 90px;
+    min-height: 88px;
+    max-width: 90px;
+    max-height: 88px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 #sidebar ul {
     list-style: none;
-    font-size: 1.3em;
+    font-size: 1.3rem;
     margin: 0;
     padding: 20px 0;
 }
@@ -82,7 +97,7 @@ body {
 }
 
 #sidebar i {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     color: white;
     margin: 0;
     padding: 0 0 20px 0;
@@ -103,18 +118,6 @@ body {
     min-height: 100vh;
 }
 
-article {
-    display: none;
-}
-
-article:target {
-    display: block;
-}
-
-body:not(:has(:target)) #about {
-    display: block;
-}
-
 .highlight {
     padding-bottom: 20px;
     font-weight: 700;
@@ -133,11 +136,11 @@ body:not(:has(:target)) #about {
 
 /***** Skills *****/
 #skills {
-    font-size: 1.4em;
+    font-size: 1.4rem;
 }
 
 #skills i {
-    font-size: 1.5em;
+    font-size: 1.5rem;
     padding-right: 8px;
 }
 
@@ -163,8 +166,8 @@ body:not(:has(:target)) #about {
     background: #111111;
     border-radius: 12px;
     overflow: hidden;
-    width: 1020px;
-    height: 610px;
+    width: 98%;
+    max-height: 620px;
     display: flex;
     flex-direction: column;
 }
@@ -185,12 +188,12 @@ body:not(:has(:target)) #about {
 }
 
 .project-text h3 {
-    font-size: 1.3em;
+    font-size: 1.3rem;
     font-weight: 700;
 }
 
 .project-text p {
-    font-size: 0.9em;
+    font-size: 0.9rem;
 }
 
 .project-btn {
@@ -220,7 +223,7 @@ body:not(:has(:target)) #about {
 #contact li a {
     text-decoration: none;
     color: white;
-    font-size: 1.1em;
+    font-size: 1.1rem; 
 }
 
 #contact li a:hover {
@@ -229,6 +232,69 @@ body:not(:has(:target)) #about {
 
 #contact i {
     color: white;
-    font-size: 1.4em;
+    font-size: 1.4rem;
 }
 /*******************/
+
+/****** Media Queries *****/
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .profile {
+        flex-direction: column;
+    }
+
+    .profile-text {
+        padding-top: 20px;
+    }
+
+    #sidebar {
+        padding: 20px;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .profile {
+        flex-direction: column;
+    }
+
+    .profile-text {
+        padding-top: 20px;
+    }
+
+    #sidebar {
+        padding: 20px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .profile {
+        flex-direction: column;
+    }
+
+    .profile-text {
+        padding-top: 20px;
+    }
+
+    #sidebar {
+        padding: 40px;
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    #sidebar {
+        padding: 40px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+}
+
+/* Extra extra large devices (large desktops, 1400px and up)*/
+@media (min-width: 1400px) {
+}
+/**************************/
