@@ -35,6 +35,8 @@ a) Um cliente possui UM endereço (relação 1 para 1).
 b) Um cliente possui MUITOS pedidos (relação 1 para N).
 c) Um pedido pode ter MUITOS produtos através da tabela item_pedidos (relação N para N).
 
+O diretório models contém as classes que representam as tabelas do banco de dados e suas relações.
+
 ====================================================================================================
 UTILS
 ====================================================================================================

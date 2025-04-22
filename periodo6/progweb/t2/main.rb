@@ -53,14 +53,14 @@ loop do
     case operation
     when "insere"
         model.create(attrs)
-    when "lista"
-        model.all.each { |obj| puts obj.attributes }
     when "exclui"
         model.where(attrs).destroy_all
     when "altera"
         id = attrs.delete(:id)
         obj = model.find_by(id: id)
         obj.update(attrs) if obj
+    when "lista"
+        model.all.each { |obj| puts obj.attributes }
     else
         puts "Operação desconhecida."
     end
