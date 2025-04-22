@@ -1,0 +1,56 @@
+====================================================================================================
+COMO EXECUTAR 
+====================================================================================================
+
+O banco de dados já está criado em: db/delivery.sqlite3 e contém 10 registros iniciais.
+
+Para executar o trabalho, use o comando:
+ruby main.rb
+
+Comandos disponíveis:
+> insere <tabela> atributo1="valor1" atributo2="valor2" ...
+> exclui <tabela> id=<valor>
+> altera <tabela> id=<valor> atributo1="novo_valor" atributo2="novo_valor" ...
+> lista <tabela>
+> sair
+
+IMPORTANTE:
+As operações "exclui" e "altera" DEVEM obrigatoriamente começar com o atributo id=<valor>.
+
+====================================================================================================
+ESTRUTURA DO BANCO DE DADOS
+====================================================================================================
+
+O banco de dados contém as seguintes tabelas:
+
+- clientes
+- enderecos
+- produtos
+- pedidos
+- item_pedidos
+
+Relacionamentos entre as tabelas:
+
+a) Um cliente possui UM endereço (relação 1 para 1).
+b) Um cliente possui MUITOS pedidos (relação 1 para N).
+c) Um pedido pode ter MUITOS produtos através da tabela item_pedidos (relação N para N).
+
+====================================================================================================
+UTILS
+====================================================================================================
+
+No diretório "utils", existem dois arquivos:
+
+- create_database.rb: cria a estrutura do banco de dados.
+- seeds.rb: popula o banco de dados com dados iniciais.
+
+Ambos devem ser executados a partir do diretório principal:
+
+ruby utils/create_database.rb
+ruby utils/seeds.rb
+
+IMPORTANTE:
+Esses scripts devem ser usados APENAS se o banco de dados ainda não tiver sido criado. 
+Executá-los em um banco de dados já existente pode causar comportamentos inesperados.
+
+====================================================================================================
