@@ -6,12 +6,12 @@ Antes de executar o trabalho, é necessário configurar o banco de dados. Siga o
 
 1. Criar o banco de dados
 - Execute o script create_database.rb para criar a estrutura do banco de dados:
-> ruby utils/create_database.rb
+$ ruby utils/create_database.rb
 
 
 2. Popular o banco de dados
 - Execute o script seeds.rb para inserir dados iniciais:
-> ruby utils/seeds.rb
+$ ruby utils/seeds.rb
 
 IMPORTANTE:
 - Esses scripts devem ser executados a partir do diretório principal.
@@ -23,7 +23,7 @@ EXECUTANDO O TRABALHO
 ====================================================================================================
 
 Após configurar o banco de dados, você pode executar o programa principal:
-ruby main.rb
+$ ruby main.rb
 
 Comandos disponíveis:
 > insere <tabela> atributo1="valor1" atributo2="valor2" ...
