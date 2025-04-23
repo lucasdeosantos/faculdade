@@ -52,13 +52,17 @@ loop do
   
     case operation
     when "insere"
-        model.create(attrs)
+        valid_attrs = attrs.select { |key, _| model.column_names.include?(key.to_s) }
+        model.create(valid_attrs)
     when "exclui"
         model.where(attrs).destroy_all
     when "altera"
         id = attrs.delete(:id)
         obj = model.find_by(id: id)
-        obj.update(attrs) if obj
+        if obj
+            valid_attrs = attrs.select { |key, _| model.column_names.include?(key.to_s) }
+            obj.update(valid_attrs)
+        end
     when "lista"
         model.all.each { |obj| puts obj.attributes }
     else

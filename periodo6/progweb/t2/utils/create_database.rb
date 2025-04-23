@@ -1,12 +1,12 @@
 require 'active_record'
 require 'sqlite3'
 
-Dir.mkdir("db") unless Dir.exist?("db")
-
 ActiveRecord::Base.establish_connection(
     adapter: 'sqlite3',
     database: 'db/delivery.sqlite3'
 )
+
+Dir.mkdir("db") unless Dir.exist?("db")
 
 ActiveRecord::Base.connection.create_table :clientes do |t|
     t.string :nome
