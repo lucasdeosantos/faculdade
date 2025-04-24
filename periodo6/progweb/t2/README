@@ -8,7 +8,6 @@ Antes de executar o trabalho, é necessário configurar o banco de dados. Siga o
 - Execute o script create_database.rb para criar a estrutura do banco de dados:
 $ ruby utils/create_database.rb
 
-
 2. Popular o banco de dados
 - Execute o script seeds.rb para inserir dados iniciais:
 $ ruby utils/seeds.rb
@@ -30,6 +29,7 @@ Comandos disponíveis:
 > exclui <tabela> id=<valor>
 > altera <tabela> id=<valor> atributo1="novo_valor" atributo2="novo_valor" ...
 > lista <tabela>
+> ajuda
 > sair
 
 IMPORTANTE:

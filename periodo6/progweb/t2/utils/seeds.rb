@@ -19,3 +19,5 @@ require_relative '../models/item_pedido'
     Endereco.create(cliente_id: i+1, rua: "Rua #{i+1}", cidade: "Cidade #{i+1}")
     ItemPedido.create(pedido_id: i+1, produto_id: i+1, quantidade: rand(1..5))
 end
+
+puts "Banco de dados populado com sucesso."
