@@ -34,3 +34,5 @@ ActiveRecord::Base.connection.create_table :item_pedidos do |t|
     t.references :produto, foreign_key: true
     t.integer :quantidade
 end
+
+puts "Banco de dados criado com sucesso."

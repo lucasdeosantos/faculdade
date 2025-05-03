@@ -37,6 +37,25 @@ def parse_input(input)
     [operation, table, attrs]
 end
 
+def help
+    puts <<~HELP
+        ===============================================================================
+        Tabelas do banco de dados:
+        - #{MODELS.keys.join("\n- ")}
+        ===============================================================================
+        Comandos disponíveis:
+        > insere <tabela> atributo1="valor1" atributo2="valor2" ...
+        > exclui <tabela> id=<valor>
+        > altera <tabela> id=<valor> atributo1="novo_valor" atributo2="novo_valor" ...
+        > lista <tabela>
+        > ajuda
+        > sair
+        ===============================================================================
+
+    HELP
+end
+
+help
 loop do
     print "> "
     input = gets.strip
@@ -44,6 +63,11 @@ loop do
   
     operation, table, attrs = parse_input(input)
     model = MODELS[table]
+
+    if operation == "ajuda"
+        help
+        next
+    end
 
     unless model
         puts "Tabela desconhecida."
@@ -68,4 +92,5 @@ loop do
     else
         puts "Operação desconhecida."
     end
+    puts
 end
