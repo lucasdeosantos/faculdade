@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Processador de retas e polígonos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <canvas id="canvas" width="700" height="700"></canvas>
+        <div class="controls">
+            <label for="sidesInput">Número de lados (3 a 8):</label>
+            <input type="number" id="sidesInput" min="3" max="8"/>
+            <button onclick="generatePolygon()">Gerar Polígono</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

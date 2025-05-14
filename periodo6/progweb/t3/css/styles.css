@@ -1,0 +1,72 @@
+* {
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../assets/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'JetBrains Mono';
+}
+
+canvas {
+    border: 2px solid black;
+    background-color: white;
+    cursor: crosshair;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    padding: 16px;
+    background-color: #cccccc;
+    border-radius: 8px;
+}
+
+.controls label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #111111;
+}
+
+.controls input[type="number"] {
+    padding: 12px;
+    margin: 0 20px;
+    font-size: 1em;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    width: 150px;
+    text-align: center;
+}
+
+.controls button {
+    padding: 12px;
+    font-size: 1em;
+    background-color: #111111;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.controls button:hover {
+    background-color: #333333;
+}
