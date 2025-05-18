@@ -5,6 +5,8 @@ const centerX = canvas.width / 2;
 const centerY = canvas.height / 2;
 let lines = [createLine(centerX - 200, centerY, centerX + 200, centerY)];
 
+const clearButton = document.getElementById("clearButton");
+
 let selectedLine = null;
 let selectedPart = null;
 
@@ -36,6 +38,17 @@ function draw() {
         ctx.moveTo(line.start.x, line.start.y);
         ctx.lineTo(line.end.x, line.end.y);
         ctx.stroke();
+
+        ctx.fillStyle = "black";
+        const radius = 5;
+
+        ctx.beginPath();
+        ctx.arc(line.start.x, line.start.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(line.end.x, line.end.y, radius, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 
@@ -75,19 +88,19 @@ function handleMouseMove(e) {
 }
 
 function handleRightClick(e) {
-  e.preventDefault();
-  const mouse = getMousePos(e);
+    e.preventDefault();
+    const mouse = getMousePos(e);
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (isNearLine(line, mouse)) {
-      const newLine1 = createLine(line.start.x, line.start.y, mouse.x, mouse.y);
-      const newLine2 = createLine(mouse.x, mouse.y, line.end.x, line.end.y);
-      lines.splice(i, 1, newLine1, newLine2);
-      draw();
-      break;
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (isNearLine(line, mouse)) {
+            const newLine1 = createLine(line.start.x, line.start.y, mouse.x, mouse.y);
+            const newLine2 = createLine(mouse.x, mouse.y, line.end.x, line.end.y);
+            lines.splice(i, 1, newLine1, newLine2);
+            draw();
+            break;
+        }
     }
-  }
 }
 
 function getMousePos(e) {
@@ -113,6 +126,13 @@ function getLinePartAtPosition(line, pos) {
 
     if (distance(pos, center) < 40) return PART.CENTER;
     return null;
+}
+
+function resetLines() {
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    lines = [createLine(centerX - 200, centerY, centerX + 200, centerY)];
+    draw();
 }
 
 function isNearLine(line, pos) {
@@ -173,5 +193,7 @@ document.getElementById("sidesInput").addEventListener("keydown", function (e) {
         generatePolygon();
     }
 });
+
+clearButton.addEventListener("click", resetLines);
 
 draw();
