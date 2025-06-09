@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Grade Curricular</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Visualizador de Grade Curricular</h1>
+
+        <div class="ra-input-container">
+            <label for="raInput">RA do Aluno:</label>
+            <input type="text" id="raInput" placeholder="Digite o RA do aluno">
+            <button id="searchButton">Buscar</button>
+        </div>
+
+        <div id="curriculumGrid">
+            <p class="placeholder-text">Digite o RA do aluno e clique em "Buscar" para visualizar a grade curricular.</p>
+        </div>
+
+        <div id="disciplineDetailsPopup" class="modal">
+            <div class="modal-content">
+                <span class="close-button" data-modal="disciplineDetailsPopup">&times;</span>
+                <h2>Detalhes da Disciplina</h2>
+                <p><strong>Código/Nome:</strong> <span id="popupDisciplinaNome"></span></p>
+                <p><strong>Última Vez Cursada:</strong> <span id="popupUltimaVezCursada"></span></p>
+                <p><strong>Nota:</strong> <span id="popupNota"></span></p>
+                <p><strong>Frequência:</strong> <span id="popupFrequencia"></span></p>
+            </div>
+        </div>
+
+        <div id="disciplineHistoryPopup" class="modal">
+            <div class="modal-content">
+                <span class="close-button" data-modal="disciplineHistoryPopup">&times;</span>
+                <h2>Histórico da Disciplina</h2>
+                <div id="popupHistoryContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
