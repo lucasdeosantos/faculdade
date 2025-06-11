@@ -67,8 +67,7 @@ DECLARACOES:
     VAR LISTA_DE_IDENTIFICADORES DOIS_PONTOS TIPO PONTO_VIRGULA DECLARACOES {
         ASTNode *current_id = $2;
         while (current_id) {
-            current_id->data_type = $4; // $4 contains the ASTDataType (TYPE_INTEGER or TYPE_REAL)
-
+            current_id->data_type = $4;
             insert_symbol(current_id->id, SYMBOL_TYPE_VAR, $4, 0);
             current_id = current_id->next;
         }
@@ -89,7 +88,8 @@ DECLARACOES_DE_SUBPROGRAMAS:
             while (last->next) last = last->next;
             last->next = $2;
             $$ = $1;
-        } else {
+        } 
+        else {
             $$ = $2;
         }
     }
@@ -100,8 +100,9 @@ DECLARACAO_DE_SUBPROGRAMA:
     CABECALHO_DE_SUBPROGRAMA DECLARACOES ENUNCIADO_COMPOSTO {
         if ($1->type == AST_FUNCTION) {
             $$ = create_node(AST_FUNCTION, $1, $3);
-            $$->left->left = $2; // declarações dentro do header
-        } else {
+            $$->left->left = $2;
+        } 
+        else {
             $$ = create_node(AST_PROCEDURE, $1, $3);
             $$->left->left = $2;
         }
@@ -122,7 +123,6 @@ CABECALHO_DE_SUBPROGRAMA:
     }
 ;
 
-
 ARGUMENTOS:
     ABRE_PARENTESES LISTA_DE_PARAMETROS FECHA_PARENTESES { $$ = $2; }
     | /* vazio */ { $$ = NULL; }
@@ -133,7 +133,6 @@ LISTA_DE_PARAMETROS:
         ASTNode *current_id = $1;
         ASTNode *head = NULL, *tail = NULL;
         while (current_id) {
-            // When creating param_node, create_param already sets data_type
             ASTNode *param_node = create_param(current_id->id, $3, 0);
             if (!head) head = tail = param_node;
             else { tail->next = param_node; tail = param_node; }
@@ -146,7 +145,6 @@ LISTA_DE_PARAMETROS:
         ASTNode *current_id = $2;
         ASTNode *head = NULL, *tail = NULL;
         while (current_id) {
-            // When creating param_node, create_param already sets data_type
             ASTNode *param_node = create_param(current_id->id, $4, 1);
             if (!head) head = tail = param_node;
             else { tail->next = param_node; tail = param_node; }
@@ -160,7 +158,6 @@ LISTA_DE_PARAMETROS:
         ASTNode *tail = $1;
         while (tail->next) tail = tail->next;
         while (current_id) {
-            // When creating param_node, create_param already sets data_type
             ASTNode *param_node = create_param(current_id->id, $5, 0);
             tail->next = param_node;
             tail = param_node;
@@ -174,7 +171,6 @@ LISTA_DE_PARAMETROS:
         ASTNode *tail = $1;
         while (tail->next) tail = tail->next;
         while (current_id) {
-            // When creating param_node, create_param already sets data_type
             ASTNode *param_node = create_param(current_id->id, $6, 1);
             tail->next = param_node;
             tail = param_node;
@@ -217,7 +213,7 @@ ENUNCIADO:
     | WHILE EXPRESSAO DO ENUNCIADO { $$ = create_while($2, $4); }
     | READ ABRE_PARENTESES LISTA_DE_IDENTIFICADORES FECHA_PARENTESES { $$ = create_node(AST_READ, $3, NULL); }
     | WRITE ABRE_PARENTESES EXPRESSAO FECHA_PARENTESES { $$ = create_write($3); }
-    | WRITELN ABRE_PARENTESES FECHA_PARENTESES { $$ = create_node(AST_WRITELN, NULL, NULL); } // Handles writeln(); for a simple newline
+    | WRITELN ABRE_PARENTESES FECHA_PARENTESES { $$ = create_node(AST_WRITELN, NULL, NULL); }
 ;
 
 VARIAVEL:
@@ -258,7 +254,7 @@ TERMO:
 ;
 
 FATOR:
-    ID { $$ = create_var($1); } // Note: Type for FATOR AST node (if it's an ID) will be set during semantic analysis
+    ID { $$ = create_var($1); }
     | ID ABRE_PARENTESES LISTA_DE_EXPRESSOES FECHA_PARENTESES { $$ = create_call($1, $3); }
     | NUM { $$ = create_num($1); }
     | ABRE_PARENTESES EXPRESSAO FECHA_PARENTESES { $$ = $2; }
