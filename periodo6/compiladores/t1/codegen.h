@@ -3,6 +3,6 @@
 
 #include "ast.h"
 
-void codegen(ASTNode *root);
+void codegen(ASTNode *root, const char* output_filename);
 
 #endif // CODEGEN_H
