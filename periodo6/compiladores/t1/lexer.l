@@ -29,24 +29,24 @@ NUM         {DIGITO}+(\.{DIGITO}+)?([eE][+-]?{DIGITO}+)?
 "write"                 { return WRITE; }
 "writeln"               { return WRITELN; }
 
-":="                    { return OPERADOR_ATRIBUICAO; }
+":="                    { return ATRIBUICAO; }
 
-"="                     { return OPERADOR_RELACIONAL; }
-"<>"                    { return OPERADOR_RELACIONAL; }
-">"                     { return OPERADOR_RELACIONAL; }
-">="                    { return OPERADOR_RELACIONAL; }
-"<"                     { return OPERADOR_RELACIONAL; }
-"<="                    { return OPERADOR_RELACIONAL; }
+"="                     { return EQ; }
+"<>"                    { return NE; }
+"<="                    { return LE; }
+"<"                     { return LT; }
+">="                    { return GE; }
+">"                     { return GT; }
 
 "+"                     { return MAIS; }
 "-"                     { return MENOS; }
 "or"                    { return OR; }
 
-"*"                     { return OPERADOR_MULTIPLICATIVO; }
-"/"                     { return OPERADOR_MULTIPLICATIVO; }
-"div"                   { return OPERADOR_MULTIPLICATIVO; }
-"mod"                   { return OPERADOR_MULTIPLICATIVO; }
-"and"                   { return OPERADOR_MULTIPLICATIVO; }
+"*"                     { return MULTIPLICACAO; }
+"/"                     { return DIVISAO; }
+"div"                   { return DIV; }
+"mod"                   { return MOD; }
+"and"                   { return AND; }
 
 "."                     { return PONTO_FINAL; }
 ":"                     { return DOIS_PONTOS; }
@@ -59,7 +59,6 @@ NUM         {DIGITO}+(\.{DIGITO}+)?([eE][+-]?{DIGITO}+)?
 {NUM}                   { yylval.num = atof(yytext); return NUM; }
 
 [ \t\n\r]+              { /* Ignorar espaços em branco */ }
-
 .                       { printf("Caractere não reconhecido: %s\n", yytext); }
 
 %%

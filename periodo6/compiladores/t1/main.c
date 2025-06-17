@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "ast.h"
 #include "symbols_table.h"
 #include "codegen.h"
@@ -9,58 +12,80 @@ extern int semantic_errors_count;
 extern int yyparse();
 extern FILE *yyin;
 
+void print_usage(const char *prog_name) {
+    printf("MiniPascal Compiler\n");
+    printf("Uso: %s <arquivo_pascal>\n", prog_name);
+}
+
 int main(int argc, char **argv) {
-    if (argc < 2) {
-        fprintf(stderr, "Uso: %s <arquivo_pascal>\n", argv[0]);
-        return 1;
+    if (argc < 2 || strcmp(argv[1], "--help") == 0) {
+        print_usage(argv[0]);
+        return EXIT_FAILURE;
     }
 
-    FILE *f = fopen(argv[1], "r");
-    if (!f) {
-        fprintf(stderr, "Erro ao abrir arquivo");
-        return 1;
+    FILE *input_file = fopen(argv[1], "r");
+    if (!input_file) {
+        fprintf(stderr, "[ERROR] Não foi possível abrir o arquivo '%s'.\n", argv[1]);
+        return EXIT_FAILURE;
     }
 
-    yyin = f;
-
-    printf("Iniciando análise...\n");
+    yyin = input_file;
+    init_symbol_table();
+    printf("[INFO] Iniciando análise do arquivo '%s'\n", argv[1]);
     int parse_result = yyparse();
+    fclose(input_file);
 
-    fclose(f);
 
     if (parse_result == 0 && semantic_errors_count == 0) {
-        char *output_filename = "output.ll"; // lembrar de mudar para argv[1].ll
-        printf("Análise sintática e semântica bem-sucedidas!\n");
-/*
-        printf("\n--- AST Gerada ---\n");
-        if (program_root) print_ast(program_root);
-        printf("------------------\n\n");
-*/
-        printf("Iniciando geração de código LLVM...\n");
+        printf("[SUCCESS] Análise sintática e semântica concluídas sem erros.\n");
+
+        char *input_filename = argv[1];
+        char *dot_pos = strrchr(input_filename, '.');
+        size_t filename_len = (dot_pos != NULL) ? (size_t)(dot_pos - input_filename) : strlen(input_filename);
+
+        char *output_filename = (char *)malloc(filename_len + 4);
+        if (!output_filename) {
+            fprintf(stderr, "[ERROR] Falha ao alocar memória para o nome do arquivo de saída.\n");
+            if (program_root) free_ast(program_root);
+            free_all_scopes();
+            return EXIT_FAILURE;
+        }
+        strncpy(output_filename, input_filename, filename_len);
+        output_filename[filename_len] = '\0';
+        strcat(output_filename, ".ll");
+
+        // print_ast(program_root, 0);
+        // print_symbols_table();
+
+        printf("[INFO] Iniciando geração de código LLVM para '%s'\n", output_filename);
         if (program_root) {
             codegen(program_root, output_filename);
-        } 
-        else {
-            fprintf(stderr, "Erro: Não há AST para gerar código.\n");
-            return 1;
+            printf("[SUCCESS] Geração de código LLVM concluída com sucesso!\n");
+            printf("[OUTPUT] Arquivo gerado: %s\n", output_filename);
         }
-        printf("Geração de código LLVM concluída. Verifique 'output.ll'.\n", argv[1]);
+        else {
+            fprintf(stderr, "[ERROR] AST não gerada. Código LLVM não foi produzido.\n");
+            free(output_filename);
+            free_ast(program_root);
+            free_all_scopes();
+            return EXIT_FAILURE;
+        }
         
-        if (program_root) free_ast(program_root);
-        free_symbols();
-        return 0;
+        free(output_filename);
+
     } 
     else {
         if (parse_result != 0)
-            fprintf(stderr, "Erro de sintaxe durante a compilação.\n");
+            fprintf(stderr, "[ERROR] Erros de sintaxe encontrados durante a análise.\n");
 
         if (semantic_errors_count > 0)
-            fprintf(stderr, "Erro(s) semântico(s) encontrado(s) durante a compilação. Total: %d\n", semantic_errors_count);
-        
-        printf("Compilação falhou.\n");
-        
-        if (program_root) free_ast(program_root);
-        free_symbols();
-        return 1;
+            fprintf(stderr, "[ERROR] Total de erros semânticos: %d\n", semantic_errors_count);
+
+        printf("[FAILURE] A compilação foi interrompida devido a erros.\n");
     }
+
+    free_ast(program_root);
+    free_all_scopes();
+
+    return (parse_result == 0 && semantic_errors_count == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

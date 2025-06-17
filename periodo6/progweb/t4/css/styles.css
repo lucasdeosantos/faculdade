@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'JetBrains Mono', Arial, sans-serif;
 }
 
 @font-face {
@@ -11,6 +10,7 @@
 }
 
 body {
+    font-family: 'JetBrains Mono', Arial, sans-serif;
     margin: 0;
     padding: 20px;
     background-color: #222222;
@@ -52,8 +52,8 @@ h1 {
     border: 1px solid #666666;
     border-radius: 4px;
     font-size: 1em;
-    width: 300px;
-    max-width: 80%;
+    width: 200px;
+    max-width: 70%;
     margin-right: 10px;
     background-color: #222222;
     color: white;

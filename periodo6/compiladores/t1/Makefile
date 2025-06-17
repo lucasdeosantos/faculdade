@@ -33,4 +33,4 @@ symbols_table.o: symbols_table.c symbols_table.h ast.h
 	$(CC) $(CFLAGS) -c symbols_table.c
 
 clean:
-	rm -f mpc *.o *.tab.c *.tab.h lexer.c output.ll
+	rm -f mpc *.o *.tab.c *.tab.h lexer.c
