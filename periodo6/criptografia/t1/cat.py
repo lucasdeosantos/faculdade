@@ -1,21 +1,14 @@
-# T.R.A.P: TRAsposition + Playfair
+# C.A.T: Caesar After Transposition
 
 import argparse
 import sys
-import re
-import unicodedata
 from pathlib import Path
-from trap import encrypt, decrypt, alphabet
-
-def clean_text(text):
-    text = unicodedata.normalize('NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
-    text = re.sub(f'[^{re.escape(alphabet)}]', '', text)
-    return text
+from cat import encrypt, decrypt
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Encrypts or decrypts a text file using the TRAP cipher.",
-        epilog="USAGE: python trap.py [option] [key_file] [text_file]"
+        description="Encrypts or decrypts a text file using the CAT cipher.",
+        epilog="USAGE: python cat.py [option] [key_file] [text_file]"
     )
 
     mode_group = parser.add_mutually_exclusive_group(required=True)
@@ -37,12 +30,10 @@ def main():
         print(f"Error reading files: {err}", file=sys.stderr)
         sys.exit(1)
 
-    cleaned_text = clean_text(text)
-
     if args.encrypt:
-        result = encrypt(key, cleaned_text)
+        result = encrypt(key, text)
     elif args.decrypt:
-        result = decrypt(key, cleaned_text)
+        result = decrypt(key, text)
 
     suffix = "_encrypted" if args.encrypt else "_decrypted"
     input_path = Path(args.text_file)
