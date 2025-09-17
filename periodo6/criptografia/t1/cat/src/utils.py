@@ -1,5 +1,5 @@
 UNICODE_LIMIT = 0x110000
-MAX_SUBKEYS = 17
+MAX_SUBKEYS = 10
 
 def caesar_cipher(text, shift, decrypt=False):
     if decrypt:
@@ -13,6 +13,7 @@ def caesar_cipher(text, shift, decrypt=False):
         processed_chars.append(chr(shifted_code))
 
     return "".join(processed_chars)
+
 
 def get_subkeys(key):
     return key.strip().split()[:MAX_SUBKEYS]

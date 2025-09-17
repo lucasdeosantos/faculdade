@@ -1,9 +1,10 @@
-# C.A.T: Caesar After Transposition
+# C.A.T: Caesar And Transposition
 
 import argparse
 import sys
 from pathlib import Path
-from cat import encrypt, decrypt
+
+from .src import encrypt, decrypt
 
 def main():
     parser = argparse.ArgumentParser(
