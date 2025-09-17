@@ -1,6 +1,6 @@
 from .utils import get_subkeys, caesar_cipher
 
-def transpose(text, key):
+def transpose(key, text):
     num_columns = len(key)
 
     remainder = len(text) % num_columns
