@@ -28,6 +28,6 @@ def decrypt(key, text):
 
     for subkey in subkeys:
         text = caesar_cipher(text, len(subkey), decrypt=True)
-        text = untranspose(text, subkey)
+        text = untranspose(subkey, text)
 
     return text

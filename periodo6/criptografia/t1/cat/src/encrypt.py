@@ -23,7 +23,7 @@ def encrypt(key, text):
     subkeys = get_subkeys(key)
 
     for subkey in subkeys:
-        text = transpose(text, subkey)
+        text = transpose(subkey, text)
         text = caesar_cipher(text, len(subkey))
 
     return text
