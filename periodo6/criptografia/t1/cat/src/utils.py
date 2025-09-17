@@ -1,6 +1,6 @@
 UNICODE_LIMIT = 0x110000
-MAX_SUBKEYS = 10
 DEFAULT_KEY = "how many lives does a cat have?"
+MAX_SUBKEYS = 9
 
 def caesar_cipher(text, shift, decrypt=False):
     shift = shift + 9
