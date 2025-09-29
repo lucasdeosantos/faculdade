@@ -4,7 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from .src import encrypt, decrypt
+from src import encrypt, decrypt
 
 def main():
     parser = argparse.ArgumentParser(
