@@ -6,13 +6,11 @@ def untranspose(key, text):
     
     ordered_indexes = sorted(range(num_columns), key=lambda i: key[i])
     
-    col_lengths  = [num_rows] * num_columns
-    
     cols = []
     start = 0
-    for length in col_lengths:
-        cols.append(text[start:start + length])
-        start += length
+    for _ in range(num_columns):
+        cols.append(text[start:start + num_rows])
+        start += num_rows
     
     untransposed_text = []
     for row in range(num_rows):
