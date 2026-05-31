@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório - Implementação dos Algoritmos de Eleição de Líder</title>
+</head>
+
+<body>
+
+<h1>Relatório do Trabalho Prático - Sistemas Distribuídos</h1>
+<h3>
+Lucas Emanuel de Oliveira Santos<br>
+Vitor Lorenzo Cumim
+</h3>
+
+<hr>
+
+<h2>Implementação dos Algoritmos de Eleição de Líder em Anel</h2>
+
+<p>
+Este relatório descreve as decisões de implementação adotadas para o desenvolvimento
+dos algoritmos de eleição de líder utilizando o simulador SMPL. O foco deste documento
+é apresentar as estruturas de dados, funções e eventos utilizados nos programas,
+bem como a forma como a comunicação entre processos foi modelada.
+</p>
+
+<hr>
+
+<h2>1. Algoritmo Chang-Roberts</h2>
+
+<p>
+    <a href="chang_roberts.c.txt">chang_roberts.c.txt</a>
+</p>
+
+<h3>Estrutura dos Processos</h3>
+
+<pre>
+typedef struct {
+    int id;
+    int lider;
+    int candidato;
+} Processo;
+</pre>
+
+<p>
+A estrutura Processo representa cada nó do anel.
+</p>
+
+<ul>
+    <li><b>id</b>: identificador do processo.</li>
+    <li><b>lider</b>: maior identificador conhecido pelo processo.</li>
+    <li><b>candidato</b>: indica se o processo participa inicialmente da eleição.</li>
+</ul>
+
+<p>
+Todos os processos são inicializados com o líder definido como -1. Em seguida, 
+caso o processo seja um candidato, esse valor é alterado para o seu próprio identificador.
+</p>
+
+<h3>Estrutura das Mensagens</h3>
+
+<pre>
+typedef struct {
+    int candidato;
+} Mensagem;
+</pre>
+
+<p>
+Cada mensagem contém apenas o identificador do candidato que está sendo propagado
+pelo anel.
+</p>
+
+
+<h3>Buffer de Mensagens</h3>
+
+<pre>
+Mensagem *buffer;
+</pre>
+
+<p>
+O vetor de mensagens é necessário para funcionar como uma área de armazenamento temporário (uma "caixa de entrada") para cada processo do anel. Como a simulação é orientada a eventos, quando um nó envia um dado, essa informação precisa ficar retida em algum lugar até que o destinatário seja ativado pelo simulador para processá-la.
+</p>
+
+<p>
+A indexação estruturada como <code>buffer[destino]</code> garante que cada processo tenha um espaço exclusivo e reservado para si. Como o fluxo do algoritmo de Chang-Roberts é sequencial e cada nó recebe apenas uma mensagem por vez de seu predecessor imediato, o vetor cumpre perfeitamente o papel de isolar o dado e garantir que ele seja consumido no evento correspondente sem o risco de perda ou sobrescrita.
+</p>
+
+<h3>Função enviar()</h3>
+
+<pre>
+void enviar(int origem, int candidato)
+</pre>
+
+<p>
+Esta função é responsável por encaminhar mensagens para o próximo processo do anel.
+</p>
+
+<p>
+O próximo processo é calculado através da expressão:
+</p>
+
+<pre>
+(origem + 1) % N
+</pre>
+
+<p>
+O operador módulo permite que o último processo volte a se comunicar com o
+primeiro, fechando o anel.
+</p>
+
+<p>
+A função realiza três operações:
+</p>
+
+<ol>
+    <li>Armazena a mensagem no buffer do destinatário.</li>
+    <li>Incrementa o contador global de mensagens.</li>
+    <li>Agenda um evento de recebimento através de schedule().</li>
+</ol>
+
+<h3>Evento start</h3>
+
+<p>
+O evento start representa o início da eleição.
+</p>
+
+<p>
+Quando o processo é candidato, ele envia uma mensagem contendo seu próprio
+identificador.
+</p>
+
+<h3>Evento msg</h3>
+
+<p>
+O evento msg representa a chegada de uma mensagem ao processo.
+</p>
+
+<p>
+Quando uma mensagem é recebida existem dois casos principais:
+</p>
+
+<ul>
+    <li>A mensagem retornou ao candidato de origem.</li>
+    <li>A mensagem ainda está circulando pelo anel.</li>
+</ul>
+
+<p>
+Se a mensagem retorna ao processo que a criou, significa que nenhum candidato
+com identificador maior sobreviveu. Neste caso o processo é declarado líder.
+</p>
+
+<p>
+Caso contrário, o processo compara o identificador recebido com o maior líder
+conhecido.
+</p>
+
+<p>
+Se o identificador recebido for maior, a mensagem é repassada.
+</p>
+
+<p>
+Se for menor ou igual, a mensagem é descartada.
+</p>
+
+<h3>Testes Realizados</h3>
+<p>Foram realizados testes variando a quantidade de processos no anel para avaliar a escalabilidade do algoritmo. Os logs detalhados de cada execução estão disponíveis abaixo:</p>
+
+<ul>
+    <li><b>10 processos:</b> <a href="log_chang_roberts_10.txt">log_chang_roberts_10.txt</a></li>
+    <li><b>100 processos:</b> <a href="log_chang_roberts_100.txt">log_chang_roberts_100.txt</a></li>
+    <li><b>1000 processos:</b> <a href="log_chang_roberts_1000.txt">log_chang_roberts_1000.txt</a></li>
+</ul>
+<hr>
+
+<h2>2. Algoritmo Aleatorizado</h2>
+
+<p>
+    <a href="randomized.c.txt">randomized.c.txt</a>
+</p>
+
+<h3>Estrutura dos Processos</h3>
+
+<pre>
+typedef struct {
+    int id;
+    int ativo;
+    int bit;
+    int candidatos;
+    int rodada;
+} Processo;
+</pre>
+
+<ul>
+    <li><b>id</b>: identificador do processo.</li>
+    <li><b>ativo</b>: indica se o processo continua participando da eleição.</li>
+    <li><b>bit</b>: valor sorteado na rodada atual.</li>
+    <li><b>candidatos</b>: quantidade de candidatos observados na rodada.</li>
+    <li><b>rodada</b>: número da rodada atual.</li>
+</ul>
+
+<h3>Estrutura das Mensagens</h3>
+
+<pre>
+typedef struct {
+    int id;
+    int bit;
+} Mensagem;
+</pre>
+
+<p>
+As mensagens precisam transportar tanto o identificador do processo quanto o
+bit sorteado naquela rodada.
+</p>
+
+<h3>Matriz de Buffers</h3>
+
+<pre>
+Mensagem **buffer;
+</pre>
+
+<p>
+Por que utilizar uma matriz ao invés de um vetor, como no algoritmo de Chang-Roberts? No algoritmo Chang-Roberts, o fluxo de mensagens é mais restrito e linear. Já no algoritmo aleatorizado, <b>todos os processos ativos iniciam uma rodada e transmitem suas mensagens simultaneamente</b> (no evento <i>round</i>). Como cada mensagem deve dar uma volta completa no anel para retornar ao seu criador, um único processo precisará receber e repassar mensagens vindas de múltiplos nós antes mesmo de conseguir processar a sua própria fila no laço de eventos do SMPL.
+</p>
+
+<p>
+Se tivéssemos utilizado um vetor simples do tipo <code>buffer[destino]</code>, enfrentaríamos um problema crítico de <b>condição de corrida (race condition) e perda de dados</b>. Caso a simulação agendasse a chegada de mensagens de origens diferentes para o mesmo nó de destino no mesmo instante de tempo (ou antes que o destino executasse o seu evento <code>msg</code> para consumir o dado atual), a última mensagem a chegar sobrescreveria a anterior, corrompendo o estado da simulação.
+</p>
+
+<p>
+A matriz de buffers resolve este problema ao isolar o armazenamento: a posição <code>buffer[destino][origem]</code> garante um espaço exclusivo e indexado para cada remetente. Dessa forma, o processo de destino consegue reter com segurança as mensagens de cada nó da rede de forma independente, permitindo a circulação paralela de múltiplos pacotes pelo anel sem riscos de colisão ou eliminação de dados.
+</p>
+<h3>Função enviar()</h3>
+
+<pre>
+void enviar(int origem, int id, int bit)
+</pre>
+
+<p>
+A função realiza:
+</p>
+
+<ol>
+    <li>Armazena a mensagem no buffer do destinatário.</li>
+    <li>Incrementa o contador global de mensagens.</li>
+    <li>Codifica o token</li>
+    <li>Agenda um evento de recebimento através de schedule().</li>
+</ol>
+
+<h3>Codificação do Token</h3>
+
+<p>
+O SMPL permite enviar apenas um valor inteiro como token.
+</p>
+
+<p>
+Para transportar simultaneamente origem e destino foi utilizada a expressão:
+</p>
+
+<pre>
+token = destino * 1000 + origem;
+</pre>
+
+<p>
+Posteriormente os valores são recuperados através de:
+</p>
+
+<pre>
+destino = token / 1000;
+origem = token % 1000;
+</pre>
+
+<h3>Evento round</h3>
+
+<p>
+Representa o início de uma rodada da eleição.
+</p>
+
+<p>
+Todo candidato sorteia um bit aleatório:
+</p>
+
+<pre>
+0 ou 1
+</pre>
+
+<p>
+Após o sorteio, o processo envia uma mensagem contendo seu identificador e o
+bit sorteado.
+</p>
+
+<h3>Evento msg</h3>
+
+<p>
+O evento msg representa a chegada de uma mensagem ao processo.
+</p>
+
+<p>
+Quando a mensagem retorna ao seu emissor significa que ela completou uma volta
+inteira pelo anel.
+</p>
+
+<p>
+Nesse momento o processo verifica o resultado da rodada.
+</p>
+
+<ul>
+    <li>Se foi o único a obter bit 1, torna-se líder.</li>
+    <li>Se todos obtiveram bit 0, a rodada é reiniciada.</li>
+    <li>Se existem vários processos com bit 1, apenas eles continuam.</li>
+</ul>
+
+<p>
+Mensagens que ainda não retornaram ao emissor são simplesmente encaminhadas
+para o próximo processo do anel.
+</p>
+
+<h3>Testes Realizados</h3>
+
+<p>Foram realizados testes variando a quantidade de processos no anel para avaliar a escalabilidade do algoritmo. Os logs detalhados de cada execução estão disponíveis abaixo:</p>
+
+<ul>
+    <li><b>10 processos:</b> <a href="log_randomized_10.txt">log_randomized_10.txt</a></li>
+    <li><b>100 processos:</b> <a href="log_randomized_100.txt">log_randomized_100.txt</a></li>
+    <li><b>1000 processos:</b> <a href="log_randomized_1000.txt">log_randomized_1000.txt</a></li>
+</ul>
+
+</body>
+</html>

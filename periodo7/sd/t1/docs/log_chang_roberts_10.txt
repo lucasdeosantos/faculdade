@@ -1,0 +1,93 @@
+===============================================================
+               Sistemas Distribuídos Prof. Elias               
+               Lucas Emanuel de Oliveira Santos                
+                      Vitor Lorenzo Cumim                      
+                   LOG do Trabalho Prático 1                   
+                   Algoritmo de Chang-Roberts                  
+       Este programa foi executado para: N=10 processos.       
+===============================================================
+
+===============================================================
+ CENÁRIO 1: Apenas o processo 0 é candidato
+===============================================================
+Processo 0: Sou candidato! Início a eleição enviando meu id.
+Processo 1: Recebi candidato=0 no tempo  2.0. Maior que meu líder conhecido. Repassando...
+Processo 2: Recebi candidato=0 no tempo  3.0. Maior que meu líder conhecido. Repassando...
+Processo 3: Recebi candidato=0 no tempo  4.0. Maior que meu líder conhecido. Repassando...
+Processo 4: Recebi candidato=0 no tempo  5.0. Maior que meu líder conhecido. Repassando...
+Processo 5: Recebi candidato=0 no tempo  6.0. Maior que meu líder conhecido. Repassando...
+Processo 6: Recebi candidato=0 no tempo  7.0. Maior que meu líder conhecido. Repassando...
+Processo 7: Recebi candidato=0 no tempo  8.0. Maior que meu líder conhecido. Repassando...
+Processo 8: Recebi candidato=0 no tempo  9.0. Maior que meu líder conhecido. Repassando...
+Processo 9: Recebi candidato=0 no tempo 10.0. Maior que meu líder conhecido. Repassando...
+Processo 0: Recebi minha própria mensagem de volta no tempo 11.0!
+===============================================================
+LÍDER ELEITO: Processo 0
+Quantidade de Mensagens: 10
+Tempo Total de Simulação = 11.0
+===============================================================
+
+===============================================================
+ CENÁRIO 2: Candidatos escolhidos aleatoriamente
+===============================================================
+Processo 1: Sou candidato! Início a eleição enviando meu id.
+Processo 2: Sou candidato! Início a eleição enviando meu id.
+Processo 3: Sou candidato! Início a eleição enviando meu id.
+Processo 5: Sou candidato! Início a eleição enviando meu id.
+Processo 2: Recebi candidato=1 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 3: Recebi candidato=2 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 4: Recebi candidato=3 no tempo  2.0. Maior que meu líder conhecido. Repassando...
+Processo 6: Recebi candidato=5 no tempo  2.0. Maior que meu líder conhecido. Repassando...
+Processo 5: Recebi candidato=3 no tempo  3.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 7: Recebi candidato=5 no tempo  3.0. Maior que meu líder conhecido. Repassando...
+Processo 8: Recebi candidato=5 no tempo  4.0. Maior que meu líder conhecido. Repassando...
+Processo 9: Recebi candidato=5 no tempo  5.0. Maior que meu líder conhecido. Repassando...
+Processo 0: Recebi candidato=5 no tempo  6.0. Maior que meu líder conhecido. Repassando...
+Processo 1: Recebi candidato=5 no tempo  7.0. Maior que meu líder conhecido. Repassando...
+Processo 2: Recebi candidato=5 no tempo  8.0. Maior que meu líder conhecido. Repassando...
+Processo 3: Recebi candidato=5 no tempo  9.0. Maior que meu líder conhecido. Repassando...
+Processo 4: Recebi candidato=5 no tempo 10.0. Maior que meu líder conhecido. Repassando...
+Processo 5: Recebi minha própria mensagem de volta no tempo 11.0!
+===============================================================
+LÍDER ELEITO: Processo 5
+Quantidade de Mensagens: 14
+Tempo Total de Simulação = 11.0
+===============================================================
+
+===============================================================
+ CENÁRIO 3: Todos os processos são candidatos
+===============================================================
+Processo 0: Sou candidato! Início a eleição enviando meu id.
+Processo 1: Sou candidato! Início a eleição enviando meu id.
+Processo 2: Sou candidato! Início a eleição enviando meu id.
+Processo 3: Sou candidato! Início a eleição enviando meu id.
+Processo 4: Sou candidato! Início a eleição enviando meu id.
+Processo 5: Sou candidato! Início a eleição enviando meu id.
+Processo 6: Sou candidato! Início a eleição enviando meu id.
+Processo 7: Sou candidato! Início a eleição enviando meu id.
+Processo 8: Sou candidato! Início a eleição enviando meu id.
+Processo 9: Sou candidato! Início a eleição enviando meu id.
+Processo 1: Recebi candidato=0 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 2: Recebi candidato=1 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 3: Recebi candidato=2 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 4: Recebi candidato=3 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 5: Recebi candidato=4 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 6: Recebi candidato=5 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 7: Recebi candidato=6 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 8: Recebi candidato=7 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 9: Recebi candidato=8 no tempo  2.0. Menor ou igual ao meu líder conhecido. Descartada.
+Processo 0: Recebi candidato=9 no tempo  2.0. Maior que meu líder conhecido. Repassando...
+Processo 1: Recebi candidato=9 no tempo  3.0. Maior que meu líder conhecido. Repassando...
+Processo 2: Recebi candidato=9 no tempo  4.0. Maior que meu líder conhecido. Repassando...
+Processo 3: Recebi candidato=9 no tempo  5.0. Maior que meu líder conhecido. Repassando...
+Processo 4: Recebi candidato=9 no tempo  6.0. Maior que meu líder conhecido. Repassando...
+Processo 5: Recebi candidato=9 no tempo  7.0. Maior que meu líder conhecido. Repassando...
+Processo 6: Recebi candidato=9 no tempo  8.0. Maior que meu líder conhecido. Repassando...
+Processo 7: Recebi candidato=9 no tempo  9.0. Maior que meu líder conhecido. Repassando...
+Processo 8: Recebi candidato=9 no tempo 10.0. Maior que meu líder conhecido. Repassando...
+Processo 9: Recebi minha própria mensagem de volta no tempo 11.0!
+===============================================================
+LÍDER ELEITO: Processo 9
+Quantidade de Mensagens: 19
+Tempo Total de Simulação = 11.0
+===============================================================

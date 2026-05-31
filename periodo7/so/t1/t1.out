@@ -1,0 +1,159 @@
+PID: 39840 | Pai PID: 39838 | nProc (lógico): 2
+Processo: 2 ira dormir 4 segundos antes da barreira.
+--Processo: 2 chegando na barreira
+**Processo: 2 saindo da barreira
+Processo: 2 Prologo: 0 de 3 segundos
+Processo: 2 USO: 0 por 1 segundos
+Processo: 2 Epilogo: 0 de 3 segundos
+Processo: 2 Prologo: 1 de 0 segundos
+Processo: 2 USO: 1 por 1 segundos
+Processo: 2 Epilogo: 1 de 3 segundos
+Processo: 2 Prologo: 2 de 0 segundos
+Processo: 2 USO: 2 por 0 segundos
+Processo: 2 Epilogo: 2 de 3 segundos
+--Processo: 2 chegando novamente na barreira
+++Processo: 2 saindo da barreira novamente
+PID: 39845 | Pai PID: 39838 | nProc (lógico): 7
+Processo: 7 ira dormir 4 segundos antes da barreira.
+--Processo: 7 chegando na barreira
+**Processo: 7 saindo da barreira
+Processo: 7 Prologo: 0 de 0 segundos
+Processo: 7 USO: 0 por 2 segundos
+Processo: 7 Epilogo: 0 de 1 segundos
+Processo: 7 Prologo: 1 de 3 segundos
+Processo: 7 USO: 1 por 2 segundos
+Processo: 7 Epilogo: 1 de 1 segundos
+Processo: 7 Prologo: 2 de 2 segundos
+Processo: 7 USO: 2 por 1 segundos
+Processo: 7 Epilogo: 2 de 1 segundos
+--Processo: 7 chegando novamente na barreira
+++Processo: 7 saindo da barreira novamente
+PID: 39844 | Pai PID: 39838 | nProc (lógico): 6
+Processo: 6 ira dormir 7 segundos antes da barreira.
+--Processo: 6 chegando na barreira
+**Processo: 6 saindo da barreira
+Processo: 6 Prologo: 0 de 3 segundos
+Processo: 6 USO: 0 por 0 segundos
+Processo: 6 Epilogo: 0 de 2 segundos
+Processo: 6 Prologo: 1 de 2 segundos
+Processo: 6 USO: 1 por 2 segundos
+Processo: 6 Epilogo: 1 de 3 segundos
+Processo: 6 Prologo: 2 de 1 segundos
+Processo: 6 USO: 2 por 0 segundos
+Processo: 6 Epilogo: 2 de 3 segundos
+--Processo: 6 chegando novamente na barreira
+++Processo: 6 saindo da barreira novamente
+PID: 39842 | Pai PID: 39838 | nProc (lógico): 4
+Processo: 4 ira dormir 1 segundos antes da barreira.
+--Processo: 4 chegando na barreira
+**Processo: 4 saindo da barreira
+Processo: 4 Prologo: 0 de 3 segundos
+Processo: 4 USO: 0 por 2 segundos
+Processo: 4 Epilogo: 0 de 2 segundos
+Processo: 4 Prologo: 1 de 3 segundos
+Processo: 4 USO: 1 por 1 segundos
+Processo: 4 Epilogo: 1 de 3 segundos
+Processo: 4 Prologo: 2 de 0 segundos
+Processo: 4 USO: 2 por 0 segundos
+Processo: 4 Epilogo: 2 de 2 segundos
+--Processo: 4 chegando novamente na barreira
+++Processo: 4 saindo da barreira novamente
+PID: 39847 | Pai PID: 39838 | nProc (lógico): 9
+Processo: 9 ira dormir 2 segundos antes da barreira.
+--Processo: 9 chegando na barreira
+**Processo: 9 saindo da barreira
+Processo: 9 Prologo: 0 de 3 segundos
+Processo: 9 USO: 0 por 2 segundos
+Processo: 9 Epilogo: 0 de 2 segundos
+Processo: 9 Prologo: 1 de 1 segundos
+Processo: 9 USO: 1 por 2 segundos
+Processo: 9 Epilogo: 1 de 0 segundos
+Processo: 9 Prologo: 2 de 3 segundos
+Processo: 9 USO: 2 por 1 segundos
+Processo: 9 Epilogo: 2 de 1 segundos
+--Processo: 9 chegando novamente na barreira
+++Processo: 9 saindo da barreira novamente
+PID: 39841 | Pai PID: 39838 | nProc (lógico): 3
+Processo: 3 ira dormir 3 segundos antes da barreira.
+--Processo: 3 chegando na barreira
+**Processo: 3 saindo da barreira
+Processo: 3 Prologo: 0 de 1 segundos
+Processo: 3 USO: 0 por 0 segundos
+Processo: 3 Epilogo: 0 de 1 segundos
+Processo: 3 Prologo: 1 de 3 segundos
+Processo: 3 USO: 1 por 0 segundos
+Processo: 3 Epilogo: 1 de 2 segundos
+Processo: 3 Prologo: 2 de 1 segundos
+Processo: 3 USO: 2 por 0 segundos
+Processo: 3 Epilogo: 2 de 0 segundos
+--Processo: 3 chegando novamente na barreira
+++Processo: 3 saindo da barreira novamente
+PID: 39846 | Pai PID: 39838 | nProc (lógico): 8
+Processo: 8 ira dormir 7 segundos antes da barreira.
+--Processo: 8 chegando na barreira
+**Processo: 8 saindo da barreira
+Processo: 8 Prologo: 0 de 1 segundos
+Processo: 8 USO: 0 por 0 segundos
+Processo: 8 Epilogo: 0 de 2 segundos
+Processo: 8 Prologo: 1 de 2 segundos
+Processo: 8 USO: 1 por 0 segundos
+Processo: 8 Epilogo: 1 de 3 segundos
+Processo: 8 Prologo: 2 de 0 segundos
+Processo: 8 USO: 2 por 3 segundos
+Processo: 8 Epilogo: 2 de 0 segundos
+--Processo: 8 chegando novamente na barreira
+++Processo: 8 saindo da barreira novamente
+PID: 39839 | Pai PID: 39838 | nProc (lógico): 1
+Processo: 1 ira dormir 1 segundos antes da barreira.
+--Processo: 1 chegando na barreira
+**Processo: 1 saindo da barreira
+Processo: 1 Prologo: 0 de 3 segundos
+Processo: 1 USO: 0 por 3 segundos
+Processo: 1 Epilogo: 0 de 3 segundos
+Processo: 1 Prologo: 1 de 3 segundos
+Processo: 1 USO: 1 por 0 segundos
+Processo: 1 Epilogo: 1 de 2 segundos
+Processo: 1 Prologo: 2 de 1 segundos
+Processo: 1 USO: 2 por 1 segundos
+Processo: 1 Epilogo: 2 de 0 segundos
+--Processo: 1 chegando novamente na barreira
+++Processo: 1 saindo da barreira novamente
+PID: 39843 | Pai PID: 39838 | nProc (lógico): 5
+Processo: 5 ira dormir 0 segundos antes da barreira.
+--Processo: 5 chegando na barreira
+**Processo: 5 saindo da barreira
+Processo: 5 Prologo: 0 de 3 segundos
+Processo: 5 USO: 0 por 3 segundos
+Processo: 5 Epilogo: 0 de 2 segundos
+Processo: 5 Prologo: 1 de 3 segundos
+Processo: 5 USO: 1 por 0 segundos
+Processo: 5 Epilogo: 1 de 0 segundos
+Processo: 5 Prologo: 2 de 0 segundos
+Processo: 5 USO: 2 por 0 segundos
+Processo: 5 Epilogo: 2 de 1 segundos
+--Processo: 5 chegando novamente na barreira
+++Processo: 5 saindo da barreira novamente
+PID: 39838 | Pai PID: 207 | nProc (lógico): 0
+Processo: 0 ira dormir 7 segundos antes da barreira.
+--Processo: 0 chegando na barreira
+**Processo: 0 saindo da barreira
+Processo: 0 Prologo: 0 de 3 segundos
+Processo: 0 USO: 0 por 3 segundos
+Processo: 0 Epilogo: 0 de 0 segundos
+Processo: 0 Prologo: 1 de 3 segundos
+Processo: 0 USO: 1 por 3 segundos
+Processo: 0 Epilogo: 1 de 2 segundos
+Processo: 0 Prologo: 2 de 2 segundos
+Processo: 0 USO: 2 por 2 segundos
+Processo: 0 Epilogo: 2 de 3 segundos
+--Processo: 0 chegando novamente na barreira
+++Processo: 0 saindo da barreira novamente
++++ Filho de número lógico 2 e pid 39840 terminou!
++++ Filho de número lógico 4 e pid 39842 terminou!
++++ Filho de número lógico 3 e pid 39841 terminou!
++++ Filho de número lógico 6 e pid 39844 terminou!
++++ Filho de número lógico 7 e pid 39845 terminou!
++++ Filho de número lógico 1 e pid 39839 terminou!
++++ Filho de número lógico 5 e pid 39843 terminou!
++++ Filho de número lógico 8 e pid 39846 terminou!
++++ Filho de número lógico 9 e pid 39847 terminou!
