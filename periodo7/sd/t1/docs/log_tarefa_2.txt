@@ -1,0 +1,25 @@
+Sou o processo 0 estou testando o processo 1 e resultou em correto no tempo 30.0
+Sou o processo 1 estou testando o processo 2 e resultou em correto no tempo 30.0
+Sou o processo 2 estou testando o processo 3 e resultou em correto no tempo 30.0
+Sou o processo 3 estou testando o processo 4 e resultou em correto no tempo 30.0
+Sou o processo 4 estou testando o processo 0 e resultou em correto no tempo 30.0
+O processo 1 falhou no tempo 31.0
+O processo 2 falhou no tempo 31.0
+O processo 3 falhou no tempo 31.0
+Sou o processo 0 estou testando o processo 1 e resultou em SUSPEITO!!! no tempo 60.0
+Sou o processo 0 estou testando o processo 2 e resultou em SUSPEITO!!! no tempo 60.0
+Sou o processo 0 estou testando o processo 3 e resultou em SUSPEITO!!! no tempo 60.0
+Sou o processo 0 estou testando o processo 4 e resultou em correto no tempo 60.0
+Sou o processo 4 estou testando o processo 0 e resultou em correto no tempo 60.0
+O processo 1 recuperou no tempo 61.0
+O processo 2 recuperou no tempo 61.0
+O processo 3 recuperou no tempo 61.0
+Sou o processo 1 estou testando o processo 2 e resultou em correto no tempo 62.0
+Sou o processo 2 estou testando o processo 3 e resultou em correto no tempo 62.0
+Sou o processo 3 estou testando o processo 4 e resultou em correto no tempo 62.0
+Sou o processo 0 estou testando o processo 1 e resultou em correto no tempo 90.0
+Sou o processo 4 estou testando o processo 0 e resultou em correto no tempo 90.0
+Sou o processo 1 estou testando o processo 2 e resultou em correto no tempo 92.0
+Sou o processo 2 estou testando o processo 3 e resultou em correto no tempo 92.0
+Sou o processo 3 estou testando o processo 4 e resultou em correto no tempo 92.0
+Sou o processo 0 estou testando o processo 1 e resultou em correto no tempo 120.0
