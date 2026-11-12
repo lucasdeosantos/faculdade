@@ -1,3 +1,6 @@
+// Rafael Urbanek Laurentino            GRR20224381
+// Lucas Emanuel de Oliveira Santos     GRR20224379
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -40,7 +43,6 @@ typedef struct {
 void init_barr(barrier_t *barr, int n) {
     barr->n = n;
     barr->count = 0;
-    // O segundo argumento '1' indica que o semáforo será compartilhado entre processos
     sem_init(&barr->mutex, 1, 1);
     sem_init(&barr->turnstile1, 1, 0);
     sem_init(&barr->turnstile2, 1, 1); // Inicializa aberto para a fase 2
@@ -122,7 +124,7 @@ void termina_uso(int recurso, FifoQT *F) {
 // ------------------- LÓGICA DO PROCESSO (Filhos e Pai) -------------------
 
 void rotina_processo(MemCompartilhada *shm, int nProc, int recurso, int n) {
-    // Semente aleatória única por processo para tempos diferentes
+    // Semente aleatória única por processo
     srand(time(NULL) ^ (getpid() << 16)); 
 
     printf("PID: %d | Pai PID: %d | nProc (lógico): %d\n", getpid(), getppid(), nProc);
@@ -220,7 +222,8 @@ int main(int argc, char *argv[]) {
     // Executando a rotina para o pai
     rotina_processo(shm, 0, recurso, n); // Executa como nProc = 0
     
-    // APENAS O MAIN ORIGINAL FICA AQUI ESPERANDO (Gerenciador)
+    // ---------------------- MAIN ORIGINAL (Gerenciador) ----------------------
+    
     int status;
     pid_t wpid;
 
@@ -238,6 +241,9 @@ int main(int argc, char *argv[]) {
             printf("+++ Filho de número lógico %d e pid %d terminou!\n", nProc_logico, wpid);
         }
     }
+
+    // Imprime término do processo pai.
+    printf("+++ Processo PAI de número lógico 0 e pid %d terminando!\n", getpid());
 
     // Limpeza da memória compartilhada
     munmap(shm, sizeof(MemCompartilhada));
