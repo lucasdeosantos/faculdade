@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>loja.js · Mochilas</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./loja.css">
+  <script src="./loja.js" defer></script>
+</head>
+<body>
+  <header class="wrap topo">
+    <a class="marca" href="./index.html">loja<span>.</span>js</a>
+    <p id="saudacao">Olá, Visitante</p>
+  </header>
+  <p class="wrap faixa-aula">
+    <a href="../apresentacao/index.html#ataque">← Voltar à apresentação</a>
+    <button type="button" id="restaurar">↺ Restaurar loja</button>
+  </p>
+  <main class="wrap">
+    <h1>Mochilas</h1>
+    <form action="./index.html#catalogo" method="get" role="search">
+      <label for="q">Buscar no catálogo</label>
+      <div class="busca">
+        <input type="search" name="q" id="q" placeholder="Ex.: Trilha">
+        <button>Buscar</button>
+      </div>
+    </form>
+    <section id="catalogo" aria-label="Catálogo">
+      <p id="resultado" hidden></p>
+      <div class="produtos">
+        <article class="produto">
+          <h2>Trilha 24L</h2>
+          <p>Mochila resistente para trilhas curtas.</p>
+          <strong>R$ 249,90</strong>
+        </article>
+        <article class="produto">
+          <h2>Urbana 18L</h2>
+          <p>Mochila com compartimento para notebook.</p>
+          <strong>R$ 189,90</strong>
+        </article>
+      </div>
+      <p id="sem-produtos" hidden>Nenhum produto encontrado.</p>
+    </section>
+    <section id="avaliacoes">
+      <h2>Avaliações da loja</h2>
+      <ul id="lista-avaliacoes"></ul>
+      <form id="avaliar">
+        <label for="comentario">Sua avaliação</label>
+        <textarea id="comentario" rows="3" required></textarea>
+        <button>Publicar avaliação</button>
+        <p id="aviso" role="status" hidden></p>
+      </form>
+    </section>
+  </main>
+  <footer class="wrap">Loja fictícia para demonstração.</footer>
+</body>
+</html>

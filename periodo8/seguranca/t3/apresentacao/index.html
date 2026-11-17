@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XSS: Cross-Site Scripting — Aula com demonstrações ao vivo</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="#topo">XSS<b>.</b>lab</a>
+    <nav class="menu" aria-label="Seções">
+      <a href="#o-que-e">O que é</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#ataque">Ataque ao vivo</a>
+      <a href="#defesas">Defesas</a>
+      <a href="#referencias">Referências</a>
+    </nav>
+  </div>
+  <div class="progresso" id="progresso"></div>
+</header>
+
+<main id="topo">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>XSS: Cross-Site Scripting</h1>
+        <p class="sub">Como o ataque funciona, uma demonstração prática e como se defender</p>
+        <p class="autores">Lucas Santos, Rafael Urbanek, Vitor Cumim</p>
+        <div class="botoes">
+          <a class="cta" href="#o-que-e">Começar</a>
+          <a class="cta sec" href="#ataque">Ir direto para a demonstração</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. O que é -->
+  <section id="o-que-e">
+    <div class="wrap">
+      <span class="faixa">Conceito</span>
+      <h2>O que é XSS</h2>
+      <p class="lead rev">Vulnerabilidade que permite a execução de scripts maliciosos no navegador da vítima por meio de conteúdo não tratado adequadamente.</p>
+    </div>
+  </section>
+
+  <!-- 2. Como funciona -->
+  <section id="como-funciona">
+    <div class="wrap">
+      <span class="faixa">Conceito</span>
+      <h2>Como o ataque funciona</h2>
+      <div class="passos3 rev">
+        <div class="p3"><div class="n">1</div><h3>Injeção</h3><p>O atacante insere conteúdo malicioso em um campo, comentário ou link do site.</p></div>
+        <div class="p3"><div class="n">2</div><h3>Execução</h3><p>O conteúdo é incorporado à página e executado no navegador da vítima.</p></div>
+        <div class="p3"><div class="n">3</div><h3>Impacto</h3><p>O script pode acessar dados, modificar a página ou realizar ações não autorizadas.</p></div>
+      </div>
+      
+      <div class="bloco rev">
+        <h3 class="sub">Três tipos de XSS</h3>
+        <p class="prosa">Refletido e armazenado descrevem como o payload chega à vítima. Uma falha baseada em DOM ocorre no navegador e pode se sobrepor aos outros tipos.</p>
+        <div class="tabela">
+          <table class="tipos">
+            <tr><th></th><th>Onde o payload passa</th><th>Quem é atingido</th></tr>
+            <tr><td>Refletido</td><td>Vai na requisição HTTP e é refletido na resposta, sem ser armazenado.</td><td class="peq">Quem abre o link do atacante</td></tr>
+            <tr><td>Armazenado</td><td>É salvo no servidor, como em comentários, e executado quando a vítima acessa a página.</td><td class="peq">Todo visitante da página</td></tr>
+            <tr><td>Baseado em DOM</td><td>O JavaScript do cliente manipula dados no DOM de forma insegura, sem depender do servidor.</td><td class="peq">Quem abre o link manipulado</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Ataque ao vivo: na loja real, editando o código na hora -->
+  <section id="ataque">
+    <div class="wrap">
+      <span class="faixa">Ataque</span>
+      <h2>O ataque, passo a passo</h2>
+      <p class="prosa rev" style="margin-bottom:22px">A demonstração roda em um site real à parte, a <b>loja.js</b>: um catálogo simples com busca, avaliações e saudação, com as três falhas já marcadas no código-fonte. Abra-a numa aba ao lado e deixe o arquivo <code>loja.js</code> aberto no editor — a correção de cada vetor é editar a linha, salvar e recarregar a página.</p>
+
+      <p class="rev" style="margin:0 0 36px">
+        <a class="cta" href="../loja-estatica/index.html" target="_blank" rel="noopener">Abrir a loja.js</a>
+      </p>
+
+      <h3>Como atacar</h3>
+      <div class="passos rev">
+        <ol>
+          <li>Encontre uma entrada que reaparece na página, como a busca, a avaliação ou o nome na URL.</li>
+          <li>Insira um payload de teste. O exemplo abaixo usa uma imagem que falha ao carregar e dispara <code>onerror</code>.</li>
+          <li>Abra o link ou recarregue a avaliação salva para reproduzir a execução no navegador.</li>
+        </ol>
+        <pre class="cod"><span class="c">// payload de alerta</span>
+&lt;img src="data:,"
+      onerror="alert('Você está sob ataque!')"&gt;</pre>
+      </div>
+
+      <!-- Tipo: Refletido -->
+      <div class="bloco rev" id="demo-refletido">
+        <h3 class="sub">1. Refletido: a busca da loja</h3>
+        <p class="prosa">A busca devolve o termo pesquisado na própria página, via <code>?q=</code> na URL. Nesta loja estática, o JavaScript lê e exibe esse valor no navegador.</p>
+        <ol class="roteiro-loja">
+          <li>Na loja.js, busque por <code>Trilha</code> para ver o uso normal.</li>
+          <li>Cole no campo de busca: <code>&lt;img src="data:," onerror="alert('Você está sob ataque!')"&gt;</code> e clique em <b>Buscar</b>.</li>
+          <li>No editor, em <code>loja.js</code>, troque a linha marcada <code>// 1. Busca</code>.</li>
+        </ol>
+        <pre class="cod"><span class="t r">Antes · loja.js</span>
+resultado.<span class="bad">innerHTML</span> = 'Você buscou: ' + termo; <span class="tag bad">FALHA</span></pre>
+        <pre class="cod"><span class="t g">Depois · loja.js</span>
+resultado.<span class="ok">textContent</span> = 'Você buscou: ' + termo; <span class="tag ok">CORREÇÃO</span></pre>
+        <p class="prosa">Salve e recarregue a mesma URL: o exemplo aparece como texto, não executa mais.</p>
+      </div>
+
+      <!-- Tipo: Armazenado -->
+      <div class="bloco rev" id="demo-armazenado">
+        <h3 class="sub">2. Armazenado: avaliações da loja</h3>
+        <p class="prosa">A avaliação fica salva no navegador (no servidor real, no banco de dados) e reaparece em uma nova visita no mesmo navegador, sem precisar de um link especial.</p>
+        <ol class="roteiro-loja">
+          <li>Publique a avaliação: <code>&lt;b&gt;Oferta&lt;/b&gt; &lt;img src="data:," onerror="alert('Você está sob ataque!')"&gt;</code></li>
+          <li>Recarregue a página: o alerta dispara de novo, como se fosse outra visita.</li>
+          <li>No editor, em <code>loja.js</code>, troque a linha marcada <code>// 2. Avaliações</code>.</li>
+        </ol>
+        <pre class="cod"><span class="t r">Antes · loja.js</span>
+item.<span class="bad">innerHTML</span> = texto; <span class="tag bad">FALHA</span></pre>
+        <pre class="cod"><span class="t g">Depois · loja.js</span>
+item.<span class="ok">textContent</span> = texto;
+item.innerHTML = item.innerHTML
+  .replaceAll('&amp;lt;b&amp;gt;', '&lt;b&gt;')
+  .replaceAll('&amp;lt;/b&amp;gt;', '&lt;/b&gt;'); <span class="tag ok">CORREÇÃO</span></pre>
+        <p class="prosa">Ao recarregar, a avaliação continua salva, <b>Oferta</b> continua em negrito, e o código da imagem aparece como texto — a formatação combinada com a defesa.</p>
+      </div>
+
+      <!-- Tipo: DOM -->
+      <div class="bloco rev" id="demo-dom">
+        <h3 class="sub">3. Baseado em DOM: a saudação</h3>
+        <p class="prosa">A saudação lê o nome direto do fragmento da URL (<code>#nome=</code>) e o escreve na página. O servidor nunca vê esse valor — a falha é só no JavaScript do navegador.</p>
+        <ol class="roteiro-loja">
+          <li>Na barra de endereço da loja, retire qualquer fragmento existente e acrescente o trecho abaixo. Pressione <b>Enter</b> para disparar o alerta.</li>
+          <li>No editor, em <code>loja.js</code>, troque a linha marcada <code>// 3. Conta</code>.</li>
+        </ol>
+        <pre class="cod"><code>#nome=%3Cimg%20src%3D%22data%3A%2C%22%20onerror%3D%22alert(%27Voc%C3%AA%20est%C3%A1%20sob%20ataque!%27)%22%3E</code></pre>
+        <pre class="cod"><span class="t r">Antes · loja.js</span>
+saudacao.<span class="bad">innerHTML</span> = 'Olá, ' + nome; <span class="tag bad">FALHA</span></pre>
+        <pre class="cod"><span class="t g">Depois · loja.js</span>
+saudacao.<span class="ok">textContent</span> = 'Olá, ' + nome; <span class="tag ok">CORREÇÃO</span></pre>
+        <p class="prosa">Recarregue o mesmo link: o nome agora aparece como texto puro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Defesas -->
+  <section id="defesas">
+    <div class="wrap">
+      <span class="faixa">Defesa</span>
+      <h2>Como se defender</h2>
+      <p class="lead rev">Nenhuma defesa isolada basta. A proteção vem de camadas que se complementam. As três demonstrações acima já mostraram a principal: exibir a entrada como texto ou sanitizar o HTML permitido. As duas a seguir reforçam a proteção.</p>
+
+      <div class="bloco rev">
+        <h3 class="sub">Restringir scripts e proteger a sessão</h3>
+        <div class="def2">
+          <div>
+            <h3>CSP</h3>
+            <p class="d">Política que restringe quais scripts podem ser executados na página.</p>
+            <pre class="cod">Content-Security-Policy:
+  default-src 'none';
+  script-src <span class="ok">'nonce-r4nd0m'</span></pre>
+            <p class="d">Efeito: <code>onerror</code> e scripts inline são bloqueados.</p>
+          </div>
+          <div>
+            <h3>Cookies protegidos</h3>
+            <p class="d">Usar HttpOnly, Secure e SameSite para reforçar a proteção da sessão.</p>
+            <pre class="cod">Set-Cookie: sessao=a1b2c3d4e5;
+  <span class="ok">HttpOnly</span>; Secure;
+  SameSite=Strict</pre>
+            <p class="d">Efeito: <code>document.cookie</code> não enxerga a sessão.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bloco rev">
+        <h3 class="sub">Defesa em camadas</h3>
+        <div class="camadas">
+          <div class="cam"><b>Codificar a saída</b><span>impede que a entrada vire código</span></div>
+          <div class="cam"><b>Sanitizar</b><span>remove o que é perigoso do HTML</span></div>
+          <div class="cam"><b>CSP</b><span>bloqueia a execução do script</span></div>
+          <div class="cam"><b>Cookies protegidos</b><span>limitam o dano se o script rodar</span></div>
+        </div>
+        <p class="regra">Regra: nunca confie na entrada do usuário.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Referências -->
+  <section id="referencias">
+    <div class="wrap">
+      <div class="bloco rev">
+        <h3 class="sub">Referências</h3>
+        <div class="refs">
+          <div>OWASP. Cross Site Scripting (XSS).<br><a href="https://owasp.org/www-community/attacks/xss/" target="_blank" rel="noopener">https://owasp.org/www-community/attacks/xss/</a></div>
+          <div>OWASP. Cross Site Scripting Prevention Cheat Sheet.<br><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html</a></div>
+          <div>MDN. Content Security Policy (CSP).<br><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/CSP" target="_blank" rel="noopener">https://developer.mozilla.org/pt-BR/docs/Web/HTTP/CSP</a></div>
+          <div>DOMPurify. Biblioteca de sanitização de HTML.<br><a href="https://github.com/cure53/DOMPurify" target="_blank" rel="noopener">https://github.com/cure53/DOMPurify</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="fim">
+  <div class="wrap">
+    <a href="#topo">Voltar ao topo ↑</a>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
