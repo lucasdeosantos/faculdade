@@ -1,34 +1,41 @@
-function normalizeNames(records, key) {
-  if (!Array.isArray(records)) throw new Error('Dados devem formar uma lista.');
-  return records.map((record, index) => {
-    if (!record || typeof record[key] !== 'string' || !record[key].trim()) {
+function normalizeNames(cidades, key) {
+  if (!Array.isArray(cidades)) throw new Error('Dados devem formar uma lista.');
+  return cidades.map((cidade, index) => {
+    if (!cidade || typeof cidade[key] !== 'string' || !cidade[key].trim()) {
       throw new Error(`Registro ${index + 1}: campo ${key} deve ser texto não vazio.`);
     }
-    return { name: record[key] };
+    return { name: cidade[key] };
   });
 }
 
-export function parseCidadesJSON(text) {
-  return normalizeNames(JSON.parse(text), 'Nome');
+export function parseCidadesJSON(texto) {
+  const cidades = JSON.parse(texto);
+  if (Array.isArray(cidades)) return normalizeNames(cidades, 'Nome');
+  if (cidades && Array.isArray(cidades.estados)) {
+    return cidades.estados.flatMap(estado =>
+      estado.cidades.map(cidade => ({ name: cidade }))
+    );
+  }
+  throw new Error('JSON: estrutura de cidades inválida.');
 }
 
-function parseCSVRows(text) {
+function parseCSVRows(texto) {
   const rows = [];
   let row = [], field = '', state = 'start';
   const finishField = () => { row.push(field); field = ''; state = 'start'; };
   const finishRow = () => { finishField(); rows.push(row); row = []; };
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
+  for (let i = 0; i < texto.length; i++) {
+    const c = texto[i];
     if (state === 'quoted') {
       if (c === '"') {
-        if (text[i + 1] === '"') { field += '"'; i++; }
+        if (texto[i + 1] === '"') { field += '"'; i++; }
         else state = 'closed';
       } else field += c;
       continue;
     }
     if (c === ',') { finishField(); continue; }
     if (c === '\n' || c === '\r') {
-      if (c === '\r' && text[i + 1] === '\n') i++;
+      if (c === '\r' && texto[i + 1] === '\n') i++;
       finishRow(); continue;
     }
     if (state === 'closed') throw new Error('CSV: caractere após fechamento de aspas.');
@@ -42,17 +49,17 @@ function parseCSVRows(text) {
   return rows;
 }
 
-export function parseCidadesCSV(text) {
-  const [header, ...rows] = parseCSVRows(text);
+export function parseCidadesCSV(texto) {
+  const [header, ...rows] = parseCSVRows(texto);
   if (!header || header.filter(key => key === 'NOME').length !== 1) {
     throw new Error('CSV: cabeçalho deve conter uma coluna NOME.');
   }
   if (new Set(header).size !== header.length) throw new Error('CSV: cabeçalho duplicado.');
-  const records = rows.map((row, index) => {
+  const cidades = rows.map((row, index) => {
     if (row.length !== header.length) {
       throw new Error(`CSV: linha ${index + 2} com número de campos inválido.`);
     }
     return Object.fromEntries(header.map((key, i) => [key, row[i]]));
   });
-  return normalizeNames(records, 'NOME');
+  return normalizeNames(cidades, 'NOME');
 }
