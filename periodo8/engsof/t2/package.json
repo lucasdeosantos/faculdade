@@ -1,0 +1,13 @@
+{
+  "name": "01-design-patterns-template-strategy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "python3 test/cli_test.py",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
