@@ -1,6 +1,6 @@
 import { Parser } from './Parser.js';
 
-function parseCSV(texto) {
+function parseCSVRows(texto) {
   const rows = [];
   let row = [], field = '', state = 'start';
   const finishField = () => { row.push(field); field = ''; state = 'start'; };
@@ -32,7 +32,7 @@ function parseCSV(texto) {
 
 export class CSVParser extends Parser {
   lerCidades(texto) {
-    const [header, ...rows] = parseCSV(texto);
+    const [header, ...rows] = parseCSVRows(texto);
     if (!header || header.filter(key => key === 'NOME').length !== 1) {
       throw new Error('CSV: cabeçalho deve conter uma coluna NOME.');
     }
