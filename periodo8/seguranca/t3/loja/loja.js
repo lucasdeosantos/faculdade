@@ -1,7 +1,3 @@
-const chaveAvaliacoes = 'xss-loja-estatica.avaliacoes';
-const lista = document.querySelector('#lista-avaliacoes');
-const aviso = document.querySelector('#aviso');
-
 function mostrarBusca() {
   const termo = new URLSearchParams(location.search).get('q') || '';
   const resultado = document.querySelector('#resultado');
@@ -10,8 +6,11 @@ function mostrarBusca() {
 
   // VULNERABILIDADE: innerHTML interpreta o parâmetro ?q= como HTML.
   resultado.innerHTML = 'Você buscou: ' + termo;
-  // DEFESA: substituir a linha ativa por esta para exibir somente texto:
+  // DEFESA: textContent exibe a entrada como texto e impede que o navegador interprete o HTML injetado.
   // resultado.textContent = 'Você buscou: ' + termo;
+
+  // DOMPurify: sanitiza a busca antes de renderizar o HTML permitido.
+  // resultado.innerHTML = DOMPurify.sanitize('Você buscou: ' + termo);
 
   const filtro = termo.trim().toLowerCase();
   let encontrou = false;
@@ -22,73 +21,44 @@ function mostrarBusca() {
   document.querySelector('#sem-produtos').hidden = encontrou;
 }
 
-function adicionarAvaliacao(texto) {
-  const item = document.createElement('li');
+const chaveSessao = 'loja.sessao';
+const usuarioDemo = { usuario: 'joaozinho', userId: '123456789' };
+const perfilDemo = document.querySelector('#perfil-demo');
+const iniciarSessao = document.querySelector('#iniciar-sessao');
 
-  // VULNERABILIDADE: innerHTML interpreta uma avaliação já salva.
-  item.innerHTML = texto;
-  // DEFESA: substituir a linha ativa pelo trecho abaixo. Primeiro, transforme
-  // a entrada em texto. Depois, reabilite somente as tags literais <b> e </b>.
-  // item.textContent = texto;
-  // item.innerHTML = item.innerHTML
-  //   .replaceAll('&lt;b&gt;', '<b>')
-  //   .replaceAll('&lt;/b&gt;', '</b>');
-
-  lista.append(item);
-}
-
-function mostrarSaudacao() {
-  const nome = new URLSearchParams(location.hash.slice(1)).get('nome') || 'Visitante';
-  const saudacao = document.querySelector('#saudacao');
-
-  // VULNERABILIDADE: innerHTML interpreta o nome em #nome= como HTML.
-  saudacao.innerHTML = 'Olá, ' + nome;
-  // DEFESA: substituir a linha ativa por esta para exibir somente texto:
-  // saudacao.textContent = 'Olá, ' + nome;
-}
-
-function mostrarAviso(mensagem) {
-  aviso.textContent = mensagem;
-  aviso.hidden = false;
-}
-
-function lerAvaliacoes() {
-  try {
-    const salvas = JSON.parse(localStorage.getItem(chaveAvaliacoes) || '[]');
-    if (Array.isArray(salvas) && salvas.every(texto => typeof texto === 'string')) return salvas;
-  } catch {}
-  mostrarAviso('Não foi possível ler as avaliações salvas.');
-  return [];
-}
-
-const avaliacoes = lerAvaliacoes();
-adicionarAvaliacao('Gostei do espaço e dos bolsos da mochila.');
-avaliacoes.forEach(adicionarAvaliacao);
-
-document.querySelector('#avaliar').addEventListener('submit', evento => {
-  evento.preventDefault();
-  const campo = document.querySelector('#comentario');
-  const texto = campo.value.trim();
-  if (!texto) return;
-
-  avaliacoes.push(texto);
-  try {
-    localStorage.setItem(chaveAvaliacoes, JSON.stringify(avaliacoes));
-    aviso.hidden = true;
-  } catch {
-    mostrarAviso('A avaliação fica visível até recarregar a página.');
+try {
+  const sessao = JSON.parse(sessionStorage.getItem(chaveSessao));
+  if (sessao) {
+    mostrarPerfilDemo(sessao);
+    if (sessao.token && !sessao.sessionId) {
+      sessionStorage.setItem(chaveSessao, JSON.stringify({ ...usuarioDemo, sessionId: sessao.token }));
+    }
   }
-  adicionarAvaliacao(texto);
-  campo.value = '';
+} catch {}
+
+function mostrarPerfilDemo(sessao) {
+  document.querySelector('#nome-perfil').textContent = sessao.usuario;
+  document.querySelector('#aviso-perfil').textContent = '';
+  perfilDemo.hidden = false;
+  iniciarSessao.hidden = true;
+}
+
+iniciarSessao.addEventListener('click', () => {
+  const id = crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
+  const sessao = { ...usuarioDemo, sessionId: 'jd-demo-' + id };
+  try {
+    sessionStorage.setItem(chaveSessao, JSON.stringify(sessao));
+    mostrarPerfilDemo(sessao);
+  } catch {
+    document.querySelector('#aviso-perfil').textContent = 'O navegador bloqueou o armazenamento da sessão de teste.';
+  }
 });
 
 mostrarBusca();
-mostrarSaudacao();
-addEventListener('hashchange', mostrarSaudacao);
 
 document.querySelector('#restaurar').addEventListener('click', () => {
   try {
-    localStorage.removeItem(chaveAvaliacoes);
+    sessionStorage.removeItem(chaveSessao);
   } catch {}
   location.replace(new URL('./index.html', location.href).href);
 });

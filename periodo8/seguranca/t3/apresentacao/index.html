@@ -10,7 +10,7 @@
 
 <header class="topo">
   <div class="wrap">
-    <a class="marca" href="#topo">XSS<b>.</b>lab</a>
+    <a class="marca" href="#topo">Apresentação</a>
     <nav class="menu" aria-label="Seções">
       <a href="#o-que-e">O que é</a>
       <a href="#como-funciona">Como funciona</a>
@@ -55,7 +55,7 @@
       <h2>Como o ataque funciona</h2>
       <div class="passos3 rev">
         <div class="p3"><div class="n">1</div><h3>Injeção</h3><p>O atacante insere conteúdo malicioso em um campo, comentário ou link do site.</p></div>
-        <div class="p3"><div class="n">2</div><h3>Execução</h3><p>O conteúdo é incorporado à página e executado no navegador da vítima.</p></div>
+        <div class="p3"><div class="n">2</div><h3>Execução</h3><p>A vítima abre o link do atacante, o site incorpora o código à página e o navegador da vítima o executa.</p></div>
         <div class="p3"><div class="n">3</div><h3>Impacto</h3><p>O script pode acessar dados, modificar a página ou realizar ações não autorizadas.</p></div>
       </div>
       
@@ -74,78 +74,116 @@
     </div>
   </section>
 
-  <!-- 3. Ataque ao vivo: na loja real, editando o código na hora -->
+  <!-- 3. Ataque ao vivo -->
   <section id="ataque">
     <div class="wrap">
       <span class="faixa">Ataque</span>
-      <h2>O ataque, passo a passo</h2>
-      <p class="prosa rev" style="margin-bottom:22px">A demonstração roda em um site real à parte, a <b>loja.js</b>: um catálogo simples com busca, avaliações e saudação, com as três falhas já marcadas no código-fonte. Abra-a numa aba ao lado e deixe o arquivo <code>loja.js</code> aberto no editor — a correção de cada vetor é editar a linha, salvar e recarregar a página.</p>
+      <h2>Como atacar</h2>
+      <p class="prosa rev introducao-busca">Na loja simulada, o JavaScript lê o termo de busca no parâmetro <code>?q=</code> da URL e o exibe na página. Em uma aplicação com servidor, o próprio servidor pode incluir esse termo no HTML da resposta.</p>
 
-      <p class="rev" style="margin:0 0 36px">
-        <a class="cta" href="../loja-estatica/index.html" target="_blank" rel="noopener">Abrir a loja.js</a>
+      <div class="passos passos-busca rev">
+        <ol role="list">
+          <li>Busque por um produto da loja para testar o filtro normal do catálogo.</li>
+          <li>Use um dos exemplos abaixo no campo de busca e clique em <b>Buscar</b>.</li>
+          <li>Copie a URL da busca e abra em outra aba para reproduzir o efeito a partir do link.</li>
+        </ol>
+      </div>
+      <p class="rev" style="margin: 0 0 36px">
+        <a class="cta" href="../loja/index.html" target="_blank" rel="noopener">
+          Abrir a loja <span aria-hidden="true">↗</span>
+        </a>
       </p>
 
-      <h3>Como atacar</h3>
-      <div class="passos rev">
-        <ol>
-          <li>Encontre uma entrada que reaparece na página, como a busca, a avaliação ou o nome na URL.</li>
-          <li>Insira um payload de teste. O exemplo abaixo usa uma imagem que falha ao carregar e dispara <code>onerror</code>.</li>
-          <li>Abra o link ou recarregue a avaliação salva para reproduzir a execução no navegador.</li>
-        </ol>
-        <pre class="cod"><span class="c">// payload de alerta</span>
-&lt;img src="data:,"
-      onerror="alert('Você está sob ataque!')"&gt;</pre>
-      </div>
-
-      <!-- Tipo: Refletido -->
       <div class="bloco rev" id="demo-refletido">
-        <h3 class="sub">1. Refletido: a busca da loja</h3>
-        <p class="prosa">A busca devolve o termo pesquisado na própria página, via <code>?q=</code> na URL. Nesta loja estática, o JavaScript lê e exibe esse valor no navegador.</p>
-        <ol class="roteiro-loja">
-          <li>Na loja.js, busque por <code>Trilha</code> para ver o uso normal.</li>
-          <li>Cole no campo de busca: <code>&lt;img src="data:," onerror="alert('Você está sob ataque!')"&gt;</code> e clique em <b>Buscar</b>.</li>
-          <li>No editor, em <code>loja.js</code>, troque a linha marcada <code>// 1. Busca</code>.</li>
-        </ol>
-        <pre class="cod"><span class="t r">Antes · loja.js</span>
-resultado.<span class="bad">innerHTML</span> = 'Você buscou: ' + termo; <span class="tag bad">FALHA</span></pre>
-        <pre class="cod"><span class="t g">Depois · loja.js</span>
-resultado.<span class="ok">textContent</span> = 'Você buscou: ' + termo; <span class="tag ok">CORREÇÃO</span></pre>
-        <p class="prosa">Salve e recarregue a mesma URL: o exemplo aparece como texto, não executa mais.</p>
+        <h3 class="sub">O que um atacante consegue fazer</h3>
+        <div class="exemplos-ataque">
+          <article>
+            <h4>1. Confirmar a execução de JavaScript</h4>
+            <p class="prosa">A imagem falha ao carregar e aciona <code>onerror</code>. O alerta confirma que o navegador executou o código enviado pela busca.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="alert('Você está sob ataque!')"&gt;</code></pre>
+          </article>
+          <article>
+            <h4>2. Alterar o conteúdo</h4>
+            <p class="prosa">Troca o título visível da loja por um aviso falso.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="document.querySelector('h1').textContent = 'Catálogo fora do ar';"&gt;</code></pre>
+          </article>
+          <article>
+            <h4>3. Mudar a cor de fundo</h4>
+            <p class="prosa">Altera a aparência da página inteira, deixando o fundo da loja completamente escuro.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="document.documentElement.style.backgroundColor = '#000000';"&gt;</code></pre>
+          </article>
+        </div>
       </div>
 
-      <!-- Tipo: Armazenado -->
-      <div class="bloco rev" id="demo-armazenado">
-        <h3 class="sub">2. Armazenado: avaliações da loja</h3>
-        <p class="prosa">A avaliação fica salva no navegador (no servidor real, no banco de dados) e reaparece em uma nova visita no mesmo navegador, sem precisar de um link especial.</p>
-        <ol class="roteiro-loja">
-          <li>Publique a avaliação: <code>&lt;b&gt;Oferta&lt;/b&gt; &lt;img src="data:," onerror="alert('Você está sob ataque!')"&gt;</code></li>
-          <li>Recarregue a página: o alerta dispara de novo, como se fosse outra visita.</li>
-          <li>No editor, em <code>loja.js</code>, troque a linha marcada <code>// 2. Avaliações</code>.</li>
-        </ol>
-        <pre class="cod"><span class="t r">Antes · loja.js</span>
-item.<span class="bad">innerHTML</span> = texto; <span class="tag bad">FALHA</span></pre>
-        <pre class="cod"><span class="t g">Depois · loja.js</span>
-item.<span class="ok">textContent</span> = texto;
-item.innerHTML = item.innerHTML
-  .replaceAll('&amp;lt;b&amp;gt;', '&lt;b&gt;')
-  .replaceAll('&amp;lt;/b&amp;gt;', '&lt;/b&gt;'); <span class="tag ok">CORREÇÃO</span></pre>
-        <p class="prosa">Ao recarregar, a avaliação continua salva, <b>Oferta</b> continua em negrito, e o código da imagem aparece como texto — a formatação combinada com a defesa.</p>
+      <div class="bloco rev" id="demo-sessao">
+        <h3 class="sub">Simulação com usuário conectado</h3>
+        <p class="prosa">Nesta parte, um usuário está usando a loja. A leitura da sessão depende dos dados guardados na aba dele.</p>
+        <div class="exemplos-ataque">
+          <article>
+            <h4>4. Falsificar o preço</h4>
+            <p class="prosa">Exibe a primeira mochila e altera o preço que o usuário vê.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="const produto = document.querySelector('.produto');
+  produto.hidden = false;
+  produto.querySelector('strong').textContent = 'R$ 1,00';
+  document.querySelector('#sem-produtos').hidden = true;"&gt;</code></pre>
+          </article>
+          <article>
+            <h4>5. Phishing com um formulário falso</h4>
+            <p class="prosa">O usuário vê um aviso de sessão expirada no próprio endereço da loja. Como a página parece legítima, ele pode acreditar que precisa entrar de novo.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="
+  const form = document.createElement('form');
+  form.innerHTML = '&lt;h2&gt;Sua sessão expirou&lt;/h2&gt;'
+    + '&lt;p&gt;Entre novamente para continuar.&lt;/p&gt;'
+    + '&lt;p&gt;&lt;label&gt;Usuário &lt;input autocomplete=off&gt;&lt;/label&gt;&lt;/p&gt;'
+    + '&lt;p&gt;&lt;label&gt;Senha &lt;input type=password autocomplete=off&gt;&lt;/label&gt;&lt;/p&gt;'
+    + '&lt;button type=submit&gt;Entrar&lt;/button&gt;';
+  form.addEventListener('submit', evento =&gt; {
+    evento.preventDefault();
+    form.textContent = 'Demonstração: um formulário falso poderia enviar os dados ao atacante.';
+  });
+  document.querySelector('main').replaceChildren(form);
+"&gt;</code></pre>
+          </article>
+          <article>
+            <h4>6. Inserir um produto falso</h4>
+            <p class="prosa">Um link preparado pode fazer a loja exibir uma mochila que o atacante inventou. Como o endereço continua sendo o da loja, a oferta parece legítima. Em um ataque real, o botão <b>Comprar</b> poderia levar a um checkout fraudulento e induzir a vítima a pagar ao atacante.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="
+  const produto = document.createElement('article');
+  produto.className = 'produto';
+  produto.innerHTML = '&lt;h2&gt;Mochila Expedição 30L&lt;/h2&gt;'
+    + '&lt;p&gt;Oferta exclusiva desta página.&lt;/p&gt;'
+    + '&lt;p&gt;&lt;strong&gt;R$ 59,90&lt;/strong&gt;&lt;/p&gt;'
+    + '&lt;button type=button&gt;Comprar&lt;/button&gt;';
+  document.querySelector('.produtos').replaceChildren(produto);
+  document.querySelector('#resultado').hidden = true;
+  document.querySelector('#sem-produtos').hidden = true;
+"&gt;</code></pre>
+          </article>
+          <article>
+            <h4>7. Ler uma sessão fictícia</h4>
+            <p class="prosa">O atacante só precisa descobrir o nome da chave, que está no <code>loja.js</code> entregue ao navegador: <code>loja.sessao</code>. O token do usuário é criado na aba da vítima e só é lido quando o código do link roda naquela aba.</p>
+            <pre class="cod"><code>&lt;img src="data:," onerror="
+  const sessao = JSON.parse(sessionStorage.getItem('loja.sessao'));
+  if (sessao) {
+    alert('userId: ' + sessao.userId + '\nsessionId: ' + sessao.sessionId);
+    document.querySelector('#resultado').textContent = 'Dados da sessão exibidos no alerta.';
+  } else {
+    document.querySelector('#resultado').textContent = 'Nenhuma sessão nesta aba.';
+  }
+  document.querySelector('#sem-produtos').hidden = true;
+"&gt;</code></pre>
+            <p class="prosa nota-sessao">O alerta mostra os dados no navegador da vítima. Em um ataque real, o código poderia enviar esses valores em um <code>POST</code> para um servidor controlado pelo atacante.</p>
+          </article>
+        </div>
       </div>
 
-      <!-- Tipo: DOM -->
-      <div class="bloco rev" id="demo-dom">
-        <h3 class="sub">3. Baseado em DOM: a saudação</h3>
-        <p class="prosa">A saudação lê o nome direto do fragmento da URL (<code>#nome=</code>) e o escreve na página. O servidor nunca vê esse valor — a falha é só no JavaScript do navegador.</p>
-        <ol class="roteiro-loja">
-          <li>Na barra de endereço da loja, retire qualquer fragmento existente e acrescente o trecho abaixo. Pressione <b>Enter</b> para disparar o alerta.</li>
-          <li>No editor, em <code>loja.js</code>, troque a linha marcada <code>// 3. Conta</code>.</li>
-        </ol>
-        <pre class="cod"><code>#nome=%3Cimg%20src%3D%22data%3A%2C%22%20onerror%3D%22alert(%27Voc%C3%AA%20est%C3%A1%20sob%20ataque!%27)%22%3E</code></pre>
+      <div class="bloco rev" id="correcao-refletido">
+        <h3 class="sub">Como corrigir a busca</h3>
+        <p class="prosa">Em <code>loja.js</code>, na função <code>mostrarBusca()</code>, troque <code>innerHTML</code> por <code>textContent</code> na linha que exibe o termo pesquisado. Assim, o navegador mostra a entrada como texto, sem criar elementos HTML nem executar eventos injetados.</p>
         <pre class="cod"><span class="t r">Antes · loja.js</span>
-saudacao.<span class="bad">innerHTML</span> = 'Olá, ' + nome; <span class="tag bad">FALHA</span></pre>
+resultado.<span class="bad">innerHTML</span> = 'Você buscou: ' + termo;</pre>
         <pre class="cod"><span class="t g">Depois · loja.js</span>
-saudacao.<span class="ok">textContent</span> = 'Olá, ' + nome; <span class="tag ok">CORREÇÃO</span></pre>
-        <p class="prosa">Recarregue o mesmo link: o nome agora aparece como texto puro.</p>
+resultado.<span class="ok">textContent</span> = 'Você buscou: ' + termo;</pre>
       </div>
     </div>
   </section>
@@ -155,7 +193,7 @@ saudacao.<span class="ok">textContent</span> = 'Olá, ' + nome; <span class="tag
     <div class="wrap">
       <span class="faixa">Defesa</span>
       <h2>Como se defender</h2>
-      <p class="lead rev">Nenhuma defesa isolada basta. A proteção vem de camadas que se complementam. As três demonstrações acima já mostraram a principal: exibir a entrada como texto ou sanitizar o HTML permitido. As duas a seguir reforçam a proteção.</p>
+      <p class="lead rev">Nenhuma defesa isolada basta. A proteção vem de camadas que se complementam. A busca demonstrou a principal: exibir a entrada como texto. Quando a aplicação precisa aceitar HTML, use sanitização. As duas defesas a seguir reforçam a proteção.</p>
 
       <div class="bloco rev">
         <h3 class="sub">Restringir scripts e proteger a sessão</h3>
@@ -170,11 +208,10 @@ saudacao.<span class="ok">textContent</span> = 'Olá, ' + nome; <span class="tag
           </div>
           <div>
             <h3>Cookies protegidos</h3>
-            <p class="d">Usar HttpOnly, Secure e SameSite para reforçar a proteção da sessão.</p>
-            <pre class="cod">Set-Cookie: sessao=a1b2c3d4e5;
+            <p class="d"><code>HttpOnly</code> impede a leitura pelo JavaScript, <code>Secure</code> exige HTTPS e <code>SameSite=Strict</code> limita o envio ao mesmo site.</p>
+            <pre class="cod">Set-Cookie: sessao_demo=abc123;
   <span class="ok">HttpOnly</span>; Secure;
   SameSite=Strict</pre>
-            <p class="d">Efeito: <code>document.cookie</code> não enxerga a sessão.</p>
           </div>
         </div>
       </div>
@@ -182,7 +219,7 @@ saudacao.<span class="ok">textContent</span> = 'Olá, ' + nome; <span class="tag
       <div class="bloco rev">
         <h3 class="sub">Defesa em camadas</h3>
         <div class="camadas">
-          <div class="cam"><b>Codificar a saída</b><span>impede que a entrada vire código</span></div>
+          <div class="cam"><b>Tratar como texto</b><span>impede que a entrada vire código</span></div>
           <div class="cam"><b>Sanitizar</b><span>remove o que é perigoso do HTML</span></div>
           <div class="cam"><b>CSP</b><span>bloqueia a execução do script</span></div>
           <div class="cam"><b>Cookies protegidos</b><span>limitam o dano se o script rodar</span></div>

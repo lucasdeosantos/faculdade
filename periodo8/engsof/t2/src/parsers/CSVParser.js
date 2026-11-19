@@ -1,6 +1,6 @@
-import { normalizeNames } from './normalizeNames.js';
+import { Parser } from './Parser.js';
 
-function parseCSVRows(texto) {
+function parseCSV(texto) {
   const rows = [];
   let row = [], field = '', state = 'start';
   const finishField = () => { row.push(field); field = ''; state = 'start'; };
@@ -30,19 +30,19 @@ function parseCSVRows(texto) {
   return rows;
 }
 
-export class CSVParser {
-  parse (texto) {
-    const [header, ...rows] = parseCSVRows(texto);
+export class CSVParser extends Parser {
+  lerCidades(texto) {
+    const [header, ...rows] = parseCSV(texto);
     if (!header || header.filter(key => key === 'NOME').length !== 1) {
-        throw new Error('CSV: cabeçalho deve conter uma coluna NOME.');
+      throw new Error('CSV: cabeçalho deve conter uma coluna NOME.');
     }
     if (new Set(header).size !== header.length) throw new Error('CSV: cabeçalho duplicado.');
     const cidades = rows.map((row, index) => {
-        if (row.length !== header.length) {
+      if (row.length !== header.length) {
         throw new Error(`CSV: linha ${index + 2} com número de campos inválido.`);
-        }
-        return Object.fromEntries(header.map((key, i) => [key, row[i]]));
+      }
+      return Object.fromEntries(header.map((key, i) => [key, row[i]]));
     });
-    return normalizeNames(cidades, 'NOME');
+    return { cidades, key: 'NOME' };
   }
 }
