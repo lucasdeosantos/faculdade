@@ -8,10 +8,10 @@ function mostrarBusca() {
   document.querySelector('#q').value = termo;
   resultado.hidden = !termo;
 
-  // 1. Busca — FALHA: innerHTML interpreta o parâmetro ?q= como HTML.
-  // DEFESA: substitua a linha ativa por esta para exibir somente texto:
-  // resultado.textContent = 'Você buscou: ' + termo;
+  // VULNERABILIDADE: innerHTML interpreta o parâmetro ?q= como HTML.
   resultado.innerHTML = 'Você buscou: ' + termo;
+  // DEFESA: substituir a linha ativa por esta para exibir somente texto:
+  // resultado.textContent = 'Você buscou: ' + termo;
 
   const filtro = termo.trim().toLowerCase();
   let encontrou = false;
@@ -25,14 +25,14 @@ function mostrarBusca() {
 function adicionarAvaliacao(texto) {
   const item = document.createElement('li');
 
-  // 2. Avaliações — FALHA: innerHTML interpreta uma avaliação já salva.
-  // DEFESA: substitua a linha ativa pelo trecho abaixo. Primeiro, transforme
+  // VULNERABILIDADE: innerHTML interpreta uma avaliação já salva.
+  item.innerHTML = texto;
+  // DEFESA: substituir a linha ativa pelo trecho abaixo. Primeiro, transforme
   // a entrada em texto. Depois, reabilite somente as tags literais <b> e </b>.
   // item.textContent = texto;
   // item.innerHTML = item.innerHTML
   //   .replaceAll('&lt;b&gt;', '<b>')
   //   .replaceAll('&lt;/b&gt;', '</b>');
-  item.innerHTML = texto;
 
   lista.append(item);
 }
@@ -41,10 +41,10 @@ function mostrarSaudacao() {
   const nome = new URLSearchParams(location.hash.slice(1)).get('nome') || 'Visitante';
   const saudacao = document.querySelector('#saudacao');
 
-  // 3. Conta — FALHA: innerHTML interpreta o nome em #nome= como HTML.
-  // DEFESA: substitua a linha ativa por esta para exibir somente texto:
-  // saudacao.textContent = 'Olá, ' + nome;
+  // VULNERABILIDADE: innerHTML interpreta o nome em #nome= como HTML.
   saudacao.innerHTML = 'Olá, ' + nome;
+  // DEFESA: substituir a linha ativa por esta para exibir somente texto:
+  // saudacao.textContent = 'Olá, ' + nome;
 }
 
 function mostrarAviso(mensagem) {
@@ -56,9 +56,7 @@ function lerAvaliacoes() {
   try {
     const salvas = JSON.parse(localStorage.getItem(chaveAvaliacoes) || '[]');
     if (Array.isArray(salvas) && salvas.every(texto => typeof texto === 'string')) return salvas;
-  } catch {
-    // A loja ainda pode mostrar o catálogo e aceitar avaliações temporárias.
-  }
+  } catch {}
   mostrarAviso('Não foi possível ler as avaliações salvas.');
   return [];
 }
@@ -88,13 +86,9 @@ mostrarBusca();
 mostrarSaudacao();
 addEventListener('hashchange', mostrarSaudacao);
 
-// Restaurar: limpa as avaliações salvas e tira ?q=/#nome= da URL, para não
-// repetir o mesmo payload assim que a página recarregar.
 document.querySelector('#restaurar').addEventListener('click', () => {
   try {
     localStorage.removeItem(chaveAvaliacoes);
-  } catch {
-    // Limpa a URL mesmo quando o navegador bloqueia o armazenamento.
-  }
+  } catch {}
   location.replace(new URL('./index.html', location.href).href);
 });
