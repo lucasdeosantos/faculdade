@@ -1,4 +1,6 @@
-export class HtmlReporter {
+import { Reporter } from './Reporter.js';
+
+export class HtmlReporter extends Reporter {
   reportar(cidades) {
     let result = `
   <!DOCTYPE HTML>
@@ -12,8 +14,9 @@ export class HtmlReporter {
       <ul>
   `;
 
-    for (let i = 0; i < cidades.length; i++)
+    for (let i = 0; i < cidades.length; i++) {
       result += '     <li>' + cidades[i]['name'] + '</li>\n';
+    }
 
     result += `
       </ul>

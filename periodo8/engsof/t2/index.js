@@ -1,5 +1,5 @@
 import { extname } from 'node:path';
-import { lerCidades } from './src/lerCidades.js';
+import { carregarCidades } from './src/carregarCidades.js';
 import { JSONParser } from './src/parsers/JSONParser.js';
 import { CSVParser } from './src/parsers/CSVParser.js';
 import { HtmlReporter } from './src/reporters/HtmlReporter.js';
@@ -29,17 +29,27 @@ function parseArguments(args) {
 
 const parsers = new Map([['.json', JSONParser], ['.csv', CSVParser]]);
 const reporters = new Map([['html', HtmlReporter], ['txt', TxtReporter], ['markdown', MarkdownReporter]]);
-const options = parseArguments(process.argv.slice(2));
-if (options.help) process.stdout.write(help);
-else {
+
+function main(args) {
+  const options = parseArguments(args);
+  if (options.help) {
+    process.stdout.write(help);
+    return;
+  }
   const extension = extname(options.source);
-  const Parser = parsers.get(extension);
-  if (!Parser) throw new Error(`Extensão sem suporte: ${extension || '(ausente)'}`);
-  const Reporter = reporters.get(options.format);
-  if (!Reporter) throw new Error(`Formato sem suporte: ${options.format}`);
+  const Parser = parsers.get(extension.toLowerCase());
+  if (!Parser) throw new Error('Extensão sem suporte: ' + (extension || '(ausente)'));
+  const Reporter = reporters.get(options.format.toLowerCase());
+  if (!Reporter) throw new Error('Formato sem suporte: ' + options.format);
   const parser = new Parser();
   const reporter = new Reporter();
-  const cidades = lerCidades(options.source, parser);
-  const relatorio = reporter.reportar(cidades);
-  console.log(relatorio);
+  const cidades = carregarCidades(options.source, parser);
+  console.log(reporter.reportar(cidades));
+}
+
+try {
+  main(process.argv.slice(2));
+} catch (error) {
+  console.error('Erro: ' + error.message);
+  process.exitCode = 1;
 }
